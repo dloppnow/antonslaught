@@ -18,6 +18,7 @@ namespace AntOnslaught
         int updateFreq;
         Color color;
         Rectangle clip;
+        bool repeatable;
 
         public SpriteAnimation(Texture2D texture, int spriteWidth, int spriteHeight, int updateFreq)
         {
@@ -35,10 +36,20 @@ namespace AntOnslaught
             setClip(currFrame);
         }
 
+        public void setRepeatable(bool repeatable)
+        {
+            this.repeatable = repeatable;
+        }
+
+        public bool isRepeatable()
+        {
+            return repeatable;
+        }
+
         public void update(GameTime gameTime)
         {
             timeSinceLastUpdate += gameTime.ElapsedGameTime.Milliseconds;
-            if (timeSinceLastUpdate >= updateFreq)
+            if (timeSinceLastUpdate >= updateFreq && repeatable)
             {
                 timeSinceLastUpdate = 0;
                 currFrame++;
