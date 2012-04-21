@@ -17,14 +17,17 @@ namespace AntOnslaught
         List<Cell> closedList;
         public Map()
         {
-            TextReader tw = new StreamReader("map.txt");
-            Boolean EOF = false;
-            String mapFile = tw.ReadToEnd();
-            String[] allTokens = mapFile.Split(',');
+            TextReader infoReader = new StreamReader("infoout.txt");
+            String[] infoTokens = infoReader.ReadLine().Split(',');
+
+            grid = new Cell[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+
+            TextReader mapReader = new StreamReader("mapout.txt");
+            String mapFile = mapReader.ReadToEnd();
+            String[] mapTokens = mapFile.Split(',');
             int currentXCoord = 0;
             int currentYCoord = 0;
-            grid = new Cell[numOfXCells, numOfYCells];
-            foreach(String cellStr in allTokens)
+            foreach(String cellStr in mapTokens)
             {
                 if(numOfXCells % currentXCoord == 0)
                 {
@@ -35,6 +38,37 @@ namespace AntOnslaught
                 grid[currentXCoord, currentYCoord].yCoord = currentYCoord;
                 grid[currentXCoord, currentYCoord].xCoord = currentXCoord;
                 currentXCoord++;
+            }
+
+            String nextLine = infoReader.ReadLine();
+            Boolean EOF = false;
+            while (!nextLine.Equals("tiles") && !EOF)
+            {
+                infoTokens = nextLine.Split(',');
+                foreach(Cell c in grid)
+                {
+                    if (c.tileType == int.Parse(infoTokens[0]))
+                    {
+                        c.texCoordX = int.Parse(infoTokens[1]);
+                        c.texCoordY = int.Parse(infoTokens[2]);
+                        String passable = infoTokens[3];
+                        if (passable.Equals("1"))
+                        {
+                            c.passable = false;
+                        }
+                        else
+                        {
+                            c.passable = true;
+                        }
+                    }
+                }
+                try{
+
+                    nextLine = infoReader.ReadLine();
+                }
+                catch{
+                    EOF = true;
+                }
             }
         }
         public Cell getCell(int x, int y)
