@@ -99,7 +99,14 @@ namespace AntOnslaught
             {
                 return true;
             }
+            List<Cell> adjacentCells = getAdjacentCells(lowestCost);
+            foreach (Cell c in adjacentCells)
+            {
+                if (c.passable)
+                {
 
+                }
+            }
             return true;
         }
         private void removeFromOpenList(Cell c)
@@ -108,7 +115,24 @@ namespace AntOnslaught
         }
         private List<Cell> getAdjacentCells(Cell c)
         {
+            List<Cell> adjacentCells = new List<Cell>();
+            if (c.xCoord > 0)
+            {
+                adjacentCells.Add(grid[c.yCoord, c.xCoord - 1]);
+            }
+            if (c.xCoord < numOfXCells)
+            {
+                adjacentCells.Add(grid[c.yCoord, c.xCoord + 1]);
+            }
+            if (c.yCoord > 0)
+            {
+                adjacentCells.Add(grid[c.yCoord - 1, c.xCoord]);
+            }
+            if (c.yCoord < numOfYCells)
+            {
+                adjacentCells.Add(grid[c.yCoord + 1, c.xCoord]);
+            }
+            return adjacentCells;
         }
-
     }
 }
