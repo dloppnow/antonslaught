@@ -9,7 +9,7 @@ namespace AntOnslaught
 {
     abstract class Ant : MovableObject
     {
-        private SpriteAnimation sAnimation;
+        protected SpriteAnimation sAnimation;
 
         public Ant(Vector2 position, SpriteAnimation sAnimation)
         {
