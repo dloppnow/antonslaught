@@ -119,6 +119,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="SpriteAnimation.cs" />
+    <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
