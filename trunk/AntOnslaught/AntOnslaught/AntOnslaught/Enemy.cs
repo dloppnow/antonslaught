@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace AntOnslaught
 {
-    class Enemy : movableObject
+    class Enemy : MovableObject
     {
     }
 }
