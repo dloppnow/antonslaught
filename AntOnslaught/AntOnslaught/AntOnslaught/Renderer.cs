@@ -43,8 +43,8 @@ namespace AntOnslaught
             Vector2 pos = obj.getPosition(); //position relative to the map
             Rectangle clip = obj.getClip();
 
-            float x = (viewport.Width / 2) - (tileWidth / 2) + (pos.X - viewCenter.X);
-            float y = (viewport.Height / 2) - (tileWidth / 2) + (pos.Y - viewCenter.Y);
+            float x = (viewport.Width / 2) - (tileWidth / 2) + (pos.X - (viewCenter.X * clip.Width));
+            float y = (viewport.Height / 2) - (tileWidth / 2) + (pos.Y - (viewCenter.Y * clip.Height));
             sb.Draw(obj.getTexture(), new Vector2(x, y), clip, obj.getColor());
         }
 
