@@ -19,7 +19,7 @@ namespace AntOnslaught
         public int yCoord;
 
         public int texCoordX;
-        public int texCorrdY;
+        public int texCoordY;
 
         public int tileType;
         public Cell(String tileType)
