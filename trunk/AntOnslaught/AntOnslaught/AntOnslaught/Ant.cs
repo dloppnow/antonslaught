@@ -9,50 +9,47 @@ namespace AntOnslaught
 {
     abstract class Ant : MovableObject
     {
-        private Texture2D texture;
-        private Color color;
-        private Rectangle clip;
+        private SpriteAnimation sAnimation;
 
-        public Ant(Vector2 position, Texture2D texture)
+        public Ant(Vector2 position, SpriteAnimation sAnimation)
         {
             this.position = position;
-            this.texture = texture;
-            this.color = Color.White;
+            this.sAnimation = sAnimation;
         }
 
         public void update(GameTime gameTime)
         {
-
+            sAnimation.update(gameTime);
         }
 
         public override Texture2D getTexture()
         {
-            return texture;
+            return sAnimation.getTexture();
         }
 
         public override void setTexture(Texture2D texture)
         {
-            this.texture = texture;
+            sAnimation.setTexture(texture);
         }
 
         public override Color getColor()
         {
-            return color;
+            return sAnimation.getColor();
         }
 
         public override void setColor(Color color)
         {
-            this.color = color;
+            sAnimation.setColor(color); ;
         }
 
         public override Rectangle getClip()
         {
-            return clip;
+            return sAnimation.getClip();
         }
 
         public override void setClip(Rectangle clip)
         {
-            this.clip = clip;
+            sAnimation.setClip(clip);
         }
     }
 }
