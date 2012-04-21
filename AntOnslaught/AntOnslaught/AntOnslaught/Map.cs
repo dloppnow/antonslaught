@@ -135,6 +135,7 @@ namespace AntOnslaught
                 c.g = 0;
                 c.f = 0;
                 c.h = 0;
+                c.next = null;
             }
 			List<Cell> path = new List<Cell>();
 
