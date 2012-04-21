@@ -107,6 +107,7 @@ namespace AntOnslaught
 
         public void draw()
         {
+            sb.Begin();
             sb.GraphicsDevice.Clear(backgroundColor);
             sb.Draw(dummyTexture, quitButton, textBackColor);
             sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), textColor);
@@ -114,6 +115,7 @@ namespace AntOnslaught
             sb.DrawString(font, justStarted ? "PLAY!!" : "RESUME", new Vector2(playButton.X, playButton.Y), textColor);
             sb.Draw(dummyTexture, optionButton, textBackColor);
             sb.DrawString(font, "OPTIONS", new Vector2(optionButton.X, optionButton.Y), textColor);
+            sb.End();
         }
     }
 }

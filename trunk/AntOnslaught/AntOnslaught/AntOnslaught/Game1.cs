@@ -116,8 +116,6 @@ namespace AntOnslaught
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-
             if (menu.isPaused())
             {
                 drawMenuState();
@@ -126,7 +124,6 @@ namespace AntOnslaught
             {
                 drawGameState();
             }
-            spriteBatch.End();
             base.Draw(gameTime);
         }
 
