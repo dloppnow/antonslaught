@@ -47,6 +47,7 @@ namespace AntOnslaught
             while (!nextLine.Equals("tiles"))
             {
                 nextLine = infoReader.ReadLine();
+
             }
             nextLine = infoReader.ReadLine();
             while (nextLine == null)
@@ -113,18 +114,6 @@ namespace AntOnslaught
         {
             throw new NotImplementedException();
         }
-        public List<Cell> getPath(Cell start, Cell end)
-        {
-            List<Cell> path = new List<Cell>();
-            openList.Clear();
-            closedList.Clear();
-            openList.Add(start);
-            if (calculatePath(start, end))
-			{
-
-			}
-            return path;
-        }
         private Cell lowestScoreInOpen()
         {
             Cell lowestScoreCell = new Cell("1");
@@ -138,35 +127,116 @@ namespace AntOnslaught
             }
             return lowestScoreCell;
         }
-        private Boolean calculatePath(Cell startCell, Cell endCell)
-        {
-
-            while (openList.Count() > 0)
+        List<Cell> getPath(Cell start, Cell end)
+		{
+            foreach (Cell c in grid)
             {
-                Cell currentNode = lowestScoreInOpen();
-                if(currentNode.Equals(endCell))
-                {
-                    //reconstruct Path
-                }
-                else
-                {
-                    openList.Remove(currentNode);
-                    closedList.Add(currentNode);
-                    List<Cell> adjacentCells = getAdjacentCells(currentNode);
-                    foreach (Cell c in getAdjacentCells(currentNode))
-                    {
-                        if (closedList.Contains(c))
-                        {
-                            c.g = currentNode.g + distanceBetween(currentNode, c);
-                        }
-                        if (!openList.Contains(c))
-                        {
-                        }
-                    }
-                }
+                c.g = 0;
+                c.f = 0;
+                c.h = 0;
             }
-            return false;
-        }
+			List<Cell> path = new List<Cell>();
+
+			openList.Clear();
+			closedList.Clear();
+
+			openList.Add(start);
+			if(calculatePath(start, end))
+			{
+				Cell node = end;
+				while(node != null)
+				{
+					path.Add(node);
+					node = node.next;
+				}
+			}
+			openList.Clear();
+			closedList.Clear();
+
+			return path;
+		}
+		bool calculatePath(Cell startNode, Cell endNode)
+		{
+			Cell lowestCost = null;
+			for(int i = 0; i < openList.Count(); i++)
+			{
+				if(lowestCost == null ||
+				   (lowestCost.g + lowestCost.h) > (openList[i].g + openList[i].h))
+				{
+					lowestCost = openList[i];
+				}
+			}
+			removeFromOpenList(lowestCost);
+			if(lowestCost == endNode)
+			{
+				//endNode->parentCell = lowestCost;
+				return true;
+			}
+			closedList.Add(lowestCost);
+            foreach (Cell c in getAdjacentCells(lowestCost))
+            {
+			//for(int i = 0; i < lowestCost->adjacentCells.size(); i++)
+			//{
+                if (c.passable)
+				{
+					if(isOnClosedList(c) == false)
+					{
+						Cell aNode = isOnOpenList(c);
+						if(aNode != null)
+						{
+							if(aNode.g > lowestCost.g + 1)
+							{
+								aNode.next = lowestCost;
+								aNode.g = lowestCost.g + 1;
+							}
+						}
+						else
+						{
+							c.next = lowestCost;
+							c.g = lowestCost.g + 1;
+                            c.h = distanceBetween(c, endNode);
+							openList.Add(c);
+						}
+					}
+				}
+			}
+			if(openList.Count() <= 0)
+			{
+				return false;
+			}
+			calculatePath(startNode, endNode);
+			return true;
+		}
+		bool isOnClosedList(Cell node)
+		{
+			bool onClosedList = false;
+			for(int i = 0; i < closedList.Count(); i++)
+			{
+				if(closedList[i] == node)
+				{
+					onClosedList = true;
+					break;
+				}
+			}
+			return onClosedList;
+		}
+		Cell isOnOpenList(Cell node)
+		{
+			Cell onOpenListNode = null;
+			for(int i = 0; i < openList.Count(); i++)
+			{
+				if(openList[i] == node)
+				{
+					onOpenListNode = openList[i];
+					break;
+				}
+			}
+			return onOpenListNode;
+		}
+		void removeFromOpenList(Cell node)
+		{
+            openList.Remove(node);
+		}
         private int distanceBetween(Cell c1, Cell c2)
         {
             return Math.Abs(c1.xCoord - c2.xCoord) + Math.Abs(c1.yCoord - c2.yCoord);
