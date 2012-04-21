@@ -17,8 +17,14 @@ namespace AntOnslaught
 
         public int xCoord;
         public int yCoord;
-        public Cell()
+
+        public int texCoordX;
+        public int texCorrdY;
+
+        public int tileType;
+        public Cell(String tileType)
         {
+            this.tileType = int.Parse(tileType);
         }
     }
 }
