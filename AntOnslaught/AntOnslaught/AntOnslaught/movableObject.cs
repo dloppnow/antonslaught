@@ -28,6 +28,10 @@ namespace AntOnslaught
         {
             return goal;
         }
+        public void setGoal(Vector2 goal)
+        {
+            this.goal = goal;
+        }
         protected float speed;
         public bool updateMovement(GameTime timer)
         {

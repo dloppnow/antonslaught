@@ -21,6 +21,8 @@ namespace AntOnslaught
         Renderer rend;
         Map map;
         List<MovableObject> movableObjs;
+        KeyboardState keyState;
+        MouseState mouseState;
 
         public Game1()
         {
@@ -38,6 +40,7 @@ namespace AntOnslaught
         {
             // TODO: Add your initialization logic here
             movableObjs = new List<MovableObject>();
+            movableObjs.Add(new WorkerAnt(new Vector2(0, 0), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
             base.Initialize();
         }
 
@@ -109,7 +112,18 @@ namespace AntOnslaught
                 }
 
             }
-            KeyboardState keyState = Keyboard.GetState();
+            keyState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            if ( mouseState.RightButton == ButtonState.Pressed )
+            {
+                foreach(Ant ant in movableObjs)
+                {
+                    ant.setGoal(new Vector2(mouseState.X, mouseState.Y));
+                    ant.setPath(
+                        map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().X / 32),
+                        map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().X / 32)));
+                }
+            }
             // Allows the game to exit
             if (keyState.IsKeyDown(Keys.Escape))
             {
