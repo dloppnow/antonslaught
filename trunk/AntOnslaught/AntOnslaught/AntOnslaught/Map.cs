@@ -14,8 +14,8 @@ namespace AntOnslaught
         private int numOfYCells = 100;
         private int numOfXCells = 100;
         Cell[,] grid;
-        List<Cell> openList;
-        List<Cell> closedList;
+        List<Cell> openList = new List<Cell>();
+        List<Cell> closedList = new List<Cell>();
         public Map()
         {
             TextReader infoReader = new StreamReader("infoout.txt");
@@ -247,19 +247,19 @@ namespace AntOnslaught
             List<Cell> adjacentCells = new List<Cell>();
             if (c.xCoord > 0)
             {
-                adjacentCells.Add(grid[c.yCoord, c.xCoord - 1]);
+                adjacentCells.Add(grid[c.xCoord - 1, c.yCoord]);
             }
-            if (c.xCoord < numOfXCells)
+            if (c.xCoord < numOfXCells -1)
             {
-                adjacentCells.Add(grid[c.yCoord, c.xCoord + 1]);
+                adjacentCells.Add(grid[c.xCoord + 1, c.yCoord]);
             }
             if (c.yCoord > 0)
             {
-                adjacentCells.Add(grid[c.yCoord - 1, c.xCoord]);
+                adjacentCells.Add(grid[c.xCoord, c.yCoord - 1]);
             }
-            if (c.yCoord < numOfYCells)
+            if (c.yCoord < numOfYCells -1)
             {
-                adjacentCells.Add(grid[c.yCoord + 1, c.xCoord]);
+                adjacentCells.Add(grid[c.xCoord, c.yCoord + 1]);
             }
             return adjacentCells;
         }
