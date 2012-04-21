@@ -7,36 +7,40 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AntOnslaught
 {
-    class Food : Drawable
+    abstract class Food : Drawable
     {
+        private Texture2D texture;
+        private Color color;
+        private Rectangle clip;
+
         public Texture2D getTexture()
         {
-            throw new NotImplementedException();
+            return texture;
         }
 
         public void setTexture(Texture2D texture)
         {
-            throw new NotImplementedException();
+            this.texture = texture;
         }
 
         public Color getColor()
         {
-            throw new NotImplementedException();
+            return color;
         }
 
         public void setColor(Color color)
         {
-            throw new NotImplementedException();
+            this.color = color;
         }
 
         public Rectangle getClip()
         {
-            throw new NotImplementedException();
+            return clip;
         }
 
         public void setClip(Rectangle clip)
         {
-            throw new NotImplementedException();
+            this.clip = clip;
         }
     }
 }

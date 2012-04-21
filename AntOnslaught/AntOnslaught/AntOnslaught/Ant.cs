@@ -7,11 +7,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AntOnslaught
 {
-    class Ant : MovableObject, Drawable
+    abstract class Ant : MovableObject, Drawable
     {
-        public Ant(Vector2 position)
+        private Texture2D texture;
+        private Color color;
+        private Rectangle clip;
+
+        public Ant(Vector2 position, Texture2D texture)
         {
             this.position = position;
+            this.texture = texture;
+            this.color = Color.White;
         }
 
         public void update(GameTime gameTime)
@@ -21,32 +27,32 @@ namespace AntOnslaught
 
         public Texture2D getTexture()
         {
-            throw new NotImplementedException();
+            return texture;
         }
 
         public void setTexture(Texture2D texture)
         {
-            throw new NotImplementedException();
+            this.texture = texture;
         }
 
         public Color getColor()
         {
-            throw new NotImplementedException();
+            return color;
         }
 
         public void setColor(Color color)
         {
-            throw new NotImplementedException();
+            this.color = color;
         }
 
         public Rectangle getClip()
         {
-            throw new NotImplementedException();
+            return clip;
         }
 
         public void setClip(Rectangle clip)
         {
-            throw new NotImplementedException();
+            this.clip = clip;
         }
     }
 }
