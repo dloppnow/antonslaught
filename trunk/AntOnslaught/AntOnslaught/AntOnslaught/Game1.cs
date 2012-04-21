@@ -138,7 +138,7 @@ namespace AntOnslaught
                 if (obj is Ant)
                 {
                     Ant ant = (Ant)obj;
-                    ant.updateAnimation(gameTime);
+                    ant.update(gameTime);
                 }
             }
             
