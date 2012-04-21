@@ -40,8 +40,12 @@ namespace AntOnslaught
 
         public void Draw(MovableObject obj)
         {
-            Vector2 pos = obj.getPosition();
+            Vector2 pos = obj.getPosition(); //position relative to the map
             Rectangle clip = obj.getClip();
+
+            float x = (viewport.Width / 2) - (tileWidth / 2) + (pos.X - viewCenter.X);
+            float y = (viewport.Height / 2) - (tileWidth / 2) + (pos.Y - viewCenter.Y);
+            sb.Draw(obj.getTexture(), new Vector2(x, y), clip, obj.getColor());
         }
 
         public void Draw(Map map)
