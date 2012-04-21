@@ -32,7 +32,17 @@ namespace AntOnslaught
 
         public void Draw(Map map)
         {
-            
+            int mapWidth = map.getWidth();
+            int mapHeight = map.getHeight();
+
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for (int j = 0; i < mapHeight; j++)
+                {
+                    Vector2 pos = new Vector2();
+                    
+                }
+            }
         }
     }
 }
