@@ -26,6 +26,8 @@ namespace AntOnslaught
         protected Vector2 position;
         protected Cell currentCell = null;
         protected Cell goalCell = null;
+        protected Boolean isMoving = false;
+        protected float speed = 0.5f;
         public Cell getCurrentCell()
         {
             return currentCell;
@@ -50,15 +52,15 @@ namespace AntOnslaught
         {
             return position;
         }
-        protected float speed = 0.5f;
         public bool updateMovement(GameTime timer)
         {
             bool canMove = true;
             if (curPath.Count > 0)
             {
+                isMoving = true;
                 if (curPath[0].passable)
                 {
-                    Vector2 normalVec = curPath[0].coord * 32 -  position;
+                    Vector2 normalVec = curPath[0].coord * 32 - position;
                     if (normalVec.Length() <= 3)
                     {
                         position = curPath[0].coord * 32;
@@ -76,6 +78,10 @@ namespace AntOnslaught
                 {
                     canMove = false;
                 }
+            }
+            else
+            {
+                isMoving = false;
             }
             return canMove;
         }
