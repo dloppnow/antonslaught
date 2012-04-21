@@ -20,6 +20,9 @@ namespace AntOnslaught
         bool paused;
         bool quit;
         bool justStarted;
+        Color backgroundColor = Color.Black;
+        Color textColor = Color.White;
+        Color textBackColor = Color.Orange;
 
         Texture2D dummyTexture;
 
@@ -34,8 +37,8 @@ namespace AntOnslaught
             justStarted = true;
             font = content.Load<SpriteFont>("Font");
             Viewport vp = sb.GraphicsDevice.Viewport;
-            quitButton = new Rectangle(0, vp.Height - 25, 100, 25);
-            playButton = new Rectangle(0, 0, 50, 25);
+            quitButton = new Rectangle(0, vp.Height - 25, 50, 25);
+            playButton = new Rectangle(0, 0, 75, 25);
         }
 
         public void update(GameTime gameTime, KeyboardState kbState, MouseState mState)
@@ -69,8 +72,9 @@ namespace AntOnslaught
                     if (mState.X >= playButton.Left && mState.X <= playButton.Right)
                     {
                         if (mState.Y >= playButton.Top && mState.Y <= playButton.Bottom)
-                        { //quit button was pressed
+                        { //play/resume button was pressed
                             paused = false;
+                            justStarted = false;
                         }
                     }
                 }
@@ -91,10 +95,11 @@ namespace AntOnslaught
 
         public void draw()
         {
-            sb.GraphicsDevice.Clear(Color.Black);
-            sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), Color.White);
-            sb.Draw(dummyTexture, playButton, Color.Orange);
-            sb.DrawString(font, "PLAY", new Vector2(playButton.X, playButton.Y), Color.White);
+            sb.GraphicsDevice.Clear(backgroundColor);
+            sb.Draw(dummyTexture, quitButton, textBackColor);
+            sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), textColor);
+            sb.Draw(dummyTexture, playButton, textBackColor);
+            sb.DrawString(font, justStarted ? "PLAY!!" : "RESUME", new Vector2(playButton.X, playButton.Y), textColor);
             
         }
     }
