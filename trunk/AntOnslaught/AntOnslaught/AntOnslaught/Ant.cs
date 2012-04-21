@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AntOnslaught
 {
-    class Ant
+    class Ant : MovableObject
     {
     }
 }
