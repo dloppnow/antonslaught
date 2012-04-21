@@ -24,10 +24,14 @@ namespace AntOnslaught
         Menu menu;
         KeyboardState keyState;
         MouseState mouseState;
+        Vector2 sizeOfScreen;
+        Vector2 currentMapLoc; //in pixels
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            sizeOfScreen.Y = graphics.PreferredBackBufferHeight;
+            sizeOfScreen.X = graphics.PreferredBackBufferWidth;
             Content.RootDirectory = "Content";
         }
 
@@ -57,8 +61,8 @@ namespace AntOnslaught
             map = new Map();
             map.setTexture(Content.Load<Texture2D>("trunk"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
-            menu = new Menu(spriteBatch, Content);
-
+			menu = new Menu(spriteBatch, Content);
+			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
             // TODO: use this.Content to load your game content here
         }
 
@@ -128,12 +132,17 @@ namespace AntOnslaught
             
             if ( mouseState.RightButton == ButtonState.Pressed )
             {
-                foreach(Ant ant in movableObjs)
+                Vector2 mousePos = new Vector2(mouseState.X, mouseState.Y);
+                if ((mousePos.X > currentMapLoc.X) && (mousePos.Y > currentMapLoc.Y) &&
+                    (mousePos.X < currentMapLoc.X + map.getWidth() * 32) && (mousePos.Y < currentMapLoc.Y + map.getHeight() * 32))
                 {
-                    ant.setGoal(new Vector2(mouseState.X, mouseState.Y));
-                    ant.setPath(
-                        map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().X / 32),
-                        map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().X / 32)));
+                    foreach (Ant ant in movableObjs)
+                    {
+                        ant.setGoal(new Vector2(mouseState.X + currentMapLoc.X, mouseState.Y + currentMapLoc.Y));
+                        ant.setPath(
+                            map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().X / 32),
+                            map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().X / 32)));
+                    }
                 }
             }
             // Allows the game to exit
@@ -146,21 +155,25 @@ namespace AntOnslaught
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
+                currentMapLoc.X -= 32;
             }
             if (keyState.IsKeyDown(Keys.Right))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
+                currentMapLoc.X += 32;
             }
             if (keyState.IsKeyDown(Keys.Up))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
+                currentMapLoc.Y -= 32;
             }
             if (keyState.IsKeyDown(Keys.Down))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
+                currentMapLoc.Y += 32;
             }
         }
 
