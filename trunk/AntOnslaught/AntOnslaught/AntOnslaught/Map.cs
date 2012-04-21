@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 namespace AntOnslaught
 {
@@ -16,17 +17,25 @@ namespace AntOnslaught
         List<Cell> closedList;
         public Map()
         {
-            grid = new Cell[numOfYCells, numOfXCells];
-            for (int y = 0; y < numOfYCells; y++)
+            TextReader tw = new StreamReader("map.txt");
+            Boolean EOF = false;
+            String mapFile = tw.ReadToEnd();
+            String[] allTokens = mapFile.Split(',');
+            int currentXCoord = 0;
+            int currentYCoord = 0;
+            grid = new Cell[numOfXCells, numOfYCells];
+            foreach(String cellStr in allTokens)
             {
-                for (int x = 0; x < numOfXCells; x++)
+                if(numOfXCells % currentXCoord == 0)
                 {
-                    Cell c = new Cell();
-                    c.yCoord = y;
-                    c.xCoord = x;
+                    currentYCoord++;
+                    currentXCoord = 0;
                 }
+                grid[currentXCoord, currentYCoord] = new Cell(cellStr);
+                grid[currentXCoord, currentYCoord].yCoord = currentYCoord;
+                grid[currentXCoord, currentYCoord].xCoord = currentXCoord;
+                currentXCoord++;
             }
-
         }
         public Cell getCell(int x, int y)
         {
@@ -109,11 +118,11 @@ namespace AntOnslaught
                     openList.Remove(currentNode);
                     closedList.Add(currentNode);
                     List<Cell> adjacentCells = getAdjacentCells(currentNode);
-                    for(int i = 0; i < adjacentCells.Count; i++)
+                    foreach (Cell c in getAdjacentCells(currentNode))
                     {
-                        if(closedList.Contains(adjacentCells[i]))
+                        if (closedList.Contains(c))
                         {
-                            adjacentCells[i].g = currentNode.g + distanceBetween(currentNode, adjacentCells[i]);
+                            c.g = currentNode.g + distanceBetween(currentNode, c);
                         }
                     }
                 }
