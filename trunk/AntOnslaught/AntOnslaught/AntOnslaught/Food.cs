@@ -28,5 +28,15 @@ namespace AntOnslaught
         {
             throw new NotImplementedException();
         }
+
+        public Rectangle getClip()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setClip(Rectangle clip)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

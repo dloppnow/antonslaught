@@ -60,9 +60,18 @@ namespace AntOnslaught
             throw new NotImplementedException();
         }
 
+        public Rectangle getClip()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setClip(Rectangle clip)
+        {
+            throw new NotImplementedException();
+        }
         public List<Cell> getPath(Cell start, Cell end)
         {
-            List<Cell> path = new List<Cell>;
+            List<Cell> path = new List<Cell>();
             openList.Clear();
             closedList.Clear();
             openList.Add(start);
@@ -91,7 +100,7 @@ namespace AntOnslaught
             while (openList.Count() > 0)
             {
                 Cell currentNode = lowestScoreInOpen();
-                if(currentNode.Equals(endCell)
+                if(currentNode.Equals(endCell))
                 {
                     //reconstruct Path
                 }
@@ -109,6 +118,7 @@ namespace AntOnslaught
                     }
                 }
             }
+            return false;
         }
         private int distanceBetween(Cell c1, Cell c2)
         {
