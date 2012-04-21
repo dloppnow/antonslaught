@@ -6,10 +6,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
+
 namespace AntOnslaught
 {
     class MovableObject
     {
+        Map map;
         public enum Direction
         {
             UP,
@@ -40,7 +42,7 @@ namespace AntOnslaught
         }
         public void findPath(Vector2 goal)
         {
-
+             
         }
     }
 }

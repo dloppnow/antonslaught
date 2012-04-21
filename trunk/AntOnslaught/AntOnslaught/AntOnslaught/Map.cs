@@ -9,7 +9,11 @@ namespace AntOnslaught
 {
     class Map : Drawable
     {
-
+        struct Cell
+        {
+            Texture2D texture;
+            Boolean passable;
+        }
         public Texture2D getTexture()
         {
             throw new NotImplementedException();
@@ -29,7 +33,6 @@ namespace AntOnslaught
         {
             throw new NotImplementedException();
         }
-
 
     }
 }
