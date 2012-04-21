@@ -10,7 +10,7 @@ namespace AntOnslaught
 {
     class movableObject
     {
-        public enum GameState
+        public enum Direction
         {
             UP,
             DOWN,
@@ -19,21 +19,21 @@ namespace AntOnslaught
         }
         private Vector2 position;
         private float speed;
-        private void move(GameState direction)
+        private void move(Direction direction)
         {
-            if (direction == GameState.UP)
+            if (direction == Direction.UP)
             {
                 position.Y -= speed;
             }
-            else if (direction == GameState.DOWN)
+            else if (direction == Direction.DOWN)
             {
                 position.Y += speed;
             }
-            else if (direction == GameState.LEFT)
+            else if (direction == Direction.LEFT)
             {
                 position.X -= speed;
             }
-            else if (direction == GameState.RIGHT)
+            else if (direction == Direction.RIGHT)
             {
                 position.X += speed;
             }
