@@ -126,7 +126,7 @@ namespace AntOnslaught
         }
         private Cell lowestScoreInOpen()
         {
-            Cell lowestScoreCell = new Cell();
+            Cell lowestScoreCell = new Cell("1");
             lowestScoreCell.f = 1000000;
             foreach (Cell c in openList)
             {
