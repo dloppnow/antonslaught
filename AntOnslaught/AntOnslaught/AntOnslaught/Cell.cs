@@ -21,6 +21,8 @@ namespace AntOnslaught
         public int texCoordX;
         public int texCoordY;
 
+        public Cell next;
+
         public int tileType;
         public Cell(String tileType)
         {
