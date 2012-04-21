@@ -18,12 +18,17 @@ namespace AntOnslaught
             this.speed = speed;
         }
 
-        public void updateAnimation(GameTime gameTime)
+        public void update(GameTime gameTime)
         {
             if (isMoving)
             {
-                sAnimation.update(gameTime);
+                sAnimation.setRepeatable(true);
             }
+            else
+            {
+                sAnimation.setRepeatable(false);
+            }
+            sAnimation.update(gameTime);
         }
 
         public override Texture2D getTexture()

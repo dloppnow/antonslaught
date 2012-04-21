@@ -21,7 +21,7 @@ namespace AntOnslaught
             DOWNRIGHT,
             DOWNLEFT
         }
-        protected Direction currentDirection;
+        protected double direction;
         protected List<Cell> curPath = new List<Cell>();
         protected Vector2 position;
         protected Cell currentCell = null;
@@ -44,9 +44,9 @@ namespace AntOnslaught
         {
             goalCell = c;
         }
-        public Direction getDirection()
+        public double getDirection()
         {
-            return currentDirection;
+            return direction;
         }
         public Vector2 getPosition()
         {
@@ -91,58 +91,23 @@ namespace AntOnslaught
         {
             curPath = path;
             curPath.Reverse();
+            curPath.RemoveAt(0);
+            updateDirection();
         }
+
+        public double AngleBetween_1(Vector2 a, Vector2 b)
+        {
+            var dotProd = Vector2.Dot(a, b);
+            var lenProd = a.Length() * b.Length();
+            var divOperation = dotProd / lenProd;
+            return Math.Acos(divOperation) * (180.0 / Math.PI);
+        }
+
         private void updateDirection()
         {
-            if (curPath.Count > 1)
+            if (curPath.Count > 0)
             {
-                if (curPath[0].coord.X == curPath[1].coord.X)
-                {
-                    if (curPath[0].coord.Y > curPath[1].coord.Y)
-                    {
-                        currentDirection = Direction.UP;
-                    }
-                    else
-                    {
-                        currentDirection = Direction.DOWN;
-                    }
-                }
-                else if (curPath[0].coord.Y == curPath[1].coord.Y)
-                {
-                    if (curPath[0].coord.X > curPath[1].coord.X)
-                    {
-                        currentDirection = Direction.LEFT;
-                    }
-                    else
-                    {
-                        currentDirection = Direction.RIGHT;
-                    }
-                }
-                else
-                {
-                    if (curPath[0].coord.X > curPath[1].coord.X)
-                    {
-                        if (curPath[0].coord.Y > curPath[1].coord.Y)
-                        {
-                            currentDirection = Direction.UPLEFT;
-                        }
-                        else
-                        {
-                            currentDirection = Direction.DOWNLEFT;
-                        }
-                    }
-                    else
-                    {
-                        if (curPath[0].coord.Y > curPath[1].coord.Y)
-                        {
-                            currentDirection = Direction.UPRIGHT;
-                        }
-                        else
-                        {
-                            currentDirection = Direction.DOWNRIGHT;
-                        }
-                    }
-                }
+                direction = AngleBetween_1(position, curPath[0].coord * 32);
             }
         }
         public abstract Texture2D getTexture();
