@@ -32,7 +32,8 @@ namespace AntOnslaught
 
         public void Draw(MovableObject obj)
         {
-            
+            Vector2 pos = obj.getPosition();
+            Rectangle clip = obj.getClip();
         }
 
         public void Draw(Map map)
