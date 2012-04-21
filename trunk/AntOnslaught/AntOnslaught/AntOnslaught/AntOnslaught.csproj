@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ant.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Food.cs" />
