@@ -26,7 +26,10 @@ namespace AntOnslaught
         MouseState mouseState;
         Vector2 sizeOfScreen;
         Vector2 currentMapLoc; //in pixels
-        Ant selectedAnt;
+        Vector2 mouseLeftPressed;
+        bool leftReleased = true;
+        bool leftPressed = false;
+        List<Ant> selectedAnts;
 
         public Game1()
         {
@@ -46,11 +49,11 @@ namespace AntOnslaught
         {
             // TODO: Add your initialization logic here
             movableObjs = new List<MovableObject>();
+            selectedAnts = new List<Ant>();
             movableObjs.Add(new WorkerAnt(new Vector2(0, 0), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
             movableObjs.Add(new WorkerAnt(new Vector2(3, 3), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
             movableObjs.Add(new WorkerAnt(new Vector2(3, 1), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
             movableObjs.Add(new WorkerAnt(new Vector2(1, 3), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
-            selectedAnt = null;
             base.Initialize();
             this.IsMouseVisible = true;
         }
@@ -142,30 +145,81 @@ namespace AntOnslaught
                     (mousePos.X < currentMapLoc.X + map.getWidth() * 32) && (mousePos.Y < currentMapLoc.Y + map.getHeight() * 32))
                 {
                     Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
-
-                    selectedAnt.setGoal(mapMousePos);
-                    selectedAnt.setPath(
-                        map.getPath(map.getCell((int)selectedAnt.getPosition().X / 32, (int)selectedAnt.getPosition().Y / 32),
-                        map.getCell((int)selectedAnt.getGoal().X / 32, (int)selectedAnt.getGoal().Y / 32)));
-                }
-            }
-			if (mouseState.LeftButton == ButtonState.Pressed)
-            {
-                Vector2 mousePos = new Vector2(mouseState.X, mouseState.Y);
-                if ((mousePos.X > currentMapLoc.X) && (mousePos.Y > currentMapLoc.Y) &&
-                    (mousePos.X < currentMapLoc.X + map.getWidth() * 32) && (mousePos.Y < currentMapLoc.Y + map.getHeight() * 32))
-                {
-                    Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
-                    foreach (Ant ant in movableObjs)
+                    foreach (Ant ant in selectedAnts)
                     {
-                        Rectangle bounding = new Rectangle((int)ant.getPosition().X, (int)ant.getPosition().Y, 32, 32);
-                        if (bounding.Contains((int)mapMousePos.X, (int)mapMousePos.Y))
-                        {
-                            selectedAnt = ant;
-                            break;
-                        }
+                        ant.setGoal(mapMousePos);
+                        ant.setPath(
+                            map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32),
+                            map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().Y / 32)));
                     }
                 }
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && leftReleased == true)
+            {
+                mouseLeftPressed = new Vector2(mouseState.X, mouseState.Y);
+                leftPressed = true;
+                leftReleased = false;
+            }
+            if (mouseState.LeftButton == ButtonState.Released && leftPressed == true)
+            {
+                leftPressed = false;
+                leftReleased = true;
+                selectedAnts.Clear();
+                Vector2 mousePos = new Vector2(mouseState.X, mouseState.Y);
+
+                Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
+                Vector2 mapMouseOldPos = new Vector2(mouseLeftPressed.X - currentMapLoc.X, mouseLeftPressed.Y - currentMapLoc.Y);
+                Rectangle mouseSelectBox;
+                //if (mapMouseOldPos.X > mapMousePos.X && mapMouseOldPos.Y > mapMousePos.Y)
+                //{
+                int recX = 0;
+                int recY = 0;
+                int recWidth = 0;
+                int recHeight = 0;
+                if (mapMouseOldPos.X - (int)mapMousePos.X < 0)
+                {
+                    recX = (int)mapMouseOldPos.X;
+                    recWidth = (int)mapMousePos.X - (int)mapMouseOldPos.X;
+
+                }
+                else
+                {
+                    recX = (int)mapMousePos.X;
+                    recWidth = (int)mapMouseOldPos.X - (int)mapMousePos.X;
+                }
+                if (mapMouseOldPos.Y - (int)mapMousePos.Y < 0)
+                {
+                    recY = (int)mapMouseOldPos.Y;
+                    recHeight = (int)mapMousePos.Y - (int)mapMouseOldPos.Y;
+
+                }
+                else
+                {
+                    recX = (int)mapMousePos.Y;
+                    recHeight = (int)mapMouseOldPos.Y - (int)mapMousePos.Y;
+                }
+                mouseSelectBox = new Rectangle(recX, recY, recWidth, recHeight);
+                //}
+                //else if (mapMouseOldPos.X > mapMousePos.X && mapMouseOldPos.Y < mapMousePos.Y)
+                //{
+                //    mouseSelectBox = new Rectangle((int)mapMousePos.X, (int)mapMouseOldPos.Y, (int)mapMousePos.X - (int)mapMouseOldPos.X, (int)mapMouseOldPos.Y - (int)mapMousePos.Y);
+                //}
+                //else if (mapMouseOldPos.X < mapMousePos.X && mapMouseOldPos.Y > mapMousePos.Y)
+                //{
+                //    mouseSelectBox = new Rectangle((int)mapMouseOldPos.X, (int)mapMousePos.Y, (int)mapMouseOldPos.X - (int)mapMousePos.X, (int)mapMousePos.Y - (int)mapMouseOldPos.Y);
+                //}
+                //else
+                //{
+                //    mouseSelectBox = new Rectangle((int)mapMouseOldPos.X, (int)mapMouseOldPos.Y, (int)mapMouseOldPos.X - (int)mapMousePos.X, (int)mapMouseOldPos.Y - (int)mapMousePos.Y);
+                //}
+                    foreach (Ant ant in movableObjs)
+                    {
+                        Point bounding = new Point((int)ant.getPosition().X + 16, (int)ant.getPosition().Y + 16);
+                        if (mouseSelectBox.Contains(bounding))
+                        {
+                            selectedAnts.Add(ant);
+                        }
+                    }
             }
             //}            //Move the map around
             if (keyState.IsKeyDown(Keys.Left))
