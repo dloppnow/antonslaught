@@ -13,7 +13,7 @@ namespace AntOnslaught
 
         public Ant(Vector2 position, SpriteAnimation sAnimation)
         {
-            this.position = position;
+            this.position = position * 32;
             this.sAnimation = sAnimation;
         }
 

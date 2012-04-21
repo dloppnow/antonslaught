@@ -36,6 +36,15 @@ namespace AntOnslaught
             setClip(currFrame);
         }
 
+        public int getSpriteHeight()
+        {
+            return spriteHeight;
+        }
+        public int getSpriteWidth()
+        {
+            return spriteWidth;
+        }
+
         public void setRepeatable(bool repeatable)
         {
             this.repeatable = repeatable;
