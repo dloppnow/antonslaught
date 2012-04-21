@@ -137,29 +137,6 @@ namespace AntOnslaught
                 }
             }
         }
-        //protected void move(Direction direction)
-        //{
-        //    if (direction == Direction.UP)
-        //    {
-        //        position.Y -= speed;
-        //    }
-        //    else if (direction == Direction.DOWN)
-        //    {
-        //        position.Y += speed;
-        //    }
-        //    else if (direction == Direction.LEFT)
-        //    {
-        //        position.X -= speed;
-        //    }
-        //    else if (direction == Direction.RIGHT)
-        //    {
-        //        position.X += speed;
-        //    }
-        //}
-        //public void findPath(Vector2 goal)
-        //{
-             
-        //}
         public abstract Texture2D getTexture();
         public abstract void setTexture(Texture2D texture);
         public abstract Color getColor();
