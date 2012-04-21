@@ -71,6 +71,8 @@ namespace AntOnslaught
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
 			menu = new Menu(spriteBatch, Content);
 			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
+            currentMapLoc.X -= 16;
+            currentMapLoc.Y -= 16;
             // TODO: use this.Content to load your game content here
         }
 
@@ -195,31 +197,25 @@ namespace AntOnslaught
                 }
                 else
                 {
-                    recX = (int)mapMousePos.Y;
+                    recY = (int)mapMousePos.Y;
                     recHeight = (int)mapMouseOldPos.Y - (int)mapMousePos.Y;
                 }
                 mouseSelectBox = new Rectangle(recX, recY, recWidth, recHeight);
-                //}
-                //else if (mapMouseOldPos.X > mapMousePos.X && mapMouseOldPos.Y < mapMousePos.Y)
-                //{
-                //    mouseSelectBox = new Rectangle((int)mapMousePos.X, (int)mapMouseOldPos.Y, (int)mapMousePos.X - (int)mapMouseOldPos.X, (int)mapMouseOldPos.Y - (int)mapMousePos.Y);
-                //}
-                //else if (mapMouseOldPos.X < mapMousePos.X && mapMouseOldPos.Y > mapMousePos.Y)
-                //{
-                //    mouseSelectBox = new Rectangle((int)mapMouseOldPos.X, (int)mapMousePos.Y, (int)mapMouseOldPos.X - (int)mapMousePos.X, (int)mapMousePos.Y - (int)mapMouseOldPos.Y);
-                //}
-                //else
-                //{
-                //    mouseSelectBox = new Rectangle((int)mapMouseOldPos.X, (int)mapMouseOldPos.Y, (int)mapMouseOldPos.X - (int)mapMousePos.X, (int)mapMouseOldPos.Y - (int)mapMousePos.Y);
-                //}
-                    foreach (Ant ant in movableObjs)
+                foreach (Ant ant in movableObjs)
+                {
+                    Rectangle bounding = new Rectangle((int)ant.getPosition().X, (int)ant.getPosition().Y, 32, 32);
+                    if (mouseSelectBox.Width == 0 && mouseSelectBox.Height == 0)
                     {
-                        Point bounding = new Point((int)ant.getPosition().X + 16, (int)ant.getPosition().Y + 16);
-                        if (mouseSelectBox.Contains(bounding))
+                        if (bounding.Contains(mouseSelectBox.Center))
                         {
                             selectedAnts.Add(ant);
                         }
                     }
+                    else if (mouseSelectBox.Contains(bounding.Center))
+                    {
+                        selectedAnts.Add(ant);
+                    }
+                }
             }
             //}            //Move the map around
             if (keyState.IsKeyDown(Keys.Left))
