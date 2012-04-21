@@ -32,7 +32,7 @@ namespace AntOnslaught
 
         public void Draw(Map map)
         {
-
+            
         }
     }
 }
