@@ -20,6 +20,7 @@ namespace AntOnslaught
         SpriteBatch spriteBatch;
         Renderer rend;
         Map map;
+        List<MovableObject> movableObjs;
 
         public Game1()
         {
@@ -36,7 +37,7 @@ namespace AntOnslaught
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            movableObjs = new List<MovableObject>();
             base.Initialize();
         }
 
@@ -71,6 +72,16 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            foreach (MovableObject obj in movableObjs)
+            {
+                if (!obj.updateMovement(gameTime))
+                {
+                    obj.setPath(
+                        map.getPath(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().X / 32) , 
+                        map.getCell((int)obj.getGoal().X / 32, (int)obj.getGoal().X / 32)));
+                }
+
+            }
             KeyboardState keyState = Keyboard.GetState();
             // Allows the game to exit
             if (keyState.IsKeyDown(Keys.Escape))

@@ -15,9 +15,10 @@ namespace AntOnslaught
         public int f;
         public int h;
 
-        public int xCoord;
-        public int yCoord;
+        //public int xCoord;
+        //public int yCoord;
 
+        public Vector2 coord;
         public int texCoordX;
         public int texCoordY;
 

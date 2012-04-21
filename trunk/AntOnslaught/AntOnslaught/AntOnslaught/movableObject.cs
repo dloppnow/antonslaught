@@ -10,42 +10,78 @@ namespace AntOnslaught
 {
     abstract class MovableObject : Drawable
     {
-        public enum Direction
-        {
-            UP,
-            DOWN,
-            LEFT,
-            RIGHT
-        }
+        //public enum Direction
+        //{
+        //    UP,
+        //    DOWN,
+        //    LEFT,
+        //    RIGHT
+        //}
+        protected List<Cell> curPath;
+        protected Vector2 goal;
         protected Vector2 position;
         public Vector2 getPosition()
         {
             return position;
         }
+        public Vector2 getGoal()
+        {
+            return goal;
+        }
         protected float speed;
-        protected void move(Direction direction)
+        public bool updateMovement(GameTime timer)
         {
-            if (direction == Direction.UP)
+            bool canMove = true;
+            if (curPath.Count > 0)
             {
-                position.Y -= speed;
+                if (curPath[0].passable)
+                {
+                    Vector2 normalVec = position - curPath[0].coord;
+                    if (normalVec.Length() < 1)
+                    {
+                        position = curPath[0].coord;
+                        curPath.RemoveAt(0);
+                    }
+                    else
+                    {
+                        normalVec.Normalize();
+                        position = position + normalVec * speed * timer.ElapsedGameTime.Milliseconds;
+                    }
+                }
+                else
+                {
+                    canMove = false;
+                }
             }
-            else if (direction == Direction.DOWN)
-            {
-                position.Y += speed;
-            }
-            else if (direction == Direction.LEFT)
-            {
-                position.X -= speed;
-            }
-            else if (direction == Direction.RIGHT)
-            {
-                position.X += speed;
-            }
+            return canMove;
         }
-        public void findPath(Vector2 goal)
+        public void setPath(List<Cell> path)
         {
+            curPath = path;
+        }
+        //protected void move(Direction direction)
+        //{
+        //    if (direction == Direction.UP)
+        //    {
+        //        position.Y -= speed;
+        //    }
+        //    else if (direction == Direction.DOWN)
+        //    {
+        //        position.Y += speed;
+        //    }
+        //    else if (direction == Direction.LEFT)
+        //    {
+        //        position.X -= speed;
+        //    }
+        //    else if (direction == Direction.RIGHT)
+        //    {
+        //        position.X += speed;
+        //    }
+        //}
+        //public void findPath(Vector2 goal)
+        //{
              
-        }
+        //}
         public abstract Texture2D getTexture();
         public abstract void setTexture(Texture2D texture);
         public abstract Color getColor();

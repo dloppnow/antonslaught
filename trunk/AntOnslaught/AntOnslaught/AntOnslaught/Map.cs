@@ -38,8 +38,8 @@ namespace AntOnslaught
                     currentXCoord = 0;
                 }
                 grid[currentXCoord, currentYCoord] = new Cell(cellStr);
-                grid[currentXCoord, currentYCoord].yCoord = currentYCoord;
-                grid[currentXCoord, currentYCoord].xCoord = currentXCoord;
+                grid[currentXCoord, currentYCoord].coord.Y = currentYCoord;
+                grid[currentXCoord, currentYCoord].coord.X = currentXCoord;
                 currentXCoord++;
             }
 
@@ -128,7 +128,7 @@ namespace AntOnslaught
             }
             return lowestScoreCell;
         }
-        List<Cell> getPath(Cell start, Cell end)
+        public List<Cell> getPath(Cell start, Cell end)
 		{
             foreach (Cell c in grid)
             {
@@ -240,26 +240,26 @@ namespace AntOnslaught
 		}
         private int distanceBetween(Cell c1, Cell c2)
         {
-            return Math.Abs(c1.xCoord - c2.xCoord) + Math.Abs(c1.yCoord - c2.yCoord);
+            return (int)Math.Abs(c1.coord.X - c2.coord.X) + (int)Math.Abs(c1.coord.Y - c2.coord.Y);
         }
         private List<Cell> getAdjacentCells(Cell c)
         {
             List<Cell> adjacentCells = new List<Cell>();
-            if (c.xCoord > 0)
+            if (c.coord.X > 0)
             {
-                adjacentCells.Add(grid[c.xCoord - 1, c.yCoord]);
+                adjacentCells.Add(grid[(int)c.coord.X - 1, (int)c.coord.Y]);
             }
-            if (c.xCoord < numOfXCells -1)
+            if (c.coord.X < numOfXCells - 1)
             {
-                adjacentCells.Add(grid[c.xCoord + 1, c.yCoord]);
+                adjacentCells.Add(grid[(int)c.coord.X + 1, (int)c.coord.Y]);
             }
-            if (c.yCoord > 0)
+            if (c.coord.Y > 0)
             {
-                adjacentCells.Add(grid[c.xCoord, c.yCoord - 1]);
+                adjacentCells.Add(grid[(int)c.coord.X, (int)c.coord.Y - 1]);
             }
-            if (c.yCoord < numOfYCells -1)
+            if (c.coord.Y < numOfYCells - 1)
             {
-                adjacentCells.Add(grid[c.xCoord, c.yCoord + 1]);
+                adjacentCells.Add(grid[(int)c.coord.X, (int)c.coord.Y + 1]);
             }
             return adjacentCells;
         }
