@@ -14,17 +14,6 @@ namespace AntOnslaught
         Cell[,] grid;
         List<Cell> openList;
         List<Cell> closedList;
-        public struct Cell
-        {
-            public Texture2D texture;
-            public Boolean passable;
-            public int g;
-            public int f;
-            public int h;
-
-            public int xCoord;
-            public int yCoord;
-        }
         public Map()
         {
             grid = new Cell[numOfYCells, numOfXCells];
