@@ -40,7 +40,7 @@ namespace AntOnslaught
 
         public void setClip(int frameNum)
         {
-
+            clip = new Rectangle(currFrame * spriteWidth, currFrame * spriteHeight, spriteWidth, spriteHeight);
         }
 
         #region Drawable Members
