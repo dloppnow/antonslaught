@@ -23,8 +23,25 @@ namespace AntOnslaught
         }
         protected Direction currentDirection;
         protected List<Cell> curPath = new List<Cell>();
-        protected Vector2 goal;
         protected Vector2 position;
+        protected Cell currentCell = null;
+        protected Cell goalCell = null;
+        public Cell getCurrentCell()
+        {
+            return currentCell;
+        }
+        public void setCurrentCell(Cell c)
+        {
+            currentCell = c;
+        }
+        public Cell getGoalCell()
+        {
+            return goalCell;
+        }
+        public void setGoalCell(Cell c)
+        {
+            goalCell = c;
+        }
         public Direction getDirection()
         {
             return currentDirection;
@@ -32,14 +49,6 @@ namespace AntOnslaught
         public Vector2 getPosition()
         {
             return position;
-        }
-        public Vector2 getGoal()
-        {
-            return goal;
-        }
-        public void setGoal(Vector2 goal)
-        {
-            this.goal = goal;
         }
         protected float speed = 0.5f;
         public bool updateMovement(GameTime timer)
@@ -54,6 +63,7 @@ namespace AntOnslaught
                     {
                         position = curPath[0].coord * 32;
                         updateDirection();
+                        currentCell = curPath[0];
                         curPath.RemoveAt(0);
                     }
                     else
