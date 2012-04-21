@@ -38,5 +38,9 @@ namespace AntOnslaught
                 position.X += speed;
             }
         }
+        public void findPath(Vector2 goal)
+        {
+
+        }
     }
 }
