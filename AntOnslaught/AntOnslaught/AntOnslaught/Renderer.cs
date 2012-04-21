@@ -27,7 +27,7 @@ namespace AntOnslaught
 
         public void Draw(MovableObject obj)
         {
-
+            
         }
 
         public void Draw(Map map)
