@@ -38,6 +38,7 @@ namespace AntOnslaught
 
         public void Draw(Map map)
         {
+            int tileWidth = 32;
             int mapWidth = map.getWidth();
             int mapHeight = map.getHeight();
 
@@ -45,10 +46,10 @@ namespace AntOnslaught
             {
                 for (int j = 0; i < mapHeight; j++)
                 {
-                    float x = (viewport.Width / 2) - (16) - ((i - viewCenter.X) * 32);
-                    float y = (viewport.Height / 2) - (16) - ((j - viewCenter.Y) * 32);
+                    float x = (viewport.Width / 2) - (tileWidth / 2) - ((i - viewCenter.X) * tileWidth);
+                    float y = (viewport.Height / 2) - (tileWidth / 2) - ((j - viewCenter.Y) * tileWidth);
                     Cell cell = map.getCell(i, j);
-                    sb.Draw(cell.texture, new Vector2(x, y), new Rectangle(), Color.White);
+                    sb.Draw(cell.texture, new Vector2(x, y), new Rectangle(cell.texCoordX * tileWidth, cell.texCoordY * tileWidth, tileWidth, tileWidth), Color.White);
                 }
             }
         }
