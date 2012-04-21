@@ -61,7 +61,8 @@ namespace AntOnslaught
                 if (curPath[0].passable)
                 {
                     Vector2 normalVec = curPath[0].coord * 32 - position;
-                    if (normalVec.Length() <= 3)
+                    //Vector2 jumpAmount = normalVec * speed * timer.ElapsedGameTime.Milliseconds;
+                    if (normalVec.Length() < 3)
                     {
                         position = curPath[0].coord * 32;
                         updateDirection();
@@ -71,7 +72,8 @@ namespace AntOnslaught
                     else
                     {
                         normalVec.Normalize();
-                        position = position + normalVec * speed * timer.ElapsedGameTime.Milliseconds;
+                        Vector2 jumpAmount = normalVec * speed * timer.ElapsedGameTime.Milliseconds;
+                        position = position + jumpAmount;
                     }
                 }
                 else
