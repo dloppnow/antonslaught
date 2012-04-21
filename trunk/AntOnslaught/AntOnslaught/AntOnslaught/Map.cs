@@ -42,7 +42,10 @@ namespace AntOnslaught
 
             String nextLine = infoReader.ReadLine();
             Boolean EOF = false;
-            while (!nextLine.Equals("tiles") && !EOF)
+            while (!infoReader.ReadLine().Equals("tiles"))
+            {
+            }
+            while (!EOF)
             {
                 infoTokens = nextLine.Split(',');
                 foreach(Cell c in grid)
@@ -157,6 +160,9 @@ namespace AntOnslaught
                         if (closedList.Contains(c))
                         {
                             c.g = currentNode.g + distanceBetween(currentNode, c);
+                        }
+                        if (!openList.Contains(c))
+                        {
                         }
                     }
                 }
