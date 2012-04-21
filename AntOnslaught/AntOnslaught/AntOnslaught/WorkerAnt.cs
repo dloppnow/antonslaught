@@ -9,7 +9,7 @@ namespace AntOnslaught
 {
     class WorkerAnt : Ant
     {
-        public WorkerAnt(Vector2 position, SpriteAnimation sAnimation) : base(position, sAnimation)
+        public WorkerAnt(Vector2 position, SpriteAnimation sAnimation, float speed) : base(position, sAnimation, speed)
         {
 
         }
