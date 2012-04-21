@@ -9,26 +9,11 @@ namespace AntOnslaught
 {
     class Map : Drawable
     {
+        private int numOfYCells = 100;
+        private int numOfXCells = 100;
+        Cell[,] grid;
         List<Cell> openList;
         List<Cell> closedList;
-        private int height;
-        private int width;
-        public int getWidth()
-        {
-            return width;
-        }
-        public int getHeight()
-        {
-            return height;
-        }
-        public void setWidth(int width)
-        {
-            this.width = width;
-        }
-        public void setHeight(int height)
-        {
-            this.height = height;
-        }
         struct Cell
         {
             public Texture2D texture;
@@ -36,6 +21,31 @@ namespace AntOnslaught
             public int g;
             public int f;
             public int h;
+
+            public int xCoord;
+            public int yCoord;
+        }
+        public Map()
+        {
+            grid = new Cell[numOfYCells, numOfXCells];
+            for (int y = 0; y < numOfYCells; y++)
+            {
+                for (int x = 0; x < numOfXCells; x++)
+                {
+                    Cell c = new Cell();
+                    c.yCoord = y;
+                    c.xCoord = x;
+                }
+            }
+
+        }
+        public int getWidth()
+        {
+            return numOfXCells;
+        }
+        public int getHeight()
+        {
+            return numOfYCells;
         }
         public Texture2D getTexture()
         {
@@ -82,17 +92,23 @@ namespace AntOnslaught
                     lowestCost = c;
                 }
             }
-            removeFromOpenList(startCell);
+            removeFromOpenList(lowestCost);
             closedList.Add(lowestCost);
+
             if (lowestCost.Equals(endCell))
             {
-
+                return true;
             }
+
             return true;
         }
         private void removeFromOpenList(Cell c)
         {
             openList.Remove(c);
         }
+        private List<Cell> getAdjacentCells(Cell c)
+        {
+        }
+
     }
 }
