@@ -133,9 +133,7 @@ namespace AntOnslaught
             {
                 if (!obj.updateMovement(gameTime))
                 {
-                    obj.setPath(
-                        map.getPath(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32),
-                        map.getCell((int)obj.getGoal().X / 32, (int)obj.getGoal().Y / 32)));
+                    obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                 }
 
             }
@@ -149,10 +147,17 @@ namespace AntOnslaught
                     Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
                     foreach (Ant ant in selectedAnts)
                     {
-                        ant.setGoal(mapMousePos);
-                        ant.setPath(
-                            map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32),
-                            map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().Y / 32)));
+                        Cell c = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
+                        ant.setGoalCell(map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32));
+                        if (c.passable)
+                        {
+                            ant.setGoalCell(c);
+                            if (ant.getCurrentCell() == null)
+                            {
+                                ant.setCurrentCell(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32));
+                            }
+                            ant.setPath(map.getPath(ant.getCurrentCell(), ant.getGoalCell()));
+                        }
                     }
                 }
             }
