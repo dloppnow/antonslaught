@@ -21,6 +21,7 @@ namespace AntOnslaught
         Renderer rend;
         Map map;
         List<MovableObject> movableObjs;
+        Menu menu;
         KeyboardState keyState;
         MouseState mouseState;
 
@@ -75,10 +76,10 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            
+            keyState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
 
             // TODO: Add your update logic here
-
             base.Update(gameTime);
             updateMenuState(gameTime);
             updateGameState(gameTime);
@@ -113,8 +114,7 @@ namespace AntOnslaught
                 }
 
             }
-            keyState = Keyboard.GetState();
-            mouseState = Mouse.GetState();
+            
             if ( mouseState.RightButton == ButtonState.Pressed )
             {
                 foreach(Ant ant in movableObjs)
