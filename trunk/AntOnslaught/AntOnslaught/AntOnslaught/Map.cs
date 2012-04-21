@@ -262,6 +262,24 @@ namespace AntOnslaught
             {
                 adjacentCells.Add(grid[(int)c.coord.X, (int)c.coord.Y + 1]);
             }
+
+
+            if (c.coord.X > 0 && c.coord.Y > 0)
+            {
+                adjacentCells.Add(grid[(int)c.coord.X - 1, (int)c.coord.Y - 1]);
+            }
+            if (c.coord.X < numOfXCells - 1 && c.coord.Y < numOfYCells - 1)
+            {
+                adjacentCells.Add(grid[(int)c.coord.X + 1, (int)c.coord.Y + 1]);
+            }
+            if (c.coord.X > 0 && c.coord.Y < numOfYCells - 1)
+            {
+                adjacentCells.Add(grid[(int)c.coord.X - 1, (int)c.coord.Y + 1]);
+            }
+            if (c.coord.Y > 0 && c.coord.X < numOfXCells - 1)
+            {
+                adjacentCells.Add(grid[(int)c.coord.X + 1, (int)c.coord.Y - 1]);
+            }
             return adjacentCells;
         }
     }

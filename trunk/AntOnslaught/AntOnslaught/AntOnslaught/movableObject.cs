@@ -41,7 +41,7 @@ namespace AntOnslaught
                 if (curPath[0].passable)
                 {
                     Vector2 normalVec = curPath[0].coord * 32 -  position;
-                    if (normalVec.Length() == 0)
+                    if (normalVec.Length() <= 3)
                     {
                         position = curPath[0].coord * 32;
                         curPath.RemoveAt(0);

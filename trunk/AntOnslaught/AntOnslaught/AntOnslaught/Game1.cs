@@ -26,6 +26,7 @@ namespace AntOnslaught
         MouseState mouseState;
         Vector2 sizeOfScreen;
         Vector2 currentMapLoc; //in pixels
+        Ant selectedAnt;
 
         public Game1()
         {
@@ -46,6 +47,10 @@ namespace AntOnslaught
             // TODO: Add your initialization logic here
             movableObjs = new List<MovableObject>();
             movableObjs.Add(new WorkerAnt(new Vector2(0, 0), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
+            movableObjs.Add(new WorkerAnt(new Vector2(3, 3), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
+            movableObjs.Add(new WorkerAnt(new Vector2(3, 1), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
+            movableObjs.Add(new WorkerAnt(new Vector2(1, 3), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
+            selectedAnt = null;
             base.Initialize();
             this.IsMouseVisible = true;
         }
@@ -136,16 +141,33 @@ namespace AntOnslaught
                 if ((mousePos.X > currentMapLoc.X) && (mousePos.Y > currentMapLoc.Y) &&
                     (mousePos.X < currentMapLoc.X + map.getWidth() * 32) && (mousePos.Y < currentMapLoc.Y + map.getHeight() * 32))
                 {
+                    Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
+
+                    selectedAnt.setGoal(mapMousePos);
+                    selectedAnt.setPath(
+                        map.getPath(map.getCell((int)selectedAnt.getPosition().X / 32, (int)selectedAnt.getPosition().Y / 32),
+                        map.getCell((int)selectedAnt.getGoal().X / 32, (int)selectedAnt.getGoal().Y / 32)));
+                }
+            }
+			if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                Vector2 mousePos = new Vector2(mouseState.X, mouseState.Y);
+                if ((mousePos.X > currentMapLoc.X) && (mousePos.Y > currentMapLoc.Y) &&
+                    (mousePos.X < currentMapLoc.X + map.getWidth() * 32) && (mousePos.Y < currentMapLoc.Y + map.getHeight() * 32))
+                {
+                    Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
                     foreach (Ant ant in movableObjs)
                     {
-                        ant.setGoal(new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y));
-                        ant.setPath(
-                            map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32),
-                            map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().Y / 32)));
+                        Rectangle bounding = new Rectangle((int)ant.getPosition().X, (int)ant.getPosition().Y, 32, 32);
+                        if (bounding.Contains((int)mapMousePos.X, (int)mapMousePos.Y))
+                        {
+                            selectedAnt = ant;
+                            break;
+                        }
                     }
                 }
             }
-            //Move the map around
+            //}            //Move the map around
             if (keyState.IsKeyDown(Keys.Left))
             {
                 Vector2 vec = rend.getViewCenter();
