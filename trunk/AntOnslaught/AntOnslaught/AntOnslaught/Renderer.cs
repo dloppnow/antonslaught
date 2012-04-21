@@ -39,7 +39,9 @@ namespace AntOnslaught
             {
                 for (int j = 0; i < mapHeight; j++)
                 {
-                    Vector2 pos = new Vector2();
+                    float x = (viewport.Width / 2) - (16) - ((i - viewCenter.X) * 32);
+                    float y = (viewport.Height / 2) - (16) - ((j - viewCenter.Y) * 32);
+                    Vector2 pos = new Vector2(x, y);
                     
                 }
             }
