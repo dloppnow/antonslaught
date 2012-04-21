@@ -16,17 +16,26 @@ namespace AntOnslaught
         MouseState prevMState;
         SpriteFont font;
         Rectangle quitButton;
+        Rectangle playButton;
         bool paused;
         bool quit;
+        bool justStarted;
+
+        Texture2D dummyTexture;
 
         public Menu(SpriteBatch sb, ContentManager content)
         {
+            dummyTexture = new Texture2D(sb.GraphicsDevice, 1, 1);
+            dummyTexture.SetData(new Color[] { Color.White });
+
             this.sb = sb;
-            paused = false;
+            paused = true;
             quit = false;
+            justStarted = true;
             font = content.Load<SpriteFont>("Font");
             Viewport vp = sb.GraphicsDevice.Viewport;
             quitButton = new Rectangle(0, vp.Height - 25, 100, 25);
+            playButton = new Rectangle(0, 0, 50, 25);
         }
 
         public void update(GameTime gameTime, KeyboardState kbState, MouseState mState)
@@ -37,6 +46,7 @@ namespace AntOnslaught
                 if (paused)
                 {
                     paused = false;
+                    justStarted = false;
                 }
                 else
                 {
@@ -54,6 +64,13 @@ namespace AntOnslaught
                         if (mState.Y >= quitButton.Top && mState.Y <= quitButton.Bottom)
                         { //quit button was pressed
                             quit = true;
+                        }
+                    }
+                    if (mState.X >= playButton.Left && mState.X <= playButton.Right)
+                    {
+                        if (mState.Y >= playButton.Top && mState.Y <= playButton.Bottom)
+                        { //quit button was pressed
+                            paused = false;
                         }
                     }
                 }
@@ -76,6 +93,9 @@ namespace AntOnslaught
         {
             sb.GraphicsDevice.Clear(Color.Black);
             sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), Color.White);
+            sb.Draw(dummyTexture, playButton, Color.Orange);
+            sb.DrawString(font, "PLAY", new Vector2(playButton.X, playButton.Y), Color.White);
+            
         }
     }
 }
