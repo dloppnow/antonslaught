@@ -9,5 +9,6 @@ namespace AntOnslaught
 {
     class Enemy : MovableObject
     {
+       
     }
 }
