@@ -17,6 +17,7 @@ namespace AntOnslaught
         SpriteFont font;
         Rectangle quitButton;
         Rectangle playButton;
+        Rectangle optionButton;
         bool paused;
         bool quit;
         bool justStarted;
@@ -39,6 +40,7 @@ namespace AntOnslaught
             Viewport vp = sb.GraphicsDevice.Viewport;
             quitButton = new Rectangle(0, vp.Height - 25, 50, 25);
             playButton = new Rectangle(0, 0, 75, 25);
+            optionButton = new Rectangle(0, 50, 80, 25);
         }
 
         public void update(GameTime gameTime, KeyboardState kbState, MouseState mState)
@@ -62,19 +64,29 @@ namespace AntOnslaught
             {
                 if (prevMState.LeftButton == ButtonState.Released && mState.LeftButton == ButtonState.Pressed) //button was just clicked
                 {
+                    //Quit Button
                     if (mState.X >= quitButton.Left && mState.X <= quitButton.Right)
                     {
                         if (mState.Y >= quitButton.Top && mState.Y <= quitButton.Bottom)
-                        { //quit button was pressed
+                        {
                             quit = true;
                         }
                     }
+                    //Play/Resume Button
                     if (mState.X >= playButton.Left && mState.X <= playButton.Right)
                     {
                         if (mState.Y >= playButton.Top && mState.Y <= playButton.Bottom)
-                        { //play/resume button was pressed
+                        {
                             paused = false;
                             justStarted = false;
+                        }
+                    }
+                    //Option Button
+                    if (mState.X >= optionButton.Left && mState.X <= optionButton.Right)
+                    {
+                        if (mState.Y >= optionButton.Top && mState.Y <= optionButton.Bottom)
+                        {
+                            //Nothing yet...
                         }
                     }
                 }
@@ -100,7 +112,8 @@ namespace AntOnslaught
             sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), textColor);
             sb.Draw(dummyTexture, playButton, textBackColor);
             sb.DrawString(font, justStarted ? "PLAY!!" : "RESUME", new Vector2(playButton.X, playButton.Y), textColor);
-            
+            sb.Draw(dummyTexture, optionButton, textBackColor);
+            sb.DrawString(font, "OPTIONS", new Vector2(optionButton.X, optionButton.Y), textColor);
         }
     }
 }
