@@ -40,10 +40,10 @@ namespace AntOnslaught
 
         public void Draw(MovableObject obj)
         {
-            double dir = obj.getDirection();
+            float angle = (float)obj.getDirection();
             Vector2 pos = obj.getPosition(); //position relative to the map
             Rectangle clip = obj.getClip();
-            float angle = (float)(Math.PI * dir / 180.0);
+            //float angle = 0.0f;
             //switch (dir)
             //{
             //    case MovableObject.Direction.DOWN:      angle = (float)Math.PI; break;
