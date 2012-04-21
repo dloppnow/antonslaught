@@ -19,8 +19,10 @@ namespace AntOnslaught
         {
             TextReader infoReader = new StreamReader("infoout.txt");
             String[] infoTokens = infoReader.ReadLine().Split(',');
+            numOfXCells = int.Parse(infoTokens[1]);
+            numOfYCells = int.Parse(infoTokens[2]);
 
-            grid = new Cell[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+            grid = new Cell[numOfXCells, numOfYCells];
 
             TextReader mapReader = new StreamReader("mapout.txt");
             String mapFile = mapReader.ReadToEnd();
@@ -29,7 +31,7 @@ namespace AntOnslaught
             int currentYCoord = 0;
             foreach(String cellStr in mapTokens)
             {
-                if(numOfXCells % currentXCoord == 0)
+                if (currentXCoord == numOfXCells)
                 {
                     currentYCoord++;
                     currentXCoord = 0;
@@ -42,10 +44,12 @@ namespace AntOnslaught
 
             String nextLine = infoReader.ReadLine();
             Boolean EOF = false;
-            while (!infoReader.ReadLine().Equals("tiles"))
+            while (!nextLine.Equals("tiles"))
             {
+                nextLine = infoReader.ReadLine();
             }
-            while (!EOF)
+            nextLine = infoReader.ReadLine();
+            while (nextLine == null)
             {
                 infoTokens = nextLine.Split(',');
                 foreach(Cell c in grid)
@@ -65,13 +69,7 @@ namespace AntOnslaught
                         }
                     }
                 }
-                try{
-
-                    nextLine = infoReader.ReadLine();
-                }
-                catch{
-                    EOF = true;
-                }
+                nextLine = infoReader.ReadLine();
             }
         }
         public Cell getCell(int x, int y)
