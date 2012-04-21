@@ -11,7 +11,7 @@ namespace AntOnslaught
     {
         private SpriteBatch sb;
         private Viewport viewport;
-        private Vector2 viewCenter;
+        private Vector2 viewCenter; //Which cell to center the map on.
 
         public Renderer(SpriteBatch sb, Viewport viewport, Vector2 viewCenter)
         {
@@ -25,7 +25,12 @@ namespace AntOnslaught
             this.viewCenter = viewCenter;
         }
 
-        public void Draw(Drawable obj, Vector2 Pos) 
+        public void Draw(MovableObject obj)
+        {
+
+        }
+
+        public void Draw(Map map)
         {
 
         }
