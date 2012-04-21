@@ -91,12 +91,12 @@ namespace AntOnslaught
             if (keyState.IsKeyDown(Keys.Up))
             {
                 Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
+                rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
             }
             if (keyState.IsKeyDown(Keys.Down))
             {
                 Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
+                rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
             }
 
             // TODO: Add your update logic here
