@@ -113,6 +113,8 @@ namespace AntOnslaught
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+            updateMenuState(gameTime);
+            updateGameState(gameTime);
         }
 
         /// <summary>
@@ -125,9 +127,30 @@ namespace AntOnslaught
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            rend.Draw(map);
+            drawGameState();
+            drawMenuState();
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void updateGameState(GameTime gameTime)
+        {
+            
+        }
+
+        public void drawGameState()
+        {
+            rend.Draw(map);
+        }
+
+        public void updateMenuState(GameTime gameTime)
+        {
+
+        }
+
+        public void drawMenuState()
+        {
+
         }
     }
 }
