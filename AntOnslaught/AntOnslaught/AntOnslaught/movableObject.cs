@@ -10,7 +10,6 @@ namespace AntOnslaught
 {
     abstract class MovableObject
     {
-        Map map;
         public enum Direction
         {
             UP,
