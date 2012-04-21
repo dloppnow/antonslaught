@@ -13,5 +13,7 @@ namespace AntOnslaught
         public void setTexture(Texture2D texture);
         public Color getColor();
         public void setColor(Color color);
+        public Rectangle getClip();
+        public void setClip(Rectangle clip);
     }
 }
