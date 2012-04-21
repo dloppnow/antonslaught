@@ -67,7 +67,7 @@ namespace AntOnslaught
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             map = new Map();
-            map.setTexture(Content.Load<Texture2D>("trunk"));
+            map.setTexture(Content.Load<Texture2D>("tile_sheet"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
 			menu = new Menu(spriteBatch, Content);
 			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
