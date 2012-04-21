@@ -72,12 +72,39 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            
+
+            // TODO: Add your update logic here
+
+            base.Update(gameTime);
+            updateMenuState(gameTime);
+            updateGameState(gameTime);
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            drawGameState();
+            drawMenuState();
+            spriteBatch.End();
+            base.Draw(gameTime);
+        }
+
+        public void updateGameState(GameTime gameTime)
+        {
             foreach (MovableObject obj in movableObjs)
             {
                 if (!obj.updateMovement(gameTime))
                 {
                     obj.setPath(
-                        map.getPath(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().X / 32) , 
+                        map.getPath(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().X / 32),
                         map.getCell((int)obj.getGoal().X / 32, (int)obj.getGoal().X / 32)));
                 }
 
@@ -109,33 +136,6 @@ namespace AntOnslaught
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
             }
-
-            // TODO: Add your update logic here
-
-            base.Update(gameTime);
-            updateMenuState(gameTime);
-            updateGameState(gameTime);
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            drawGameState();
-            drawMenuState();
-            spriteBatch.End();
-            base.Draw(gameTime);
-        }
-
-        public void updateGameState(GameTime gameTime)
-        {
-            
         }
 
         public void drawGameState()
