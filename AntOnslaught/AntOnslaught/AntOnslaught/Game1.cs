@@ -43,6 +43,7 @@ namespace AntOnslaught
             movableObjs = new List<MovableObject>();
             movableObjs.Add(new WorkerAnt(new Vector2(0, 0), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
             base.Initialize();
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -56,6 +57,7 @@ namespace AntOnslaught
             map = new Map();
             map.setTexture(Content.Load<Texture2D>("trunk"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
+            menu = new Menu(spriteBatch, Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -82,10 +84,10 @@ namespace AntOnslaught
             // TODO: Add your update logic here
             base.Update(gameTime);
             updateMenuState(gameTime);
+            if (menu.shouldQuit())
+                this.Exit();
             if (!menu.isPaused())
-            {
                 updateGameState(gameTime);
-            }
         }
 
         /// <summary>
@@ -98,9 +100,15 @@ namespace AntOnslaught
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            drawGameState();
-            
-            drawMenuState();
+
+            if (menu.isPaused())
+            {
+                drawMenuState();
+            }
+            else
+            {
+                drawGameState();
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -129,10 +137,10 @@ namespace AntOnslaught
                 }
             }
             // Allows the game to exit
-            if (keyState.IsKeyDown(Keys.Escape))
-            {
-                this.Exit();
-            }
+            //if (keyState.IsKeyDown(Keys.Escape))
+            //{
+            //    this.Exit();
+            //}
             //Move the map around
             if (keyState.IsKeyDown(Keys.Left))
             {
@@ -172,7 +180,7 @@ namespace AntOnslaught
 
         public void drawMenuState()
         {
-
+            menu.draw();
         }
     }
 }
