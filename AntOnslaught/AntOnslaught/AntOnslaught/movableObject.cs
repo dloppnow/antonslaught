@@ -8,7 +8,7 @@ using System.IO;
 
 namespace AntOnslaught
 {
-    class movableObject
+    class MovableObject
     {
         public enum Direction
         {
