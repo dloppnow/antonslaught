@@ -124,8 +124,8 @@ namespace AntOnslaught
                 if (!obj.updateMovement(gameTime))
                 {
                     obj.setPath(
-                        map.getPath(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().X / 32),
-                        map.getCell((int)obj.getGoal().X / 32, (int)obj.getGoal().X / 32)));
+                        map.getPath(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32),
+                        map.getCell((int)obj.getGoal().X / 32, (int)obj.getGoal().Y / 32)));
                 }
 
             }
