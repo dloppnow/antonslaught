@@ -44,12 +44,12 @@ namespace AntOnslaught
 
             for (int i = 0; i < mapWidth; i++)
             {
-                for (int j = 0; i < mapHeight; j++)
+                for (int j = 0; j < mapHeight; j++)
                 {
                     float x = (viewport.Width / 2) - (tileWidth / 2) - ((i - viewCenter.X) * tileWidth);
                     float y = (viewport.Height / 2) - (tileWidth / 2) - ((j - viewCenter.Y) * tileWidth);
                     Cell cell = map.getCell(i, j);
-                    sb.Draw(cell.texture, new Vector2(x, y), new Rectangle(cell.texCoordX * tileWidth, cell.texCoordY * tileWidth, tileWidth, tileWidth), Color.White);
+                    sb.Draw(map.getTexture(), new Vector2(x, y), new Rectangle(cell.texCoordY * tileWidth, cell.texCoordX * tileWidth, tileWidth, tileWidth), Color.White);
                 }
             }
         }

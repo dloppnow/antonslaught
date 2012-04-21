@@ -10,6 +10,7 @@ namespace AntOnslaught
 {
     class Map : Drawable
     {
+        private Texture2D texture;
         private int numOfYCells = 100;
         private int numOfXCells = 100;
         Cell[,] grid;
@@ -50,7 +51,7 @@ namespace AntOnslaught
 
             }
             nextLine = infoReader.ReadLine();
-            while (nextLine == null)
+            while (nextLine != null)
             {
                 infoTokens = nextLine.Split(',');
                 foreach(Cell c in grid)
@@ -87,12 +88,12 @@ namespace AntOnslaught
         }
         public Texture2D getTexture()
         {
-            throw new NotImplementedException();
+            return texture;
         }
 
         public void setTexture(Texture2D texture)
         {
-            throw new NotImplementedException();
+            this.texture = texture;
         }
 
         public Color getColor()

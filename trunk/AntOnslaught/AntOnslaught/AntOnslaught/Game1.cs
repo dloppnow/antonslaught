@@ -49,6 +49,7 @@ namespace AntOnslaught
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             map = new Map();
+            map.setTexture(Content.Load<Texture2D>("trunk"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
 
             // TODO: use this.Content to load your game content here
