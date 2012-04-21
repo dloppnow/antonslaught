@@ -39,6 +39,10 @@ namespace AntOnslaught
             }
 
         }
+        public Cell getCell(int x, int y)
+        {
+            return grid[x, y];
+        }
         public int getWidth()
         {
             return numOfXCells;
