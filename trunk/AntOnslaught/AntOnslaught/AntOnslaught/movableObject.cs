@@ -32,7 +32,7 @@ namespace AntOnslaught
         {
             this.goal = goal;
         }
-        protected float speed;
+        protected float speed = 0.5f;
         public bool updateMovement(GameTime timer)
         {
             bool canMove = true;
@@ -40,10 +40,10 @@ namespace AntOnslaught
             {
                 if (curPath[0].passable)
                 {
-                    Vector2 normalVec = position - curPath[0].coord;
-                    if (normalVec.Length() < 1)
+                    Vector2 normalVec = curPath[0].coord * 32 -  position;
+                    if (normalVec.Length() == 0)
                     {
-                        position = curPath[0].coord;
+                        position = curPath[0].coord * 32;
                         curPath.RemoveAt(0);
                     }
                     else
