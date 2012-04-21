@@ -95,6 +95,7 @@ namespace AntOnslaught
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             drawGameState();
+            
             drawMenuState();
             spriteBatch.End();
             base.Draw(gameTime);
@@ -155,6 +156,10 @@ namespace AntOnslaught
         public void drawGameState()
         {
             rend.Draw(map);
+            foreach (MovableObject obj in movableObjs)
+            {
+                rend.Draw(obj);
+            }
         }
 
         public void updateMenuState(GameTime gameTime)
