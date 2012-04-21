@@ -8,7 +8,7 @@ namespace AntOnslaught
 {
     class Ant : MovableObject
     {
-        public Ant(Vector2 position, Direction facingDir)
+        public Ant(Vector2 position)
         {
             this.position = position;
         }

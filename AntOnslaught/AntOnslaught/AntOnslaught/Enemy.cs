@@ -9,6 +9,14 @@ namespace AntOnslaught
 {
     class Enemy : MovableObject
     {
-       
+       public Enemy(Vector2 position)
+        {
+            this.position = position;
+        }
+
+        public void update(GameTime gameTime)
+        {
+
+        }
     }
 }
