@@ -40,21 +40,21 @@ namespace AntOnslaught
 
         public void Draw(MovableObject obj)
         {
-            MovableObject.Direction dir = obj.getDirection();
+            double dir = obj.getDirection();
             Vector2 pos = obj.getPosition(); //position relative to the map
             Rectangle clip = obj.getClip();
-            float angle = 0.0f;
-            switch (dir)
-            {
-                case MovableObject.Direction.DOWN:      angle = (float)Math.PI; break;
-                case MovableObject.Direction.DOWNRIGHT:  angle = (float)((3 * Math.PI) / 4); break;
-                case MovableObject.Direction.DOWNLEFT: angle = (float)((5 * Math.PI) / 4); break;
-                case MovableObject.Direction.RIGHT:      angle = (float)((Math.PI) / 2); break;
-                case MovableObject.Direction.LEFT:     angle = (float)((3 * Math.PI) / 2); break;
-                case MovableObject.Direction.UP:        angle = 0.0f; break;
-                case MovableObject.Direction.UPRIGHT:    angle = (float)((Math.PI) / 4); break;
-                case MovableObject.Direction.UPLEFT:   angle = (float)((7 * Math.PI) / 4); break;
-            }
+            float angle = (float)(Math.PI * dir / 180.0);
+            //switch (dir)
+            //{
+            //    case MovableObject.Direction.DOWN:      angle = (float)Math.PI; break;
+            //    case MovableObject.Direction.DOWNRIGHT:  angle = (float)((3 * Math.PI) / 4); break;
+            //    case MovableObject.Direction.DOWNLEFT: angle = (float)((5 * Math.PI) / 4); break;
+            //    case MovableObject.Direction.RIGHT:      angle = (float)((Math.PI) / 2); break;
+            //    case MovableObject.Direction.LEFT:     angle = (float)((3 * Math.PI) / 2); break;
+            //    case MovableObject.Direction.UP:        angle = 0.0f; break;
+            //    case MovableObject.Direction.UPRIGHT:    angle = (float)((Math.PI) / 4); break;
+            //    case MovableObject.Direction.UPLEFT:   angle = (float)((7 * Math.PI) / 4); break;
+            //}
             sb.Begin();
             float x = (viewport.Width / 2) - (tileWidth / 8) + (pos.X - (viewCenter.X * clip.Width));
             float y = (viewport.Height / 2) - (tileWidth / 8) + (pos.Y - (viewCenter.Y * clip.Height));
