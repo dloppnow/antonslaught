@@ -9,6 +9,9 @@ namespace AntOnslaught
 {
     class Map : Drawable
     {
+        List<Cell> openList;
+        List<Cell> closedList;
+
         struct Cell
         {
             Texture2D texture;
@@ -34,5 +37,12 @@ namespace AntOnslaught
             throw new NotImplementedException();
         }
 
+        public List<Cell> getPath(Cell start, Cell end)
+        {
+            openList.Clear();
+            closedList.Clear();
+            Cell startNode = start;
+            Cell endNode = end;
+        }
     }
 }
