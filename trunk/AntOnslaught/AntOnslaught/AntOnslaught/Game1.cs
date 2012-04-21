@@ -79,11 +79,23 @@ namespace AntOnslaught
             //Move the map around
             if (keyState.IsKeyDown(Keys.Left))
             {
-                
+                Vector2 vec = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
             }
             if (keyState.IsKeyDown(Keys.Right))
             {
-
+                Vector2 vec = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
+            }
+            if (keyState.IsKeyDown(Keys.Up))
+            {
+                Vector2 vec = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
+            }
+            if (keyState.IsKeyDown(Keys.Down))
+            {
+                Vector2 vec = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
             }
 
             // TODO: Add your update logic here
