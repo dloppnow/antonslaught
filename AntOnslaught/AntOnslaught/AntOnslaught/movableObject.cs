@@ -65,9 +65,9 @@ namespace AntOnslaught
                     if (normalVec.Length() < 3)
                     {
                         position = curPath[0].coord * 32;
-                        updateDirection();
                         currentCell = curPath[0];
                         curPath.RemoveAt(0);
+                        updateDirection();
                     }
                     else
                     {
@@ -95,19 +95,22 @@ namespace AntOnslaught
             updateDirection();
         }
 
-        public double AngleBetween_1(Vector2 a, Vector2 b)
+        //public double AngleBetween_1(Vector2 a, Vector2 b)
+        //{
+        //    var dotProd = Vector2.Dot(a, b);
+        //    var lenProd = a.Length() * b.Length();
+        //    var divOperation = dotProd / lenProd;
+        //    return Math.Acos(divOperation) * (180.0 / Math.PI);
+        //}
+        private double Angle(Vector2 start, Vector2 end)
         {
-            var dotProd = Vector2.Dot(a, b);
-            var lenProd = a.Length() * b.Length();
-            var divOperation = dotProd / lenProd;
-            return Math.Acos(divOperation) * (180.0 / Math.PI);
+            return Math.Atan2(start.Y - end.Y, end.X - start.X);
         }
-
         private void updateDirection()
         {
             if (curPath.Count > 0)
             {
-                direction = AngleBetween_1(position, curPath[0].coord * 32);
+                direction = Angle(position, curPath[0].coord * 32);
             }
         }
         public abstract Texture2D getTexture();
