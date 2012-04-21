@@ -18,9 +18,9 @@ namespace AntOnslaught
             LEFT,
             RIGHT
         }
-        private Vector2 position;
-        private float speed;
-        private void move(Direction direction)
+        protected Vector2 position;
+        protected float speed;
+        protected void move(Direction direction)
         {
             if (direction == Direction.UP)
             {
