@@ -14,7 +14,7 @@ namespace AntOnslaught
         Cell[,] grid;
         List<Cell> openList;
         List<Cell> closedList;
-        struct Cell
+        public struct Cell
         {
             public Texture2D texture;
             public Boolean passable;

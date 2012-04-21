@@ -41,8 +41,8 @@ namespace AntOnslaught
                 {
                     float x = (viewport.Width / 2) - (16) - ((i - viewCenter.X) * 32);
                     float y = (viewport.Height / 2) - (16) - ((j - viewCenter.Y) * 32);
-                    Vector2 pos = new Vector2(x, y);
-                    
+                    Map.Cell cell = map.getCell(i, j);
+                    sb.Draw(cell.texture, new Vector2(x, y), Color.White);
                 }
             }
         }
