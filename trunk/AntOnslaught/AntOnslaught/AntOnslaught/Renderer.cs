@@ -9,9 +9,12 @@ namespace AntOnslaught
 {
     class Renderer
     {
-        public Renderer(SpriteBatch sb)
+        private SpriteBatch sb;
+        private Viewport viewport;
+        public Renderer(SpriteBatch sb, Viewport viewport)
         {
-
+            this.sb = sb;
+            this.viewport = viewport;
         }
 
         public void Draw(Drawable obj, Vector2 Pos) 
