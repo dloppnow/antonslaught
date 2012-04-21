@@ -34,6 +34,9 @@ namespace AntOnslaught
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.ApplyChanges();
             sizeOfScreen.Y = graphics.PreferredBackBufferHeight;
             sizeOfScreen.X = graphics.PreferredBackBufferWidth;
             Content.RootDirectory = "Content";
