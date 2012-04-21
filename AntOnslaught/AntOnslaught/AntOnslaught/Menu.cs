@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 namespace AntOnslaught
 {
@@ -13,12 +14,14 @@ namespace AntOnslaught
         SpriteBatch sb;
         KeyboardState prevKBState;
         MouseState prevMState;
+        SpriteFont font;
         bool paused;
 
-        public Menu(SpriteBatch sb)
+        public Menu(SpriteBatch sb, ContentManager content)
         {
             this.sb = sb;
             paused = false;
+            content.Load<SpriteFont>("Font");
         }
 
         public void update(GameTime gameTime, KeyboardState kbState, MouseState mState)
