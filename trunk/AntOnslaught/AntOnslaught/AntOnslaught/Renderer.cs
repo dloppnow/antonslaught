@@ -12,6 +12,9 @@ namespace AntOnslaught
         private SpriteBatch sb;
         private Viewport viewport;
         private Vector2 viewCenter; //Which cell to center the map on.
+        private int tileWidth = 32;
+        private int mapWidth;
+        private int mapHeight;
 
         public Renderer(SpriteBatch sb, Viewport viewport, Vector2 viewCenter)
         {
@@ -30,6 +33,11 @@ namespace AntOnslaught
             return viewCenter;
         }
 
+        public void Draw(Drawable obj, Vector2 pos)
+        {
+            sb.Draw(obj.getTexture(), pos, obj.getClip(), obj.getColor());
+        }
+
         public void Draw(MovableObject obj)
         {
             Vector2 pos = obj.getPosition();
@@ -38,9 +46,9 @@ namespace AntOnslaught
 
         public void Draw(Map map)
         {
-            int tileWidth = 32;
-            int mapWidth = map.getWidth();
-            int mapHeight = map.getHeight();
+            tileWidth = 32;
+            mapWidth = map.getWidth();
+            mapHeight = map.getHeight();
 
             for (int i = 0; i < mapWidth; i++)
             {

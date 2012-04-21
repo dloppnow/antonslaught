@@ -15,6 +15,7 @@ namespace AntOnslaught
         int spriteHeight;
         Texture2D texture;
         int timeSinceLastUpdate;
+        int updateFreq;
         Color color;
         Rectangle clip;
 
@@ -23,6 +24,7 @@ namespace AntOnslaught
             this.texture = texture;
             this.spriteWidth = spriteWidth;
             this.spriteHeight = spriteHeight;
+            this.updateFreq = updateFreq;
             this.color = Color.White;
 
             int textWidth = this.texture.Bounds.Width;
@@ -35,12 +37,22 @@ namespace AntOnslaught
 
         public void update(GameTime gameTime)
         {
-            
+            timeSinceLastUpdate += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeSinceLastUpdate >= updateFreq)
+            {
+                timeSinceLastUpdate = 0;
+                currFrame++;
+                if (currFrame >= numFrames)
+                {
+                    currFrame = 0;
+                }
+                setClip(currFrame);
+            }
         }
 
         public void setClip(int frameNum)
         {
-            clip = new Rectangle(currFrame * spriteWidth, currFrame * spriteHeight, spriteWidth, spriteHeight);
+            clip = new Rectangle(currFrame * spriteWidth, 0, spriteWidth, spriteHeight);
         }
 
         #region Drawable Members

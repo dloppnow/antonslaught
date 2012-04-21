@@ -18,6 +18,7 @@ namespace AntOnslaught
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteAnimation sa;
         Renderer rend;
         Map map;
 
@@ -51,6 +52,7 @@ namespace AntOnslaught
             map = new Map();
             map.setTexture(Content.Load<Texture2D>("trunk"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
+            sa = new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100);
 
             // TODO: use this.Content to load your game content here
         }
@@ -102,6 +104,7 @@ namespace AntOnslaught
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+            sa.update(gameTime);
         }
 
         /// <summary>
@@ -115,6 +118,7 @@ namespace AntOnslaught
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             rend.Draw(map);
+            rend.Draw(sa, new Vector2(0, 0));
             spriteBatch.End();
             base.Draw(gameTime);
         }
