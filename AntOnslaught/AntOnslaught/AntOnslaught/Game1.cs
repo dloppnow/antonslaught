@@ -18,6 +18,8 @@ namespace AntOnslaught
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Renderer rend;
+        Map map;
 
         public Game1()
         {
@@ -46,6 +48,8 @@ namespace AntOnslaught
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            map = new Map();
+            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
 
             // TODO: use this.Content to load your game content here
         }
@@ -66,9 +70,21 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState keyState = Keyboard.GetState();
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (keyState.IsKeyDown(Keys.Escape))
+            {
                 this.Exit();
+            }
+            //Move the map around
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                
+            }
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+
+            }
 
             // TODO: Add your update logic here
 
@@ -84,7 +100,9 @@ namespace AntOnslaught
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            rend.Draw(map);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

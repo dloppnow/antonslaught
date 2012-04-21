@@ -25,6 +25,11 @@ namespace AntOnslaught
             this.viewCenter = viewCenter;
         }
 
+        public Vector2 getViewCenter()
+        {
+            return viewCenter;
+        }
+
         public void Draw(MovableObject obj)
         {
             
