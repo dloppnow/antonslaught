@@ -9,11 +9,11 @@ namespace AntOnslaught
 {
     interface Drawable
     {
-        public Texture2D getTexture();
-        public void setTexture(Texture2D texture);
-        public Color getColor();
-        public void setColor(Color color);
-        public Rectangle getClip();
-        public void setClip(Rectangle clip);
+        Texture2D getTexture();
+        void setTexture(Texture2D texture);
+        Color getColor();
+        void setColor(Color color);
+        Rectangle getClip();
+        void setClip(Rectangle clip);
     }
 }
