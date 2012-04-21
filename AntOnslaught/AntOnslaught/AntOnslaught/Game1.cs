@@ -82,7 +82,10 @@ namespace AntOnslaught
             // TODO: Add your update logic here
             base.Update(gameTime);
             updateMenuState(gameTime);
-            updateGameState(gameTime);
+            if (!menu.isPaused())
+            {
+                updateGameState(gameTime);
+            }
         }
 
         /// <summary>
@@ -164,7 +167,7 @@ namespace AntOnslaught
 
         public void updateMenuState(GameTime gameTime)
         {
-
+            menu.update(gameTime, keyState, mouseState);
         }
 
         public void drawMenuState()
