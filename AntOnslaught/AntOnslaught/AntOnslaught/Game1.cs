@@ -145,11 +145,6 @@ namespace AntOnslaught
                     }
                 }
             }
-            // Allows the game to exit
-            //if (keyState.IsKeyDown(Keys.Escape))
-            //{
-            //    this.Exit();
-            //}
             //Move the map around
             if (keyState.IsKeyDown(Keys.Left))
             {
