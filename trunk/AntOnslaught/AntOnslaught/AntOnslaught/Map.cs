@@ -83,39 +83,47 @@ namespace AntOnslaught
 			}
             return path;
         }
-        private Boolean calculatePath(Cell startCell, Cell endCell)
+        private Cell lowestScoreInOpen()
         {
-            Cell lowestCost = new Cell();
-            lowestCost.g = 10000;
-            lowestCost.f = 10000;
-            lowestCost.h = 10000;
+            Cell lowestScoreCell = new Cell();
+            lowestScoreCell.f = 1000000;
             foreach (Cell c in openList)
             {
-                if ((lowestCost.g + lowestCost.h) > (c.g + c.h))
+                if (c.f < lowestScoreCell.f)
                 {
-                    lowestCost = c;
+                    lowestScoreCell = c;
                 }
             }
-            removeFromOpenList(lowestCost);
-            closedList.Add(lowestCost);
-
-            if (lowestCost.Equals(endCell))
-            {
-                return true;
-            }
-            List<Cell> adjacentCells = getAdjacentCells(lowestCost);
-            foreach (Cell c in adjacentCells)
-            {
-                if (c.passable)
-                {
-
-                }
-            }
-            return true;
+            return lowestScoreCell;
         }
-        private void removeFromOpenList(Cell c)
+        private Boolean calculatePath(Cell startCell, Cell endCell)
         {
-            openList.Remove(c);
+
+            while (openList.Count() > 0)
+            {
+                Cell currentNode = lowestScoreInOpen();
+                if(currentNode.Equals(endCell)
+                {
+                    //reconstruct Path
+                }
+                else
+                {
+                    openList.Remove(currentNode);
+                    closedList.Add(currentNode);
+                    List<Cell> adjacentCells = getAdjacentCells(currentNode);
+                    for(int i = 0; i < adjacentCells.Count; i++)
+                    {
+                        if(closedList.Contains(adjacentCells[i]))
+                        {
+                            adjacentCells[i].g = currentNode.g + distanceBetween(currentNode, adjacentCells[i]);
+                        }
+                    }
+                }
+            }
+        }
+        private int distanceBetween(Cell c1, Cell c2)
+        {
+            return Math.Abs(c1.xCoord - c2.xCoord) + Math.Abs(c1.yCoord - c2.yCoord);
         }
         private List<Cell> getAdjacentCells(Cell c)
         {
