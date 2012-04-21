@@ -17,7 +17,7 @@ namespace AntOnslaught
         //    LEFT,
         //    RIGHT
         //}
-        protected List<Cell> curPath;
+        protected List<Cell> curPath = new List<Cell>();
         protected Vector2 goal;
         protected Vector2 position;
         public Vector2 getPosition()
@@ -62,6 +62,7 @@ namespace AntOnslaught
         public void setPath(List<Cell> path)
         {
             curPath = path;
+            curPath.Reverse();
         }
         //protected void move(Direction direction)
         //{
