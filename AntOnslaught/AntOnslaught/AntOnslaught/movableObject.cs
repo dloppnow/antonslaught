@@ -8,7 +8,7 @@ using System.IO;
 
 namespace AntOnslaught
 {
-    abstract class MovableObject
+    abstract class MovableObject : Drawable
     {
         public enum Direction
         {
@@ -18,6 +18,10 @@ namespace AntOnslaught
             RIGHT
         }
         protected Vector2 position;
+        public Vector2 getPosition()
+        {
+            return position;
+        }
         protected float speed;
         protected void move(Direction direction)
         {
@@ -42,5 +46,11 @@ namespace AntOnslaught
         {
              
         }
+        public abstract Texture2D getTexture();
+        public abstract void setTexture(Texture2D texture);
+        public abstract Color getColor();
+        public abstract void setColor(Color color);
+        public abstract Rectangle getClip();
+        public abstract void setClip(Rectangle clip);
     }
 }

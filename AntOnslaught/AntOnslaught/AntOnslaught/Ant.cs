@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AntOnslaught
 {
-    abstract class Ant : MovableObject, Drawable
+    abstract class Ant : MovableObject
     {
         private Texture2D texture;
         private Color color;
@@ -25,32 +25,32 @@ namespace AntOnslaught
 
         }
 
-        public Texture2D getTexture()
+        public override Texture2D getTexture()
         {
             return texture;
         }
 
-        public void setTexture(Texture2D texture)
+        public override void setTexture(Texture2D texture)
         {
             this.texture = texture;
         }
 
-        public Color getColor()
+        public override Color getColor()
         {
             return color;
         }
 
-        public void setColor(Color color)
+        public override void setColor(Color color)
         {
             this.color = color;
         }
 
-        public Rectangle getClip()
+        public override Rectangle getClip()
         {
             return clip;
         }
 
-        public void setClip(Rectangle clip)
+        public override void setClip(Rectangle clip)
         {
             this.clip = clip;
         }
