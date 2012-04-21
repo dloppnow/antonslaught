@@ -138,10 +138,10 @@ namespace AntOnslaught
                 {
                     foreach (Ant ant in movableObjs)
                     {
-                        ant.setGoal(new Vector2(mouseState.X + currentMapLoc.X, mouseState.Y + currentMapLoc.Y));
+                        ant.setGoal(new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y));
                         ant.setPath(
-                            map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().X / 32),
-                            map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().X / 32)));
+                            map.getPath(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32),
+                            map.getCell((int)ant.getGoal().X / 32, (int)ant.getGoal().Y / 32)));
                     }
                 }
             }
@@ -155,25 +155,25 @@ namespace AntOnslaught
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
-                currentMapLoc.X -= 32;
+                currentMapLoc.X += 32;
             }
             if (keyState.IsKeyDown(Keys.Right))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
-                currentMapLoc.X += 32;
+                currentMapLoc.X -= 32;
             }
             if (keyState.IsKeyDown(Keys.Up))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
-                currentMapLoc.Y -= 32;
+                currentMapLoc.Y += 32;
             }
             if (keyState.IsKeyDown(Keys.Down))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
-                currentMapLoc.Y += 32;
+                currentMapLoc.Y -= 32;
             }
         }
 
