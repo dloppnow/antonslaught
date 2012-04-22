@@ -167,10 +167,14 @@ namespace AntOnslaught
                     }
                     obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
                 }
-                //if (!obj.hasPath() && obj.getFoodCell != null && obj is WorkerAnt)
-                //{
-
-                //}
+                if (!obj.hasPath() && obj.getFoodCell() != null && obj is WorkerAnt)
+                {
+                    if (obj.getCurrentCell() == null)
+                    {
+                        obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
+                    }
+                    obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
+                }
                 if (!obj.updateMovement(gameTime))
                 {
                     if (obj.getGoalCell().passable)
