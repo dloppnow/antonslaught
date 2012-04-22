@@ -116,6 +116,7 @@ namespace AntOnslaught
             soldierButton = new Rectangle(272, GraphicsDevice.Viewport.Height - 37, 250, 25);
             resourceBox = new Rectangle(534, GraphicsDevice.Viewport.Height - 37, 250, 25);
             // TODO: use this.Content to load your game content here
+            audioManager.startTheme();
         }
 
         /// <summary>
@@ -141,6 +142,7 @@ namespace AntOnslaught
             }
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
+            audioManager.update(gameTime);
 
             // TODO: Add your update logic here
             base.Update(gameTime);
