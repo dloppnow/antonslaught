@@ -246,7 +246,7 @@ namespace AntOnslaught
                 {
                     if (!obj.hasPath())
                     {
-                        obj.setGoalCell(map.getRandomCell(5, obj.getCurrentCell());
+                        obj.setGoalCell(map.getRandomCell(5, obj.getCurrentCell()));
                         obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                     }
                 }
