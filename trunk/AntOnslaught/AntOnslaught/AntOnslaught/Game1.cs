@@ -33,6 +33,8 @@ namespace AntOnslaught
         List<Ant> selectedAnts;
         //GUI members
         Rectangle background;
+        Rectangle workerButton;
+        Rectangle soldierButton;
 
         public Game1()
         {
