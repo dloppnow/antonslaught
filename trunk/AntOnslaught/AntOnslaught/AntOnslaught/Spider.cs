@@ -13,6 +13,12 @@ namespace AntOnslaught
             : base(position, sAnimation)
         {
             speed = defaultSpeed;
+            //Set combat variables
+            aggroRange = 250;
+            attackRange = 50;
+            damage = 5;
+            attackTimer = 2000;
+            attackInterval = 250;
         }
     }
 }
