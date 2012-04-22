@@ -390,7 +390,9 @@ namespace AntOnslaught
                     if (i < cells.Count)
                     { //found good spot, make a new ant
                         Ant a = new WorkerAnt(new Vector2(cells[i].coord.X * 32, cells[i].coord.Y * 32), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
-                        a.setGoalCell(
+                        a.setGoalCell(workerWaypoint);
+                        a.setCurrentCell(cells[i]);
+                        a.setPath(map.getPath(a.getGoalCell(), a.getCurrentCell()));
                     }
                     else
                     { //no good spot to spawn new ant.
