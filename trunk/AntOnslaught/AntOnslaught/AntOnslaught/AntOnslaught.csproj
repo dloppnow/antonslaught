@@ -123,6 +123,7 @@
     <Compile Include="QueenAnt.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="SolderAnt.cs" />
+    <Compile Include="Spider.cs" />
     <Compile Include="SpriteAnimation.cs" />
     <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
