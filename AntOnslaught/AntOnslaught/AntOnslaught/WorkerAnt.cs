@@ -8,7 +8,7 @@ namespace AntOnslaught
 {
     class WorkerAnt : Ant
     {
-        float defaultSpeed = 0.5f;
+        float defaultSpeed = 0.25f;
         public WorkerAnt(Vector2 position, SpriteAnimation sAnimation) : base(position, sAnimation)
         {
             speed = defaultSpeed;

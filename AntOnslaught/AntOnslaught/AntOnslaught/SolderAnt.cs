@@ -8,7 +8,7 @@ namespace AntOnslaught
 {
     class SolderAnt : Ant
     {
-        float defaultSpeed = 0.7f;
+        float defaultSpeed = 0.35f;
         public SolderAnt(Vector2 position, SpriteAnimation sAnimation): base(position, sAnimation)
         {
             speed = defaultSpeed;
