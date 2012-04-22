@@ -116,7 +116,7 @@ namespace AntOnslaught
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("crumbs"));
                     c.food.setAmountOfFoodLeft(30);
-                    c.food.setClip(new Rectangle(0, 0, 32, 32));
+                    //c.food.setClip(new Rectangle(0, 0, 32, 32));
                     //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
@@ -128,7 +128,7 @@ namespace AntOnslaught
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("cheese"));
                     c.food.setAmountOfFoodLeft(50);
-                    c.food.setClip(new Rectangle(0, 0, 32, 32));
+                    //c.food.setClip(new Rectangle(0, 0, 32, 32));
                     //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
