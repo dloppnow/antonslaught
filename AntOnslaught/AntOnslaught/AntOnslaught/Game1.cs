@@ -99,10 +99,10 @@ namespace AntOnslaught
             soldierWaypoint = map.getSoldierWaypoint();
             workerWaypoint = map.getWorkerWaypoint();
             map.setTexture(Content.Load<Texture2D>("tile_sheet"));
-            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0), Content);
+            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(20, 40), Content);
             audioManager = new AudioManager(Content);
 			menu = new Menu(spriteBatch, Content);
-            currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
+            currentMapLoc = sizeOfScreen / 2 - rend.getViewCenter() * 32;
             currentMapLoc.X -= 16;
             currentMapLoc.Y -= 16;
 
