@@ -18,14 +18,26 @@ namespace AntOnslaught
         Rectangle quitButton;
         Rectangle playButton;
         Rectangle optionButton;
+        Rectangle howtoPlayButton;
+        Rectangle aboutUsButton;
+        Rectangle header;
         bool paused;
         bool quit;
         bool justStarted;
         Color backgroundColor = Color.Black;
         Color textColor = Color.White;
         Color textBackColor = Color.Orange;
+        TextState textState = TextState.NONE;
 
         Texture2D dummyTexture;
+
+        private enum TextState
+        {
+            NONE,
+            OPTION,
+            HOWTO,
+            ABOUT
+        }
 
         public Menu(SpriteBatch sb, ContentManager content)
         {
@@ -38,9 +50,12 @@ namespace AntOnslaught
             justStarted = true;
             font = content.Load<SpriteFont>("Font");
             Viewport vp = sb.GraphicsDevice.Viewport;
-            quitButton = new Rectangle(0, vp.Height - 25, 50, 25);
-            playButton = new Rectangle(0, 0, 75, 25);
-            optionButton = new Rectangle(0, 50, 80, 25);
+            header = new Rectangle(sb.GraphicsDevice.Viewport.X / 2, sb.GraphicsDevice.Viewport.Y / 2, 0, 0);
+            playButton =        new Rectangle(0, 30, 125, 25);
+            optionButton =      new Rectangle(0, 60, 125, 25);
+            howtoPlayButton =   new Rectangle(0, 90, 125, 25);
+            aboutUsButton =     new Rectangle(0, 120, 125, 25);
+            quitButton =        new Rectangle(0, 150, 125, 25);
         }
 
         public void update(GameTime gameTime, KeyboardState kbState, MouseState mState)
@@ -86,7 +101,44 @@ namespace AntOnslaught
                     {
                         if (mState.Y >= optionButton.Top && mState.Y <= optionButton.Bottom)
                         {
-                            //Nothing yet...
+                            if (textState == TextState.OPTION)
+                            {
+                                textState = TextState.NONE;
+                            }
+                            else
+                            {
+                                textState = TextState.OPTION;
+                            }
+                        }
+                    }
+                    //How to play Button
+                    if (mState.X >= howtoPlayButton.Left && mState.X <= howtoPlayButton.Right)
+                    {
+                        if (mState.Y >= howtoPlayButton.Top && mState.Y <= howtoPlayButton.Bottom)
+                        {
+                            if (textState == TextState.HOWTO)
+                            {
+                                textState = TextState.NONE;
+                            }
+                            else
+                            {
+                                textState = TextState.HOWTO;
+                            }
+                        }
+                    }
+                    //About us Button
+                    if (mState.X >= aboutUsButton.Left && mState.X <= aboutUsButton.Right)
+                    {
+                        if (mState.Y >= aboutUsButton.Top && mState.Y <= aboutUsButton.Bottom)
+                        {
+                            if (textState == TextState.ABOUT)
+                            {
+                                textState = TextState.NONE;
+                            }
+                            else
+                            {
+                                textState = TextState.ABOUT;
+                            }
                         }
                     }
                 }
@@ -109,12 +161,19 @@ namespace AntOnslaught
         {
             sb.Begin();
             sb.GraphicsDevice.Clear(backgroundColor);
+            //Draw Header
+            //Draw the buttons.
             sb.Draw(dummyTexture, quitButton, textBackColor);
             sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), textColor);
             sb.Draw(dummyTexture, playButton, textBackColor);
-            sb.DrawString(font, justStarted ? "PLAY!!" : "RESUME", new Vector2(playButton.X, playButton.Y), textColor);
+            sb.DrawString(font, justStarted ? "PLAY" : "RESUME", new Vector2(playButton.X, playButton.Y), textColor);
             sb.Draw(dummyTexture, optionButton, textBackColor);
             sb.DrawString(font, "OPTIONS", new Vector2(optionButton.X, optionButton.Y), textColor);
+            sb.Draw(dummyTexture, howtoPlayButton, textBackColor);
+            sb.DrawString(font, "HOW TO PLAY", new Vector2(howtoPlayButton.X, howtoPlayButton.Y), textColor);
+            sb.Draw(dummyTexture, aboutUsButton, textBackColor);
+            sb.DrawString(font, "ABOUT US", new Vector2(aboutUsButton.X, aboutUsButton.Y), textColor);
+            //Draw other text
             sb.End();
         }
     }

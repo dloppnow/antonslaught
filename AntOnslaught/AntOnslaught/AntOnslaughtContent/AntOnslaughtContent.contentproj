@@ -103,13 +103,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tile_sheet.png">
-      <Name>tile_sheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ant_death_1.mp3">
       <Name>ant_death_1</Name>
       <Importer>Mp3Importer</Importer>
@@ -175,6 +168,13 @@
   <ItemGroup>
     <Compile Include="cheese.png">
       <Name>cheese</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="tile_sheet.png">
+      <Name>tile_sheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
