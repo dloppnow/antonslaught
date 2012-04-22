@@ -98,8 +98,8 @@ namespace AntOnslaught
             dummyTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             dummyTexture.SetData(new Color[] { Color.White });
             background = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, GraphicsDevice.Viewport.Width, 50);
-            workerButton = new Rectangle(0, GraphicsDevice.Viewport.Height - 37, 150, 25);
-            soldierButton = new Rectangle(150, GraphicsDevice.Viewport.Height - 37, 150, 25);
+            workerButton = new Rectangle(12, GraphicsDevice.Viewport.Height - 37, 150, 25);
+            soldierButton = new Rectangle(174, GraphicsDevice.Viewport.Height - 37, 150, 25);
             // TODO: use this.Content to load your game content here
         }
 
