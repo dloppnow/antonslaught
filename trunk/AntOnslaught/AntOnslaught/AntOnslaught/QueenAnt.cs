@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace AntOnslaught
 {
-    class WorkerAnt : Ant
+    class QueenAnt: Ant
     {
         float defaultSpeed = 0.5f;
-        public WorkerAnt(Vector2 position, SpriteAnimation sAnimation) : base(position, sAnimation)
+        public QueenAnt(Vector2 position, SpriteAnimation sAnimation) : base(position, sAnimation)
         {
             speed = defaultSpeed;
         }

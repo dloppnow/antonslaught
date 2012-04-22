@@ -118,7 +118,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="QueenAnt.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="SolderAnt.cs" />
     <Compile Include="SpriteAnimation.cs" />
     <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
