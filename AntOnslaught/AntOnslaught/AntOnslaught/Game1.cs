@@ -97,7 +97,7 @@ namespace AntOnslaught
             font = Content.Load<SpriteFont>("Font");
             dummyTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             dummyTexture.SetData(new Color[] { Color.White });
-            background = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, 150, 50);
+            background = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, GraphicsDevice.Viewport.Width, 50);
             workerButton = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, 150, 50);
             soldierButton = new Rectangle();
             // TODO: use this.Content to load your game content here
@@ -340,10 +340,24 @@ namespace AntOnslaught
 
         public void drawGUI()
         {
+            int numWorkers = 0;
+            int numSoldiers = 0;
+            foreach (MovableObject obj in movableObjs)
+            {
+                if (obj is WorkerAnt)
+                {
+                    numWorkers++;
+                }
+                else if (obj is SolderAnt)
+                {
+                    numSoldiers++;
+                }
+            }
             spriteBatch.Begin();
             spriteBatch.Draw(dummyTexture, background, Color.Black);
-            spriteBatch.Draw(dummyTexture, background, Color.Orange);
-            spriteBatch.Draw(dummyTexture, background, Color.Orange);
+            spriteBatch.Draw(dummyTexture, workerButton, Color.Orange);
+            spriteBatch.DrawString(font, "WORKER: " + numWorkers, new Vector2(workerButton.X, workerButton.Y), Color.White);
+            spriteBatch.Draw(dummyTexture, soldierButton, Color.Orange);
             spriteBatch.End();
         }
     }
