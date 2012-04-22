@@ -21,6 +21,7 @@ namespace AntOnslaught
         Rectangle howtoPlayButton;
         Rectangle aboutUsButton;
         Rectangle header;
+        Rectangle textBackground;
         bool paused;
         bool quit;
         bool justStarted;
@@ -51,6 +52,7 @@ namespace AntOnslaught
             font = content.Load<SpriteFont>("Font");
             Viewport vp = sb.GraphicsDevice.Viewport;
             header =            new Rectangle(vp.Width / 2 - 74, 0, 148, 25);
+            textBackground =    new Rectangle(130, 30, vp.Width - 140, vp.Height - 40);
             playButton =        new Rectangle(0, 30, 125, 25);
             optionButton =      new Rectangle(0, 60, 125, 25);
             howtoPlayButton =   new Rectangle(0, 90, 125, 25);
@@ -188,24 +190,31 @@ namespace AntOnslaught
 
         private void drawNone()
         {
-
+            sb.Draw(dummyTexture, textBackground, textBackColor);
+            sb.DrawString(font, "Welcome to Ant Onslaught!", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
         }
 
         private void drawAbout()
         {
-
+            sb.Draw(dummyTexture, textBackground, textBackColor);
+            sb.DrawString(font, "Ant Onslaught is a game made in 72 hours for the Ludum Dare. (ludumdare.com)", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
+            sb.DrawString(font, "It was created by: Evad, Laremere, PirateCove, and ebuch.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 30), textColor);
+            sb.DrawString(font, "Programmers: Evad and PrirateCove.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 60), textColor);
+            sb.DrawString(font, "Map assets: Laremere.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 90), textColor);
+            sb.DrawString(font, "Character sprites and audio: ebuch.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 120), textColor);
         }
 
         private void drawHow()
         {
-
+            sb.Draw(dummyTexture, textBackground, textBackColor);
+            sb.DrawString(font, "You think we had time to do options? HAHAHAHAHAHA", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
         }
 
         private void drawOption()
         {
-            Rectangle rect = new Rectangle(155, 30, 100, 25);
-            sb.Draw(dummyTexture, rect, textBackColor);
-            sb.DrawString(font, "ABOUT US", new Vector2(rect.X, rect.Y), textColor);
+            sb.Draw(dummyTexture, textBackground, textBackColor);
+            sb.DrawString(font, "You think we had time to do options?", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
+            sb.DrawString(font, "HAHAHAHAHAHA!!!", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 30), textColor);
         }
     }
 }
