@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.IO;
+using Microsoft.Xna.Framework.Content;
 
 namespace AntOnslaught
 {
@@ -16,7 +17,8 @@ namespace AntOnslaught
         Cell[,] grid;
         List<Cell> openList = new List<Cell>();
         List<Cell> closedList = new List<Cell>();
-        public Map()
+        List<String> entities = new List<String>();
+        public Map(ContentManager content)
         {
             TextReader infoReader = new StreamReader("infoout.txt");
             String[] infoTokens = infoReader.ReadLine().Split(',');
@@ -47,8 +49,24 @@ namespace AntOnslaught
             Boolean EOF = false;
             while (!nextLine.Equals("tiles"))
             {
+                infoTokens = nextLine.Split(',');
+                List<MovableObject> newObjects = new List<MovableObject>(); ;
+                if (infoTokens[0].Equals("Worker"))
+                {
+                    newObjects.Add(new WorkerAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32), 
+                        new SpriteAnimation(content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
+                }
+                else if (infoTokens[0].Equals("Soldier"))
+                {
+                    newObjects.Add(new SolderAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32),
+                        new SpriteAnimation(content.Load<Texture2D>("soldier_sprite_sheet"), 32, 32, 100)));
+                }
+                else if (infoTokens[0].Equals("Queen"))
+                {
+                    newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32),
+                        new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
                 nextLine = infoReader.ReadLine();
-
             }
             nextLine = infoReader.ReadLine();
             while (nextLine != null)
