@@ -75,9 +75,9 @@ namespace AntOnslaught
             mapWidth = map.getWidth();
             mapHeight = map.getHeight();
 
-            for (int i = 0; i < mapWidth; i++)
+            for (int i = mapWidth - 1; i >= 0; i--)
             {
-                for (int j = 0; j < mapHeight; j++)
+                for (int j = mapHeight - 1; j >= 0 ; j--)
                 {
                     float x = (viewport.Width / 2) - (tileWidth / 2) + ((i - viewCenter.X) * tileWidth);
                     float y = (viewport.Height / 2) - (tileWidth / 2) + ((j - viewCenter.Y) * tileWidth);
