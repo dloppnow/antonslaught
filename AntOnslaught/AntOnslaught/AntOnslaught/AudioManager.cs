@@ -15,22 +15,25 @@ namespace AntOnslaught
         Dictionary<int, SoundEffect> effects;
         Dictionary<int, Song> songs;
 
-        enum Songs
+        public enum Songs
         {
 
         }
 
-        enum Effect
+        public enum Effect
         {
-
+            Blip
         }
 
         public AudioManager(ContentManager Content)
         {
+            effectsToPlay = new Dictionary<int, SoundEffect>();
+            effects = new Dictionary<int, SoundEffect>();
+            songs = new Dictionary<int, Song>();
             //Load Songs
             
             //Load Effects
-
+            effects.Add((int)Effect.Blip, Content.Load<SoundEffect>("blip"));
         }
 
         public bool queueEffect(Effect effect)
@@ -76,6 +79,11 @@ namespace AntOnslaught
             {
                 return false;
             }
+        }
+
+        public void stopPlayingSong()
+        {
+            MediaPlayer.Stop();
         }
     }
 }

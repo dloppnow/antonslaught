@@ -18,6 +18,7 @@ namespace AntOnslaught
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        AudioManager audioManager;
         Renderer rend;
         Map map;
         List<MovableObject> movableObjs;
@@ -30,6 +31,8 @@ namespace AntOnslaught
         bool leftReleased = true;
         bool leftPressed = false;
         List<Ant> selectedAnts;
+        //GUI members
+        Rectangle background;
 
         public Game1()
         {
@@ -72,7 +75,8 @@ namespace AntOnslaught
             map = new Map(Content);
             movableObjs.AddRange(map.getNewObjects());
             map.setTexture(Content.Load<Texture2D>("tile_sheet"));
-            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0), Content);
+            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(15, 15), Content);
+            audioManager = new AudioManager(Content);
 			menu = new Menu(spriteBatch, Content);
 			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
             currentMapLoc.X -= 16;
@@ -273,10 +277,15 @@ namespace AntOnslaught
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
                 currentMapLoc.Y -= 32;
             }
+            if (keyState.IsKeyDown(Keys.D1))
+            {
+                audioManager.queueEffect(AudioManager.Effect.Blip);
+            }
         }
 
         public void drawGameState()
         {
+            audioManager.playEffects();
             rend.Draw(map);
             rend.DrawSelectionCircles(selectedAnts);
             foreach (MovableObject obj in movableObjs)
@@ -293,6 +302,17 @@ namespace AntOnslaught
         public void drawMenuState()
         {
             menu.draw();
+        }
+
+        public void updateGUI(GameTime gameTime)
+        {
+
+        }
+
+        public void drawGUI()
+        {
+            spriteBatch.Begin();
+            spriteBatch.End();
         }
     }
 }
