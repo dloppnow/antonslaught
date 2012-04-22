@@ -304,6 +304,7 @@ namespace AntOnslaught
             foreach (MovableObject obj in toKill)
             {
                 movableObjs.Remove(obj);
+                selectedAnts.Remove((Ant)obj);
             }
             
             if ( mouseState.RightButton == ButtonState.Pressed )
