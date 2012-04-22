@@ -15,6 +15,7 @@ namespace AntOnslaught
         Dictionary<int, SoundEffect> effects;
         Random rand = new Random();
         Dictionary<int, Song> songs;
+        private int time = 0;
 
         public enum Songs
         {
@@ -156,10 +157,20 @@ namespace AntOnslaught
             }
         }
 
+        public void update(GameTime gameTime)
+        {
+            time += gameTime.ElapsedGameTime.Milliseconds;
+            if (time >= 18000)
+            {
+                playSong(Songs.mainTheme);
+                MediaPlayer.IsRepeating = true;
+            }
+        }
+
         public void startTheme()
         {
             MediaPlayer.Stop();
-            playSong(Songs.mainTheme);
+            playSong(Songs.themeIntro);
         }
 
         public void stopPlayingSong()
