@@ -13,9 +13,9 @@ namespace AntOnslaught
         public Boolean passable;
         public Boolean occupied = false;
         public Boolean visited = false;
-        public int g;
-        public int f;
-        public int h;
+        public float g;
+        public float f;
+        public float h;
         public Food food = null;
 
         //public int xCoord;
