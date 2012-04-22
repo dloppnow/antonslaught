@@ -47,6 +47,10 @@ namespace AntOnslaught
         {
             return currentCell;
         }
+        public Cell getFoodCell()
+        {
+            return foodCell;
+        }
         public void setCurrentCell(Cell c)
         {
             currentCell = c;
