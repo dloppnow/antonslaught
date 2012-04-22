@@ -10,9 +10,11 @@ namespace AntOnslaught
     abstract class Enemy : MovableObject
     {
         protected SpriteAnimation sAnimation;
+        protected Vector2 initialPosition;
 
         public Enemy(Vector2 position, SpriteAnimation sAnimation)
         {
+            initialPosition = position;
             this.position = position * 32;
             this.sAnimation = sAnimation;
             this.speed = speed;
@@ -41,6 +43,10 @@ namespace AntOnslaught
             sAnimation.setTexture(texture);
         }
 
+        public Vector2 getCenterOfMovementBox()
+        {
+            return initialPosition;
+        }
         public override Color getColor()
         {
             return sAnimation.getColor();
