@@ -14,10 +14,10 @@ namespace AntOnslaught
         private Texture2D texture;
         private int numOfYCells = 100;
         private int numOfXCells = 100;
-        Cell[,] grid;
-        List<Cell> openList = new List<Cell>();
-        List<Cell> closedList = new List<Cell>();
-        List<String> entities = new List<String>();
+        private Cell[,] grid;
+        private List<Cell> openList = new List<Cell>();
+        private List<Cell> closedList = new List<Cell>();
+        private List<MovableObject> newObjects = new List<MovableObject>();
         public Map(ContentManager content)
         {
             TextReader infoReader = new StreamReader("infoout.txt");
@@ -50,7 +50,6 @@ namespace AntOnslaught
             while (!nextLine.Equals("tiles"))
             {
                 infoTokens = nextLine.Split(',');
-                List<MovableObject> newObjects = new List<MovableObject>(); ;
                 if (infoTokens[0].Equals("Worker"))
                 {
                     newObjects.Add(new WorkerAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32), 
@@ -91,6 +90,10 @@ namespace AntOnslaught
                 }
                 nextLine = infoReader.ReadLine();
             }
+        }
+        public List<MovableObject> getNewObjects()
+        {
+            return newObjects;
         }
         public Cell getCell(int x, int y)
         {
