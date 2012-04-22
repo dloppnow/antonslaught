@@ -102,7 +102,10 @@ namespace AntOnslaught
         {
             curPath = path;
             curPath.Reverse();
-            curPath.RemoveAt(0);
+            if (curPath.Count > 0)
+            {
+                curPath.RemoveAt(0);
+            }
             updateDirection();
         }
 

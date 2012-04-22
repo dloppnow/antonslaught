@@ -75,15 +75,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tile_sheet.png">
-      <Name>tile_sheet</Name>
+    <Compile Include="dashed_circle.png">
+      <Name>dashed_circle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dashed_circle.png">
-      <Name>dashed_circle</Name>
+    <Compile Include="tile_sheet.png">
+      <Name>tile_sheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
