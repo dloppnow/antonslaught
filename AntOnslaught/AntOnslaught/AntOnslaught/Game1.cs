@@ -348,9 +348,33 @@ namespace AntOnslaught
 
             foreach (MovableObject obj in toKill)
             {
+                if(obj is Enemy)
+                {
+                    Food newfood = new Food();
+                    if (obj is Spider)
+                    {
+                        newfood.setTexture(Content.Load<Texture2D>("spider_dead"));
+                        newfood.setAmountOfFoodLeft(20);
+                    }
+                    else if (obj is Roach)
+                    {
+                        newfood.setTexture(Content.Load<Texture2D>("cockroach_dead"));
+                        newfood.setAmountOfFoodLeft(10);
+                    }
+                    else if (obj is Beetle)
+                    {
+                        newfood.setTexture(Content.Load<Texture2D>("beetle_dead"));
+                        newfood.setAmountOfFoodLeft(3);
+                    }
+                    newfood.setAmountOfFoodLeft(20);
+                    obj.getCurrentCell().food = newfood;
+                }
                 movableObjs.Remove(obj);
                 if (obj is Ant)
                     selectedAnts.Remove((Ant)obj);
+                {
+
+                }
             }
             
             if ( mouseState.RightButton == ButtonState.Pressed )

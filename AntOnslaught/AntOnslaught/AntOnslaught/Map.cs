@@ -248,36 +248,6 @@ namespace AntOnslaught
             }
             return lowestScoreCell;
         }
-        public List<Cell> getPath(Cell start, Cell end, int limit)
-        {
-            pathLimit = limit;
-            foreach (Cell c in grid)
-            {
-                c.g = 0;
-                c.f = 0;
-                c.h = 0;
-                c.next = null;
-            }
-            List<Cell> path = new List<Cell>();
-
-            openList.Clear();
-            closedList.Clear();
-
-            openList.Add(start);
-            if (calculatePathLimited(start, end))
-            {
-                Cell node = end;
-                while (node != null)
-                {
-                    path.Add(node);
-                    node = node.next;
-                }
-            }
-            openList.Clear();
-            closedList.Clear();
-
-            return path;
-        }
         public List<Cell> getPath(Cell start, Cell end)
 		{
             foreach (Cell c in grid)
@@ -307,7 +277,7 @@ namespace AntOnslaught
 
 			return path;
 		}
-        bool calculatePathLimited(Cell startNode, Cell endNode)
+        bool calculatePath(Cell startNode, Cell endNode)
         {
             Cell lowestCost = null;
             for (int i = 0; i < openList.Count(); i++)
@@ -325,96 +295,58 @@ namespace AntOnslaught
                 return true;
             }
             closedList.Add(lowestCost);
-            pathLimit++;
-            if (pathLimit >= 0)
+            foreach (Cell c in getAdjacentCells(lowestCost))
             {
-                foreach (Cell c in getAdjacentCells(lowestCost))
+                if (c.passable)
                 {
-                    //for(int i = 0; i < lowestCost->adjacentCells.size(); i++)
-                    //{
-                    if (c.passable)
+                    if (isOnClosedList(c) == false)
                     {
-                        if (isOnClosedList(c) == false)
+                        Cell aNode = isOnOpenList(c);
+                        if (aNode != null)
                         {
-                            Cell aNode = isOnOpenList(c);
-                            if (aNode != null)
+                            if (aNode.coord.X != lowestCost.coord.X &&
+                                aNode.coord.Y != lowestCost.coord.Y)
                             {
-                                if (aNode.g > lowestCost.g + 1)
+                                if (aNode.g > (lowestCost.g + 1.4f))
+                                {
+                                    aNode.next = lowestCost;
+                                    aNode.g = lowestCost.g + 1.4f;
+                                }
+                            }
+                            else
+                            {
+                                if (aNode.g > (lowestCost.g + 1))
                                 {
                                     aNode.next = lowestCost;
                                     aNode.g = lowestCost.g + 1;
                                 }
                             }
+                        }
+                        else
+                        {
+                            c.next = lowestCost;
+                            if (aNode != null && aNode.coord.X != lowestCost.coord.X &&
+                                aNode.coord.Y != lowestCost.coord.Y)
+                            {
+                                c.g = lowestCost.g + 1.4f;
+                            }
                             else
                             {
-                                c.next = lowestCost;
                                 c.g = lowestCost.g + 1;
-                                c.h = (int)distanceBetween(c, endNode);
-                                openList.Add(c);
                             }
+                            c.h = (int)distanceBetween(c, endNode);
+                            openList.Add(c);
                         }
                     }
                 }
-                if (openList.Count() <= 0)
-                {
-                    return false;
-                }
-                calculatePath(startNode, endNode);
             }
+            if (openList.Count() <= 0)
+            {
+                return false;
+            }
+            calculatePath(startNode, endNode);
             return true;
         }
-		bool calculatePath(Cell startNode, Cell endNode)
-		{
-			Cell lowestCost = null;
-			for(int i = 0; i < openList.Count(); i++)
-			{
-				if(lowestCost == null ||
-				   (lowestCost.g + lowestCost.h) > (openList[i].g + openList[i].h))
-				{
-					lowestCost = openList[i];
-				}
-			}
-			removeFromOpenList(lowestCost);
-			if(lowestCost == endNode)
-			{
-				//endNode->parentCell = lowestCost;
-				return true;
-			}
-			closedList.Add(lowestCost);
-            foreach (Cell c in getAdjacentCells(lowestCost))
-            {
-			//for(int i = 0; i < lowestCost->adjacentCells.size(); i++)
-			//{
-                if (c.passable)
-				{
-					if(isOnClosedList(c) == false)
-					{
-						Cell aNode = isOnOpenList(c);
-						if(aNode != null)
-						{
-							if(aNode.g > lowestCost.g + 1)
-							{
-								aNode.next = lowestCost;
-								aNode.g = lowestCost.g + 1;
-							}
-						}
-						else
-						{
-							c.next = lowestCost;
-							c.g = lowestCost.g + 1;
-                            c.h = (int)distanceBetween(c, endNode);
-							openList.Add(c);
-						}
-					}
-				}
-			}
-			if(openList.Count() <= 0)
-			{
-				return false;
-			}
-			calculatePath(startNode, endNode);
-			return true;
-		}
 		bool isOnClosedList(Cell node)
 		{
 			bool onClosedList = false;
