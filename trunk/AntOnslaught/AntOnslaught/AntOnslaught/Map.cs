@@ -182,6 +182,10 @@ namespace AntOnslaught
         }
         public Cell findUnoccupiedClosestCell(Cell c)
         {
+            foreach (Cell cell in grid)
+            {
+                cell.visited = false;
+            }
             Cell result = null;
             List<Cell> checkableCells = new List<Cell>();
             checkableCells.Add(c);
