@@ -48,6 +48,16 @@ namespace AntOnslaught
             this.attackRange = attackRange;
         }
 
+        public int getDamage()
+        {
+            return damage;
+        }
+
+        public void setDamage(int damage)
+        {
+            this.damage = damage;
+        }
+
         public Ant getTarget()
         {
             return target;

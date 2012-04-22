@@ -268,15 +268,27 @@ namespace AntOnslaught
                         }
                     }
                     else if (enemyObj.getTarget() != null)
-                    {
+                    { //SPider has something to attack
                         Ant a = enemyObj.getTarget();
                         if (Math.Abs(Vector2.Distance(a.getPosition(), enemyObj.getPosition())) <= enemyObj.getAggroRange()) 
-                        {
-                            obj.setGoalCell(a.getCurrentCell());
-                            obj.setPath(map.getPath(enemyObj.getCurrentCell(), enemyObj.getGoalCell()));
+                        { //target is within aggro range
+                            if (Math.Abs(Vector2.Distance(a.getPosition(), enemyObj.getPosition())) <= enemyObj.getAttackRange())
+                            { //Spider is within attack range;
+                                a.setHealth(a.getHealth() - enemyObj.getDamage());
+                                if (a.getHealth() <= 0)
+                                { //target has died
+                                    enemyObj.setTarget(null);
+                                    movableObjs.Remove(a);
+                                }
+                            }
+                            else
+                            { //Spider is within aggroRange but not in AttackRange
+                                obj.setGoalCell(a.getCurrentCell());
+                                obj.setPath(map.getPath(enemyObj.getCurrentCell(), enemyObj.getGoalCell()));
+                            }
                         }
                         else 
-                        {
+                        { //current target in range
                             enemyObj.setTarget(null);
                         }
                     }
