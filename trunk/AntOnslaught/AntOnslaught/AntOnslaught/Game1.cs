@@ -171,6 +171,7 @@ namespace AntOnslaught
 
         public void updateGameState(GameTime gameTime)
         {
+            List<MovableObject> toKill = new List<MovableObject>();
             foreach (MovableObject obj in movableObjs)
             {
                 if (obj.getCurrentCell() == null)
@@ -277,8 +278,12 @@ namespace AntOnslaught
                                 a.setHealth(a.getHealth() - enemyObj.getDamage());
                                 if (a.getHealth() <= 0)
                                 { //target has died
-                                    enemyObj.setTarget(null);
-                                    movableObjs.Remove(a);
+                                    if (enemyObj.canAttack())
+                                    { //attack if it can
+                                        enemyObj.attacked();
+                                        enemyObj.setTarget(null);
+                                        toKill.Add(a);
+                                    }
                                 }
                             }
                             else
@@ -293,6 +298,11 @@ namespace AntOnslaught
                         }
                     }
                 }
+            }
+
+            foreach (MovableObject obj in toKill)
+            {
+                movableObjs.Remove(obj);
             }
             
             if ( mouseState.RightButton == ButtonState.Pressed )
