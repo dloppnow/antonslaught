@@ -69,7 +69,9 @@ namespace AntOnslaught
         }
         public void setGoalCell(Cell c)
         {
+            goalCell.occupied = false;
             goalCell = c;
+            goalCell.occupied = true;
         }
         public double getDirection()
         {
