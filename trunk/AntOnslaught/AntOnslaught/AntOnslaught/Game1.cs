@@ -323,7 +323,7 @@ namespace AntOnslaught
                             }
                             else
                             { //Spider is within aggroRange but not in AttackRange
-                                enemyObj.setGoalCell(map.findUnoccupiedClosestCell(a.getCurrentCell()));
+                                enemyObj.setGoalCell(a.getCurrentCell());
                                 obj.setPath(map.getPath(enemyObj.getCurrentCell(), enemyObj.getGoalCell()));
                             }
                         }
