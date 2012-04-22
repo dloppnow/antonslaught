@@ -75,7 +75,7 @@ namespace AntOnslaught
                     Cell c = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("seed_small"));
-                    c.food.setAmountOfFoodLeft(10);
+                    c.food.setAmountOfFoodLeft(5);
                     //c.food.setClip(new Rectangle(0, 0, 32, 32));
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
@@ -134,8 +134,11 @@ namespace AntOnslaught
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
-                newObjects.Last().setCurrentCell(grid[(int)newObjects.Last().getPosition().X / 32, (int)newObjects.Last().getPosition().Y / 32]);
-                newObjects.Last().setGoalCell(grid[(int)newObjects.Last().getPosition().X / 32, (int)newObjects.Last().getPosition().Y / 32]);
+                if (newObjects.Count > 0)
+                {
+                    newObjects.Last().setCurrentCell(grid[(int)newObjects.Last().getPosition().X / 32, (int)newObjects.Last().getPosition().Y / 32]);
+                    newObjects.Last().setGoalCell(grid[(int)newObjects.Last().getPosition().X / 32, (int)newObjects.Last().getPosition().Y / 32]);
+                }
                 nextLine = infoReader.ReadLine();
             }
             nextLine = infoReader.ReadLine();
