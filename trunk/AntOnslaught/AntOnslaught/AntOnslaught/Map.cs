@@ -76,7 +76,7 @@ namespace AntOnslaught
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("seed_small"));
                     c.food.setAmountOfFoodLeft(10);
-                    c.food.setClip(new Rectangle(0, 0, 32, 32));
+                    //c.food.setClip(new Rectangle(0, 0, 32, 32));
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
