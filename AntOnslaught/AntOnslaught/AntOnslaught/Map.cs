@@ -76,39 +76,24 @@ namespace AntOnslaught
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("seed_small"));
                     c.food.setAmountOfFoodLeft(5);
-                    //c.food.setClip(new Rectangle(0, 0, 32, 32));
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Soldier_Waypoint"))
                 {
                     soldierWaypoint = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Worker_Waypoint"))
                 {
                     workerWaypoint = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Spider"))
                 {
                     newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Roach"))
                 {
                     newObjects.Add(new Roach(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("cockroach_sprite_sheet"), 32, 32, 100)));
-                    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Crumb"))
                 {
@@ -116,11 +101,6 @@ namespace AntOnslaught
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("crumbs"));
                     c.food.setAmountOfFoodLeft(30);
-                    //c.food.setClip(new Rectangle(0, 0, 32, 32));
-                    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Cheese"))
                 {
@@ -128,11 +108,6 @@ namespace AntOnslaught
                     c.food = new Food();
                     c.food.setTexture(content.Load<Texture2D>("cheese"));
                     c.food.setAmountOfFoodLeft(50);
-                    //c.food.setClip(new Rectangle(0, 0, 32, 32));
-                    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 if (newObjects.Count > 0)
                 {
