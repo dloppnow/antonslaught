@@ -138,13 +138,13 @@ namespace AntOnslaught
                 {
                     if (foodCell.food.canPickUp())
                     {
-                        foodCell.food.reduceFoodBy(10);
+                        foodCell.food.reduceFoodBy(1);
                         foodCell.food.resetTimer();
                         if (foodCell.food.getAmountOfFoodLeft() <= 0)
                         {
                             foodCell.food = null;
                         }
-                        amountOfFoodCarrying = 10;
+                        amountOfFoodCarrying = 1;
                     }
                 }
                 isMoving = false;
@@ -170,14 +170,6 @@ namespace AntOnslaught
             }
             return hasAPath;
         }
-
-        //public double AngleBetween_1(Vector2 a, Vector2 b)
-        //{
-        //    var dotProd = Vector2.Dot(a, b);
-        //    var lenProd = a.Length() * b.Length();
-        //    var divOperation = dotProd / lenProd;
-        //    return Math.Acos(divOperation) * (180.0 / Math.PI);
-        //}
         private double Angle(Vector2 start, Vector2 end)
         {
             return Math.Atan2(start.Y - end.Y, end.X - start.X);
