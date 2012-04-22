@@ -379,9 +379,9 @@ namespace AntOnslaught
                 {
                     if (x + i >= 0 && x + i < numOfXCells && y + j >= 0 && y + j < numOfYCells)
                     {
-                        if (grid[i, j].passable == true && grid[i, j].occupied == false)
+                        if (grid[x + i, y + j].passable == true && grid[x + i, y + j].occupied == false)
                         {
-                            cells.Add(grid[i, j]);
+                            cells.Add(grid[x + i,  y + j]);
                         }
                     }
                 }
