@@ -275,12 +275,12 @@ namespace AntOnslaught
                         { //target is within aggro range
                             if (Math.Abs(Vector2.Distance(a.getPosition(), enemyObj.getPosition())) <= enemyObj.getAttackRange())
                             { //Spider is within attack range;
-                                a.setHealth(a.getHealth() - enemyObj.getDamage());
-                                if (a.getHealth() <= 0)
-                                { //target has died
-                                    if (enemyObj.canAttack())
-                                    { //attack if it can
-                                        enemyObj.attacked();
+                                if (enemyObj.canAttack())
+                                { //attack if it can
+                                    enemyObj.attacked();
+                                    a.setHealth(a.getHealth() - enemyObj.getDamage());
+                                    if (a.getHealth() <= 0)
+                                    { //target has died
                                         enemyObj.setTarget(null);
                                         toKill.Add(a);
                                     }
@@ -297,6 +297,7 @@ namespace AntOnslaught
                             enemyObj.setTarget(null);
                         }
                     }
+                    enemyObj.update(gameTime);
                 }
             }
 
