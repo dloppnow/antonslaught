@@ -269,7 +269,16 @@ namespace AntOnslaught
                     }
                     else if (enemyObj.getTarget() != null)
                     {
-
+                        Ant a = enemyObj.getTarget();
+                        if (Math.Abs(Vector2.Distance(a.getPosition(), enemyObj.getPosition())) <= enemyObj.getAggroRange()) 
+                        {
+                            obj.setGoalCell(a.getCurrentCell());
+                            obj.setPath(map.getPath(enemyObj.getCurrentCell(), enemyObj.getGoalCell()));
+                        }
+                        else 
+                        {
+                            enemyObj.setTarget(null);
+                        }
                     }
                 }
             }
