@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace AntOnslaught
 {
     class AudioManager
     {
-        List<Effect> effectsToPlay;
-        List<Effect> effects;
-        List<Song> songs;
+        Dictionary<int, SoundEffect> effectsToPlay;
+        Dictionary<int, SoundEffect> effects;
+        Dictionary<int, Song> songs;
 
-        enum Song
+        enum Songs
         {
 
         }
@@ -25,21 +27,55 @@ namespace AntOnslaught
 
         public AudioManager(ContentManager Content)
         {
+            //Load Songs
             
+            //Load Effects
+
         }
 
-        public void playEffect(Effect effect)
+        public bool queueEffect(Effect effect)
         {
-
+            SoundEffect e = null;
+            if (effects.TryGetValue((int)effect, out e))
+            {
+                try
+                {
+                    effectsToPlay.Add((int)effect, e);
+                }
+                catch (ArgumentException ae)
+                {
+                    //effectsToPlay already contains the effect we want to play. We shouldn't play it multiple times.
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void playSong(Song song)
+        public void playEffects()
         {
-
+            foreach (KeyValuePair<int, SoundEffect> ef in effectsToPlay)
+            {
+                ef.Value.Play();
+            }
+            effectsToPlay.Clear();
         }
 
-        public void update(GameTime gameTime) {
-
+        public bool playSong(Songs song)
+        {
+            Song s = null;
+            if (songs.TryGetValue((int)song, out s))
+            {
+                MediaPlayer.Stop();
+                MediaPlayer.Play(s);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
