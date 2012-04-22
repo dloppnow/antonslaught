@@ -183,20 +183,26 @@ namespace AntOnslaught
         public Cell findUnoccupiedClosestCell(Cell c)
         {
             Cell result = null;
+            List<Cell> checkableCells = new List<Cell>();
+            checkableCells.Add(c);
             List<Cell> possibleCells = new List<Cell>();
-            possibleCells = getAdjacentCells(c);
-            if (c.occupied == false && c.passable == true)
+            while (result == null && checkableCells.Count > 0)
             {
-                result = c;
-            }
-            else
-            {
-                foreach (Cell potentialTarget in possibleCells)
+                if (checkableCells[0].occupied == false && checkableCells[0].passable == true)
                 {
-                    if (potentialTarget.occupied == false && potentialTarget.passable == true)
+                    result = checkableCells[0];
+                }
+                else
+                {
+                    possibleCells = getAdjacentCells(checkableCells[0]);
+                    checkableCells.RemoveAt(0);
+                    foreach(Cell cell in possibleCells)
                     {
-                        result = potentialTarget;
-                        break;
+                        if(!cell.visited)
+                        {
+                            cell.visited = true;
+                            checkableCells.Add(cell);
+                        }
                     }
                 }
             }
