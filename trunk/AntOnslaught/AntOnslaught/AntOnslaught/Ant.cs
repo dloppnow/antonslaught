@@ -10,7 +10,7 @@ namespace AntOnslaught
     abstract class Ant : MovableObject
     {
         protected SpriteAnimation sAnimation;
-        protected Ant target;
+        protected Enemy target;
         protected float aggroRange;
         protected float attackRange;
         protected int damage;
@@ -105,12 +105,12 @@ namespace AntOnslaught
             this.damage = damage;
         }
 
-        public Ant getTarget()
+        public Enemy getTarget()
         {
             return target;
         }
 
-        public void setTarget(Ant target)
+        public void setTarget(Enemy target)
         {
             this.target = target;
         }

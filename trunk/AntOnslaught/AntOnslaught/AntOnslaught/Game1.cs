@@ -185,7 +185,7 @@ namespace AntOnslaught
                         obj.setPath(map.getPath(obj.getCurrentCell(), map.findUnoccupiedClosestCell(obj.getGoalCell())));
                     }
                 }
-                if (obj is Ant)
+                if (obj is WorkerAnt)
                 {
                     if (obj.hasFood() && map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32).Equals(foodDeliveryCell))
                     {
@@ -197,12 +197,12 @@ namespace AntOnslaught
                             obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
                     }
-                    if (!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
+                    if (!obj.hasPath() && obj.hasFood())
                     {
                         obj.setGoalCell(foodDeliveryCell);
                         obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
                     }
-                    if (!obj.hasPath() && obj.getFoodCell() != null && obj is WorkerAnt)
+                    if (!obj.hasPath() && obj.getFoodCell() != null)
                     {
                         if (obj.getFoodCell() != null && obj.getFoodCell().food != null && obj.getFoodCell().food.getAmountOfFoodLeft() >= 0)
                         {
@@ -215,16 +215,67 @@ namespace AntOnslaught
                             obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
                     }
-                    if (obj is QueenAnt)
-                    {
-                        QueenAnt ant = (QueenAnt)obj;
-                        ant.update(gameTime);
-                    }
                     else
                     {
                         Ant ant = (Ant)obj;
                         ant.update(gameTime);
                     }
+                }
+                else if (obj is QueenAnt)
+                {
+                    QueenAnt ant = (QueenAnt)obj;
+                    ant.update(gameTime);
+                }
+                else if (obj is SolderAnt)
+                {
+                    SolderAnt ant = (SolderAnt)obj;
+                    if (ant.getTarget() == null && ant.hasPath() == false)
+                    {
+                        Enemy closeEnemy = null;
+                        foreach (MovableObject mObj in movableObjs)
+                        {
+                            if ((mObj is Enemy) && Math.Abs(Vector2.Distance(mObj.getPosition(), ant.getPosition())) <= ant.getAggroRange())
+                            {
+                                closeEnemy = (Enemy)mObj;
+                                break;
+                            }
+                        }
+                        if (closeEnemy != null)
+                        {
+                            ant.setTarget(closeEnemy);
+                        }
+                    }
+                    else if (ant.getTarget() != null)
+                    { //Soldier has soemthing to attack
+                        Enemy e = ant.getTarget();
+                        if (Math.Abs(Vector2.Distance(e.getPosition(), ant.getPosition())) <= ant.getAggroRange())
+                        { //target is within aggro range
+                            if (Math.Abs(Vector2.Distance(e.getPosition(), ant.getPosition())) <= ant.getAttackRange())
+                            { //Spider is within attack range;
+                                if (ant.canAttack())
+                                { //attack if it can
+                                    ant.attacked();
+                                    e.setHealth(e.getHealth() - ant.getDamage());
+                                    if (e.getHealth() <= 0)
+                                    { //target has died
+                                        ant.setTarget(null);
+                                        toKill.Add(e);
+                                    }
+                                }
+                            }
+                            else
+                            { //Spider is within aggroRange but not in AttackRange
+
+                                obj.setGoalCell(map.findUnoccupiedClosestCell(e.getCurrentCell()));
+                                obj.setPath(map.getPath(ant.getCurrentCell(), ant.getGoalCell()));
+                            }
+                        }
+                        else
+                        { //current target in range
+                            ant.setTarget(null);
+                        }
+                    }
+                    ant.update(gameTime);
                 }
                 if (obj is Enemy)
                 {
@@ -271,7 +322,7 @@ namespace AntOnslaught
                             }
                             else
                             { //Spider is within aggroRange but not in AttackRange
-                                obj.setGoalCell(a.getCurrentCell());
+                                enemyObj.setGoalCell(map.findUnoccupiedClosestCell(a.getCurrentCell()));
                                 obj.setPath(map.getPath(enemyObj.getCurrentCell(), enemyObj.getGoalCell()));
                             }
                         }
@@ -287,7 +338,8 @@ namespace AntOnslaught
             foreach (MovableObject obj in toKill)
             {
                 movableObjs.Remove(obj);
-                selectedAnts.Remove((Ant)obj);
+                if (obj is Ant)
+                    selectedAnts.Remove((Ant)obj);
             }
             
             if ( mouseState.RightButton == ButtonState.Pressed )
