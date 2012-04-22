@@ -572,7 +572,8 @@ namespace AntOnslaught
             Cell c = map.findUnoccupiedClosestCell(foodDeliveryCell);
             if (c != null && amountOfFood >= workerCost)
             { //found good spot, make a new ant
-                Ant a = new WorkerAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
+                Ant a = new WorkerAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100),
+                                                                           new SpriteAnimation(Content.Load<Texture2D>("crumb_sprite_sheet"), 32, 32, 100));
                 Cell d = map.findUnoccupiedClosestCell(workerWaypoint);
                 if (d != null)
                     a.setGoalCell(d);
