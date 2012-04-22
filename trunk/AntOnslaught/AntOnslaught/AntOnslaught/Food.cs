@@ -18,7 +18,7 @@ namespace AntOnslaught
         {
             return amountFoodLeft;
         }
-        public void setAmountOfFoodLeft(int foodTaken)
+        public void reduceFoodBy(int foodTaken)
         {
             amountFoodLeft -= foodTaken;
         }
