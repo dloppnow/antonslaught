@@ -12,6 +12,11 @@ namespace AntOnslaught
         public SolderAnt(Vector2 position, SpriteAnimation sAnimation): base(position, sAnimation)
         {
             speed = defaultSpeed;
+            canCarryFood = false;
+            aggroRange = 250;
+            attackRange = 50;
+            damage = 1;
+            attackInterval = 100;
         }
     }
 }

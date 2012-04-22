@@ -17,7 +17,7 @@ namespace AntOnslaught
         protected int damage;
         protected float attackTimer;
         protected float attackInterval;
-        int health;
+        protected int health;
         bool ableToAttack;
 
         public Enemy(Vector2 position, SpriteAnimation sAnimation)
@@ -59,6 +59,16 @@ namespace AntOnslaught
         {
             ableToAttack = false;
             attackTimer = 0;
+        }
+
+        public int getHealth()
+        {
+            return health;
+        }
+
+        public void setHealth(int health)
+        {
+            this.health = health;
         }
 
         public bool canAttack()

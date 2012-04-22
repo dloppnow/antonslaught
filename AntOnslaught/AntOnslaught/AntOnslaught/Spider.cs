@@ -17,8 +17,8 @@ namespace AntOnslaught
             aggroRange = 250;
             attackRange = 50;
             damage = 5;
-            attackTimer = 2000;
             attackInterval = 250;
+            health = 50;
         }
     }
 }

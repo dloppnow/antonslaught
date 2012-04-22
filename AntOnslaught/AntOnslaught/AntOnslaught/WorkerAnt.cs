@@ -12,6 +12,7 @@ namespace AntOnslaught
         public WorkerAnt(Vector2 position, SpriteAnimation sAnimation) : base(position, sAnimation)
         {
             speed = defaultSpeed;
+            canCarryFood = true;
         }
     }
 }

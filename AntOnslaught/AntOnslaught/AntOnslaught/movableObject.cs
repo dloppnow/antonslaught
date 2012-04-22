@@ -30,6 +30,7 @@ namespace AntOnslaught
         protected float speed = 0.5f;
         protected Cell foodCell = null;
         protected int amountOfFoodCarrying = 0;
+        protected bool canCarryFood = true;
         public bool hasFood()
         {
             bool hasFood = false;
@@ -126,7 +127,7 @@ namespace AntOnslaught
             }
             else
             {
-                if (foodCell != null && foodCell.food != null)
+                if (foodCell != null && foodCell.food != null && canCarryFood)
                 {
                     if (foodCell.food.canPickUp())
                     {
