@@ -15,6 +15,7 @@ namespace AntOnslaught
         Texture2D selectionCircle;
         private Vector2 viewCenter; //Which cell to center the map on.
         private int tileWidth = 32;
+        private int tileHeight = 32;
         private int mapWidth;
         private int mapHeight;
         private float selectionCircleAngle = 0.0f;
@@ -58,8 +59,11 @@ namespace AntOnslaught
             Vector2 pos = obj.getPosition(); //position relative to the map
             Rectangle clip = obj.getClip();
             sb.Begin();
-            float x = (viewport.Width / 2) - (tileWidth / 8) + (pos.X - (viewCenter.X * clip.Width));
-            float y = (viewport.Height / 2) - (tileWidth / 8) + (pos.Y - (viewCenter.Y * clip.Height));
+            //float x = (viewport.Width / 2) - (clip.Width / 8) + (pos.X - (viewCenter.X * clip.Width));
+            //float y = (viewport.Height / 2) - (clip.Height / 8) + (pos.Y - (viewCenter.Y * clip.Height));
+            float x = viewCenter.X * -32 + (viewport.Width / 2) + pos.X;
+            float y = viewCenter.Y * -32 + (viewport.Height / 2) + pos.Y;
+
             sb.Draw(obj.getTexture(), new Rectangle((int)x, (int)y, clip.Width, clip.Height), clip, Color.White, angle, new Vector2(clip.Width / 2, clip.Height / 2), SpriteEffects.None, 0.0f); 
             sb.End();
         }
