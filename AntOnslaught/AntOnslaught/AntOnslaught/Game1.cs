@@ -203,6 +203,7 @@ namespace AntOnslaught
                     {
                         obj.setGoalCell(foodDeliveryCell);
                         obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
+                        audioManager.queueRandomEffectType(AudioManager.EffectType.munch);
                     }
                     if (!obj.hasPath() && obj.getFoodCell() != null)
                     {
