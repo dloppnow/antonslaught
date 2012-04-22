@@ -30,7 +30,7 @@ namespace AntOnslaught
             damage = 5;
             target = null;
             attackTimer = 2000;
-            attackInterval = 1000;
+            attackInterval = 250;
             ableToAttack = true;
         }
         public void update(GameTime gameTime)
