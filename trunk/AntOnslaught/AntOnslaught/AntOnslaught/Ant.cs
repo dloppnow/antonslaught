@@ -11,7 +11,7 @@ namespace AntOnslaught
     {
         protected SpriteAnimation sAnimation;
 
-        public Ant(Vector2 position, SpriteAnimation sAnimation, float speed)
+        public Ant(Vector2 position, SpriteAnimation sAnimation)
         {
             this.position = position * 32;
             this.sAnimation = sAnimation;
