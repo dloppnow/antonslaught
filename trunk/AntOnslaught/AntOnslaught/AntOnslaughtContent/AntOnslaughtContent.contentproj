@@ -82,13 +82,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tile_sheet.png">
-      <Name>tile_sheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="blip.wav">
       <Name>blip</Name>
       <Importer>WavImporter</Importer>
@@ -98,6 +91,13 @@
   <ItemGroup>
     <Compile Include="seed_small.png">
       <Name>seed_small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="tile_sheet.png">
+      <Name>tile_sheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
