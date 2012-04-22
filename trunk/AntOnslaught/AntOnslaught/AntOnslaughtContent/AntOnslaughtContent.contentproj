@@ -96,15 +96,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tile_sheet.png">
-      <Name>tile_sheet</Name>
+    <Compile Include="spider_sprite_sheet.png">
+      <Name>spider_sprite_sheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spider_sprite_sheet.png">
-      <Name>spider_sprite_sheet</Name>
+    <Compile Include="tile_sheet.png">
+      <Name>tile_sheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
