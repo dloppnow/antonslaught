@@ -86,10 +86,10 @@ namespace AntOnslaught
                 }
             }
             map.setTexture(Content.Load<Texture2D>("tile_sheet"));
-            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(15, 15), Content);
+            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0), Content);
             audioManager = new AudioManager(Content);
 			menu = new Menu(spriteBatch, Content);
-			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
+            currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
             currentMapLoc.X -= 16;
             currentMapLoc.Y -= 16;
 
@@ -167,6 +167,10 @@ namespace AntOnslaught
                     }
                     obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
                 }
+                //if (!obj.hasPath() && obj.getFoodCell != null && obj is WorkerAnt)
+                //{
+
+                //}
                 if (!obj.updateMovement(gameTime))
                 {
                     if (obj.getGoalCell().passable)
@@ -204,7 +208,12 @@ namespace AntOnslaught
                             ant.getGoalCell().occupied = false;
                         }
                         Cell desCell = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
-                        if (desCell.occupied && desCell.passable || desCell.food != null)
+                        if (desCell.food != null)
+                        {
+                            ant.setFoodByGoal(desCell);
+                            desCell = map.findUnoccupiedClosestCell(desCell);
+                        }
+                        else if (desCell.occupied && desCell.passable)
                         {
                             desCell = map.findUnoccupiedClosestCell(desCell);
                         }

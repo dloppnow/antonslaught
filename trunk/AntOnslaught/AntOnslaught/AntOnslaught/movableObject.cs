@@ -104,21 +104,21 @@ namespace AntOnslaught
                 }
                 else
                 {
-                    if (foodCell != null)
-                    {
-                        foodCell.food.setAmountOfFoodLeft(foodCell.food.getAmountOfFoodLeft() - 10);
-                        if (foodCell.food.getAmountOfFoodLeft() < 0)
-                        {
-                            foodCell.food = null;
-                            foodCell = null;
-                        }
-                        amountOfFoodCarrying = 10;
-                    }
                     canMove = false;
                 }
             }
             else
             {
+                if (foodCell != null)
+                {
+                    foodCell.food.setAmountOfFoodLeft(foodCell.food.getAmountOfFoodLeft() - 10);
+                    if (foodCell.food.getAmountOfFoodLeft() < 0)
+                    {
+                        foodCell.food = null;
+                        foodCell = null;
+                    }
+                    amountOfFoodCarrying = 10;
+                }
                 isMoving = false;
             }
             return canMove;
