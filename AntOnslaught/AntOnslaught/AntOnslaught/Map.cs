@@ -286,7 +286,7 @@ namespace AntOnslaught
         {
             return (int)Math.Abs(c1.coord.X - c2.coord.X) + (int)Math.Abs(c1.coord.Y - c2.coord.Y);
         }
-        private List<Cell> getAdjacentCells(Cell c)
+        public List<Cell> getAdjacentCells(Cell c)
         {
             List<Cell> adjacentCells = new List<Cell>();
             if (c.coord.X > 0)
