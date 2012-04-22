@@ -69,7 +69,10 @@ namespace AntOnslaught
         }
         public void setGoalCell(Cell c)
         {
-            goalCell.occupied = false;
+            if (goalCell != null)
+            {
+                goalCell.occupied = false;
+            }
             goalCell = c;
             goalCell.occupied = true;
         }

@@ -13,6 +13,8 @@ namespace AntOnslaught
         private Color color;
         private Rectangle clip;
         private int amountFoodLeft = 50;
+        private float delayFoodCounter = 100;
+        private float delayFoodTimer = 0;
 
         public int getAmountOfFoodLeft()
         {
@@ -21,6 +23,26 @@ namespace AntOnslaught
         public void reduceFoodBy(int foodTaken)
         {
             amountFoodLeft -= foodTaken;
+        }
+        public void resetTimer()
+        {
+            delayFoodTimer = delayFoodCounter;
+        }
+        public bool canPickUp()
+        {
+            bool canPickUp = false;
+            if(delayFoodTimer < 0)
+            {
+                canPickUp = true;
+            }
+            return canPickUp;
+        }
+        public void update(GameTime timer)
+        {
+            if (delayFoodTimer >= 0)
+            {
+                delayFoodTimer -= timer.ElapsedGameTime.Milliseconds;
+            }
         }
         public Texture2D getTexture()
         {

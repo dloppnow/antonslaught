@@ -195,6 +195,7 @@ namespace AntOnslaught
                     {
                         obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
                     }
+                    obj.setGoalCell(foodDeliveryCell);
                     obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
                 }
                 if (!obj.hasPath() && obj.getFoodCell() != null && obj is WorkerAnt)
@@ -203,6 +204,7 @@ namespace AntOnslaught
                     {
                         obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
                     }
+                    obj.setGoalCell(obj.getFoodCell());
                     obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
                     
                 }
@@ -260,7 +262,6 @@ namespace AntOnslaught
                         if (desCell != null && desCell.passable)
                         {
                             ant.setGoalCell(desCell);
-                            ant.getGoalCell().occupied = true;
                             if (ant.getCurrentCell() == null)
                             {
                                 ant.setCurrentCell(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32));
