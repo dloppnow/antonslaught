@@ -480,17 +480,16 @@ namespace AntOnslaught
                 {
                     if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
                     {
-                        List<Cell> cells = map.getAdjacentCells(foodDeliveryCell);
-                        int i = 0;
-                        while (i < cells.Count && cells[i].passable == false)
-                        {
-                            i++;
-                        }
-                        if (i < cells.Count && amountOfFood >= workerCost)
+                        Cell c = map.findUnoccupiedClosestCell(foodDeliveryCell);
+                        if (c != null && amountOfFood >= workerCost)
                         { //found good spot, make a new ant
-                            Ant a = new WorkerAnt(new Vector2(cells[i].coord.X, cells[i].coord.Y), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
-                            a.setGoalCell(workerWaypoint);
-                            a.setCurrentCell(cells[i]);
+                            Ant a = new WorkerAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
+                            Cell d = map.findUnoccupiedClosestCell(workerWaypoint);
+                            if (d != null)
+                                a.setGoalCell(d);
+                            else
+                                a.setGoalCell(workerWaypoint);
+                            a.setCurrentCell(c);
                             a.setPath(map.getPath(a.getCurrentCell(), a.getGoalCell()));
                             movableObjs.Add(a);
 
