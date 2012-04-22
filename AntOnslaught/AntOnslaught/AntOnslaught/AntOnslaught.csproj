@@ -16,7 +16,8 @@
     <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>e68088e3-dc7f-4cf2-a012-2c356829fb33</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -126,8 +127,8 @@
     <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="Game.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AntOnslaughtContent\AntOnslaughtContent.contentproj">
