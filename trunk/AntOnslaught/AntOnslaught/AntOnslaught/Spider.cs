@@ -7,5 +7,6 @@ namespace AntOnslaught
 {
     class Spider
     {
+        public Spider(Vector2 position, SpriteAnimation sAnimation) : base(position, sAnimation)
     }
 }
