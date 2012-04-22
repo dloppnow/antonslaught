@@ -332,7 +332,7 @@ namespace AntOnslaught
                     }
                 }
             }
-            //}            //Move the map around
+            updateFoodTimers(gameTime);
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 Vector2 vec = rend.getViewCenter();
@@ -356,6 +356,17 @@ namespace AntOnslaught
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
                 currentMapLoc.Y -= 32;
+            }
+        }
+
+        public void updateFoodTimers(GameTime timer)
+        {
+            foreach (Cell c in map.getGrid())
+            {
+                if (c.food != null)
+                {
+                    c.food.update(timer);
+                }
             }
         }
         public void drawGameState()

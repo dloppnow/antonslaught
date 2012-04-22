@@ -124,6 +124,10 @@ namespace AntOnslaught
         {
             return numOfXCells;
         }
+        public Cell[,] getGrid()
+        {
+            return grid;
+        }
         public Cell getSoldierWaypoint()
         {
             return soldierWaypoint;
