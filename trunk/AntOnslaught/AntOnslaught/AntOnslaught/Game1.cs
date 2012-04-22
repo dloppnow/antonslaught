@@ -36,7 +36,9 @@ namespace AntOnslaught
         Rectangle background;
         Rectangle workerButton;
         Rectangle soldierButton;
-		Texture2D dummyTexture;		Cell foodDeliveryCell;
+		Texture2D dummyTexture;		
+        Cell foodDeliveryCell;
+        int amountOfFood = 0;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -159,6 +161,11 @@ namespace AntOnslaught
         {
             foreach (MovableObject obj in movableObjs)
             {
+                if (obj.hasFood() && map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32).Equals(foodDeliveryCell))
+                {
+                    amountOfFood += obj.getCurrentFood();
+                    obj.setCurrentFood(0);
+                }
                 if(!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
                 {
                     if (obj.getCurrentCell() == null)
@@ -219,7 +226,12 @@ namespace AntOnslaught
                         }
                         else if (desCell.occupied && desCell.passable)
                         {
+                            ant.setFoodByGoal(null);
                             desCell = map.findUnoccupiedClosestCell(desCell);
+                        }
+                        else
+                        {
+                            ant.setFoodByGoal(null);
                         }
                         if (desCell != null && desCell.passable)
                         {
