@@ -12,6 +12,7 @@ namespace AntOnslaught
         public Texture2D texture;
         public Boolean passable;
         public Boolean occupied = false;
+        public Boolean visited = false;
         public int g;
         public int f;
         public int h;
