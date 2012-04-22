@@ -65,6 +65,13 @@ namespace AntOnslaught
                     newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
+                else if (infoTokens[0].Equals("Seed"))
+                {
+                    grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])].food = new Food();
+                    grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])].food.setTexture(content.Load<Texture2D>("seed_small"));
+                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
                 nextLine = infoReader.ReadLine();
             }
             nextLine = infoReader.ReadLine();

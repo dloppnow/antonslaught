@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AntOnslaught
 {
-    abstract class Food : Drawable
+    class Food : Drawable
     {
         private Texture2D texture;
         private Color color;
