@@ -144,7 +144,7 @@ namespace AntOnslaught
                 nextLine = infoReader.ReadLine();
             }
             infoReader.Close();
-            mapReader.Close()
+            mapReader.Close();
         }
         public List<MovableObject> getNewObjects()
         {
