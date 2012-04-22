@@ -15,6 +15,7 @@ namespace AntOnslaught
         public int g;
         public int f;
         public int h;
+        public Food food = null;
 
         //public int xCoord;
         //public int yCoord;

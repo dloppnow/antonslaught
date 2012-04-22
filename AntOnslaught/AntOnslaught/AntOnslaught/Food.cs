@@ -12,7 +12,16 @@ namespace AntOnslaught
         private Texture2D texture;
         private Color color;
         private Rectangle clip;
+        private int amountFoodLeft = 50;
 
+        public int getAmountOfFoodLeft()
+        {
+            return amountFoodLeft;
+        }
+        public void setAmountOfFoodLeft(int foodTaken)
+        {
+            amountFoodLeft -= foodTaken;
+        }
         public Texture2D getTexture()
         {
             return texture;
