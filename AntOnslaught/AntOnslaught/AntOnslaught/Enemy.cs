@@ -17,6 +17,7 @@ namespace AntOnslaught
         protected int damage;
         protected float attackTimer;
         protected float attackInterval;
+        int health;
         bool ableToAttack;
 
         public Enemy(Vector2 position, SpriteAnimation sAnimation)
