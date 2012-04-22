@@ -88,6 +88,13 @@ namespace AntOnslaught
         public bool updateMovement(GameTime timer)
         {
             bool canMove = true;
+            if (foodCell != null && foodCell.food != null && canCarryFood)
+            {
+                if (foodCell.food.getAmountOfFoodLeft() <= 0)
+                {
+                    foodCell.food = null;
+                }
+            }
             if (curPath.Count > 0)
             {
                 isMoving = true;
@@ -136,7 +143,6 @@ namespace AntOnslaught
                         if (foodCell.food.getAmountOfFoodLeft() <= 0)
                         {
                             foodCell.food = null;
-                            foodCell = null;
                         }
                         amountOfFoodCarrying = 10;
                     }
