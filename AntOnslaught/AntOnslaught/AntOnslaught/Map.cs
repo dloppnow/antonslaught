@@ -18,6 +18,8 @@ namespace AntOnslaught
         private List<Cell> openList = new List<Cell>();
         private List<Cell> closedList = new List<Cell>();
         private List<MovableObject> newObjects = new List<MovableObject>();
+        private Cell soldierWaypoint = null;
+        private Cell workerWaypoint = null;
         public Map(ContentManager content)
         {
             TextReader infoReader = new StreamReader("infoout.txt");
@@ -72,6 +74,18 @@ namespace AntOnslaught
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
+                else if (infoTokens[0].Equals("Soldier_Waypoint"))
+                {
+                    soldierWaypoint = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
+                else if (infoTokens[0].Equals("Worker_Waypoint"))
+                {
+                    workerWaypoint = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
                 nextLine = infoReader.ReadLine();
             }
             nextLine = infoReader.ReadLine();
@@ -109,6 +123,14 @@ namespace AntOnslaught
         public int getWidth()
         {
             return numOfXCells;
+        }
+        public Cell getSoldierWaypoint()
+        {
+            return soldierWaypoint;
+        }
+        public Cell getWorkerWaypoint()
+        {
+            return workerWaypoint;
         }
         public int getHeight()
         {
