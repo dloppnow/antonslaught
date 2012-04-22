@@ -159,8 +159,7 @@ namespace AntOnslaught
         public void startTheme()
         {
             MediaPlayer.Stop();
-            SongCollection c = new SongCollection();
-            MediaPlayer.Play(new SongCollection(), 0);
+            playSong(Songs.mainTheme);
         }
 
         public void stopPlayingSong()
