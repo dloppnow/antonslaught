@@ -25,6 +25,7 @@ namespace AntOnslaught
         Menu menu;
         KeyboardState keyState;
         MouseState mouseState;
+        KeyboardState prevKBState;
         MouseState prevMState;
         Vector2 sizeOfScreen;
         Vector2 currentMapLoc; //in pixels
@@ -146,6 +147,7 @@ namespace AntOnslaught
                 updateGUI(gameTime);
             }
             prevMState = mouseState;
+            prevKBState = keyState;
         }
 
         /// <summary>
@@ -317,6 +319,7 @@ namespace AntOnslaught
                                     if (a.getHealth() <= 0)
                                     { //target has died
                                         enemyObj.setTarget(null);
+                                        audioManager.queueRandomEffectType(AudioManager.EffectType.death_ant);
                                         toKill.Add(a);
                                     }
                                 }
@@ -474,6 +477,14 @@ namespace AntOnslaught
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
                 currentMapLoc.Y -= 32;
             }
+            if (prevKBState.IsKeyUp(Keys.D1) && keyState.IsKeyDown(Keys.D1))
+            { //Press worker button
+                workerButtonPressed();
+            }
+            if (prevKBState.IsKeyUp(Keys.D2) && keyState.IsKeyDown(Keys.D2))
+            { //Press soldier button
+                soldierButtonPressed();
+            }
         }
 
         public void updateFoodTimers(GameTime timer)
@@ -516,25 +527,7 @@ namespace AntOnslaught
                 {
                     if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
                     {
-                        Cell c = map.findUnoccupiedClosestCell(foodDeliveryCell);
-                        if (c != null && amountOfFood >= workerCost)
-                        { //found good spot, make a new ant
-                            Ant a = new WorkerAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
-                            Cell d = map.findUnoccupiedClosestCell(workerWaypoint);
-                            if (d != null)
-                                a.setGoalCell(d);
-                            else
-                                a.setGoalCell(workerWaypoint);
-                            a.setCurrentCell(c);
-                            a.setPath(map.getPath(a.getCurrentCell(), a.getGoalCell()));
-                            movableObjs.Add(a);
-
-                            amountOfFood -= workerCost;
-                        }
-                        else
-                        { //no good spot to spawn new ant.
-
-                        }
+                        workerButtonPressed();
                     }
                 }
                 //Soldier Ant Button
@@ -542,28 +535,58 @@ namespace AntOnslaught
                 {
                     if (mouseState.Y >= soldierButton.Top && mouseState.Y <= soldierButton.Bottom)
                     {
-                        Cell c = map.findUnoccupiedClosestCell(foodDeliveryCell);
-                        if (c != null && amountOfFood >= soldierCost)
-                        { //found good spot, make a new ant
-                            Ant a = new SolderAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("soldier_sprite_sheet"), 32, 32, 100));
-                            Cell d = map.findUnoccupiedClosestCell(soldierWaypoint);
-                            if (d != null)
-                                a.setGoalCell(d);
-                            else
-                                a.setGoalCell(soldierWaypoint);
-                            a.setCurrentCell(c);
-                            a.setPath(map.getPath(a.getCurrentCell(), a.getGoalCell()));
-                            movableObjs.Add(a);
-
-                            amountOfFood -= soldierCost;
-                            audioManager.queueRandomEffectType(AudioManager.EffectType.pop);
-                        }
-                        else
-                        { //no good spot to spawn new ant.
-
-                        }
+                        soldierButtonPressed();
                     }
                 }
+            }
+        }
+
+        public void soldierButtonPressed()
+        {
+            Cell c = map.findUnoccupiedClosestCell(foodDeliveryCell);
+            if (c != null && amountOfFood >= soldierCost)
+            { //found good spot, make a new ant
+                Ant a = new SolderAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("soldier_sprite_sheet"), 32, 32, 100));
+                Cell d = map.findUnoccupiedClosestCell(soldierWaypoint);
+                if (d != null)
+                    a.setGoalCell(d);
+                else
+                    a.setGoalCell(soldierWaypoint);
+                a.setCurrentCell(c);
+                a.setPath(map.getPath(a.getCurrentCell(), a.getGoalCell()));
+                movableObjs.Add(a);
+
+                amountOfFood -= soldierCost;
+                audioManager.queueRandomEffectType(AudioManager.EffectType.pop);
+            }
+            else
+            { //no good spot to spawn new ant.
+
+            }
+        }
+
+        public void workerButtonPressed()
+        {
+            
+            Cell c = map.findUnoccupiedClosestCell(foodDeliveryCell);
+            if (c != null && amountOfFood >= workerCost)
+            { //found good spot, make a new ant
+                Ant a = new WorkerAnt(new Vector2(c.coord.X, c.coord.Y), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
+                Cell d = map.findUnoccupiedClosestCell(workerWaypoint);
+                if (d != null)
+                    a.setGoalCell(d);
+                else
+                    a.setGoalCell(workerWaypoint);
+                a.setCurrentCell(c);
+                a.setPath(map.getPath(a.getCurrentCell(), a.getGoalCell()));
+                movableObjs.Add(a);
+
+                amountOfFood -= workerCost;
+                audioManager.queueRandomEffectType(AudioManager.EffectType.pop);
+            }
+            else
+            { //no good spot to spawn new ant.
+
             }
         }
 
