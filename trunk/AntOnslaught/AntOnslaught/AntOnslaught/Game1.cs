@@ -156,7 +156,7 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             if (menu.isPaused())
@@ -486,26 +486,42 @@ namespace AntOnslaught
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
-                currentMapLoc.X += 32;
+                float newX = vec.X - 1;
+                if (newX >= 0 && newX < map.getWidth())
+                {
+                    rend.setViewCenter(new Vector2(newX, vec.Y));
+                    currentMapLoc.X += 32;
+                }
             }
             if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
                 Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
-                currentMapLoc.X -= 32;
+                float newX = vec.X + 1;
+                if (newX >= 0 && newX < map.getWidth())
+                {
+                    rend.setViewCenter(new Vector2(newX, vec.Y));
+                    currentMapLoc.X -= 32;
+                }
             }
             if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
                 Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
-                currentMapLoc.Y += 32;
+                float newY = vec.Y - 1;
+                if (newY >= 0 && newY < map.getHeight())
+                {
+                    rend.setViewCenter(new Vector2(vec.X, newY));
+                    currentMapLoc.Y += 32;
+                }
             }
             if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
                 Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
-                currentMapLoc.Y -= 32;
+                float newY = vec.Y + 1;
+                if (newY >= 0 && newY < map.getHeight())
+                {
+                    rend.setViewCenter(new Vector2(vec.X, newY));
+                    currentMapLoc.Y -= 32;
+                }
             }
             if (prevKBState.IsKeyUp(Keys.D1) && keyState.IsKeyDown(Keys.D1))
             { //Press worker button

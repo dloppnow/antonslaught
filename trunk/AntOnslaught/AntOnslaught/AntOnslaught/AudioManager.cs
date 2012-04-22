@@ -18,7 +18,8 @@ namespace AntOnslaught
 
         public enum Songs
         {
-
+            themeIntro,
+            mainTheme
         }
 
         public enum EffectType
@@ -47,7 +48,8 @@ namespace AntOnslaught
             effects = new Dictionary<int, SoundEffect>();
             songs = new Dictionary<int, Song>();
             //Load Songs
-            
+            songs.Add((int)Songs.mainTheme, Content.Load<Song>("bgm_loop"));
+            songs.Add((int)Songs.themeIntro, Content.Load<Song>("bgm_intro"));
             //Load Effects
             effects.Add((int)Effect.Blip, Content.Load<SoundEffect>("blip"));
             effects.Add((int)Effect.ant_death_1, Content.Load<SoundEffect>("ant_death_1"));
@@ -152,6 +154,13 @@ namespace AntOnslaught
             {
                 return false;
             }
+        }
+
+        public void startTheme()
+        {
+            MediaPlayer.Stop();
+            SongCollection c = new SongCollection();
+            MediaPlayer.Play(new SongCollection(), 0);
         }
 
         public void stopPlayingSong()
