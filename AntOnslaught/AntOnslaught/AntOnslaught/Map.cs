@@ -174,12 +174,19 @@ namespace AntOnslaught
             Cell result = null;
             List<Cell> possibleCells = new List<Cell>();
             possibleCells = getAdjacentCells(c);
-            foreach(Cell potentialTarget in possibleCells)
+            if (c.occupied == false && c.passable == true)
             {
-                if (potentialTarget.occupied == false && potentialTarget.passable == true)
+                result = c;
+            }
+            else
+            {
+                foreach (Cell potentialTarget in possibleCells)
                 {
-                    result = potentialTarget;
-                    break;
+                    if (potentialTarget.occupied == false && potentialTarget.passable == true)
+                    {
+                        result = potentialTarget;
+                        break;
+                    }
                 }
             }
             return result;

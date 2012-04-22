@@ -128,13 +128,17 @@ namespace AntOnslaught
             {
                 if (foodCell != null && foodCell.food != null)
                 {
-                    foodCell.food.reduceFoodBy(10);
-                    if (foodCell.food.getAmountOfFoodLeft() <= 0)
+                    if (foodCell.food.canPickUp())
                     {
-                        foodCell.food = null;
-                        foodCell = null;
+                        foodCell.food.reduceFoodBy(10);
+                        foodCell.food.resetTimer();
+                        if (foodCell.food.getAmountOfFoodLeft() <= 0)
+                        {
+                            foodCell.food = null;
+                            foodCell = null;
+                        }
+                        amountOfFoodCarrying = 10;
                     }
-                    amountOfFoodCarrying = 10;
                 }
                 isMoving = false;
             }

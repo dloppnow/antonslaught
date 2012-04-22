@@ -204,9 +204,27 @@ namespace AntOnslaught
                     {
                         obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
                     }
-                    obj.setGoalCell(obj.getFoodCell());
-                    obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
-                    
+                    if (obj.getFoodCell() != null && obj.getFoodCell().food != null && obj.getFoodCell().food.getAmountOfFoodLeft() >= 0)
+                    {
+                        obj.setGoalCell(obj.getFoodCell());
+                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
+                    }
+                    else
+                    {
+                        if (!workerWaypoint.occupied)
+                        {
+                            obj.setGoalCell(workerWaypoint);
+                        }
+                        else
+                        {
+                            Cell c = map.findUnoccupiedClosestCell(workerWaypoint);
+                            if (c != null)
+                            {
+                                obj.setGoalCell(c);
+                            }
+                        }
+                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                    }
                 }
                 if (!obj.updateMovement(gameTime))
                 {
