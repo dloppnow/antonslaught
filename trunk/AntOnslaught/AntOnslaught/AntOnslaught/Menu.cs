@@ -50,7 +50,7 @@ namespace AntOnslaught
             justStarted = true;
             font = content.Load<SpriteFont>("Font");
             Viewport vp = sb.GraphicsDevice.Viewport;
-            header = new Rectangle(sb.GraphicsDevice.Viewport.X / 2 - 60, 0, 120, 25);
+            header =            new Rectangle(vp.Width / 2 - 74, 0, 148, 25);
             playButton =        new Rectangle(0, 30, 125, 25);
             optionButton =      new Rectangle(0, 60, 125, 25);
             howtoPlayButton =   new Rectangle(0, 90, 125, 25);
@@ -162,6 +162,8 @@ namespace AntOnslaught
             sb.Begin();
             sb.GraphicsDevice.Clear(backgroundColor);
             //Draw Header
+            sb.Draw(dummyTexture, header, textBackColor);
+            sb.DrawString(font, "ANT ONSLAUGHT", new Vector2(header.X, header.Y), textColor);
             //Draw the buttons.
             sb.Draw(dummyTexture, quitButton, textBackColor);
             sb.DrawString(font, "QUIT", new Vector2(quitButton.X, quitButton.Y), textColor);
@@ -174,7 +176,36 @@ namespace AntOnslaught
             sb.Draw(dummyTexture, aboutUsButton, textBackColor);
             sb.DrawString(font, "ABOUT US", new Vector2(aboutUsButton.X, aboutUsButton.Y), textColor);
             //Draw other text
+            switch (textState)
+            {
+                case TextState.NONE: drawNone(); break;
+                case TextState.ABOUT: drawAbout(); break;
+                case TextState.HOWTO: drawHow(); break;
+                case TextState.OPTION: drawOption(); break;
+            }
             sb.End();
+        }
+
+        private void drawNone()
+        {
+
+        }
+
+        private void drawAbout()
+        {
+
+        }
+
+        private void drawHow()
+        {
+
+        }
+
+        private void drawOption()
+        {
+            Rectangle rect = new Rectangle(155, 30, 100, 25);
+            sb.Draw(dummyTexture, rect, textBackColor);
+            sb.DrawString(font, "ABOUT US", new Vector2(rect.X, rect.Y), textColor);
         }
     }
 }
