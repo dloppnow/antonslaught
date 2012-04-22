@@ -366,7 +366,6 @@ namespace AntOnslaught
                         newfood.setTexture(Content.Load<Texture2D>("beetle_dead"));
                         newfood.setAmountOfFoodLeft(3);
                     }
-                    newfood.setAmountOfFoodLeft(20);
                     obj.getCurrentCell().food = newfood;
                 }
                 movableObjs.Remove(obj);
