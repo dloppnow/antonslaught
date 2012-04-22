@@ -211,6 +211,7 @@ namespace AntOnslaught
                         }
                         else
                         {
+                            obj.setFoodByGoal(null);
                             obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
                             obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
