@@ -88,6 +88,13 @@ namespace AntOnslaught
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
+                else if (infoTokens[0].Equals("Spider"))
+                {
+                    newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                        new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 32, 100)));
+                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
                 nextLine = infoReader.ReadLine();
             }
             nextLine = infoReader.ReadLine();

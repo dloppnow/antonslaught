@@ -244,9 +244,10 @@ namespace AntOnslaught
                 }
                 if (obj is Enemy)
                 {
-                    if (!obj.hasPath())
+                    Enemy enemyObj = (Enemy)obj;
+                    if (!enemyObj.hasPath())
                     {
-                        obj.setGoalCell(map.getRandomCell(5, obj.getCurrentCell()));
+                        obj.setGoalCell(map.getRandomCell(map.getCell((int)enemyObj.getCenterOfMovementBox().X, (int)enemyObj.getCenterOfMovementBox().Y), 5));
                         obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                     }
                 }
