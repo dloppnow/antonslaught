@@ -41,6 +41,8 @@ namespace AntOnslaught
 	
         Cell foodDeliveryCell;
         int amountOfFood = 0;
+        int workerCost = 100;
+        int soldierCost = 150;
 
         public Game1()
         {
@@ -103,9 +105,9 @@ namespace AntOnslaught
             dummyTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             dummyTexture.SetData(new Color[] { Color.White });
             background = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, GraphicsDevice.Viewport.Width, 50);
-            workerButton = new Rectangle(12, GraphicsDevice.Viewport.Height - 37, 150, 25);
-            soldierButton = new Rectangle(174, GraphicsDevice.Viewport.Height - 37, 150, 25);
-            resourceBox = new Rectangle(336, GraphicsDevice.Viewport.Height - 37, 250, 25);
+            workerButton = new Rectangle(12, GraphicsDevice.Viewport.Height - 37, 250, 25);
+            soldierButton = new Rectangle(272, GraphicsDevice.Viewport.Height - 37, 250, 25);
+            resourceBox = new Rectangle(534, GraphicsDevice.Viewport.Height - 37, 250, 25);
             // TODO: use this.Content to load your game content here
         }
 
@@ -385,9 +387,9 @@ namespace AntOnslaught
             spriteBatch.Begin();
             spriteBatch.Draw(dummyTexture, background, Color.Black);
             spriteBatch.Draw(dummyTexture, workerButton, Color.Orange);
-            spriteBatch.DrawString(font, "WORKER: " + numWorkers, new Vector2(workerButton.X, workerButton.Y), Color.White);
+            spriteBatch.DrawString(font, "Worker(Cost=" + workerCost + "): " + numWorkers, new Vector2(workerButton.X, workerButton.Y), Color.White);
             spriteBatch.Draw(dummyTexture, soldierButton, Color.Orange);
-            spriteBatch.DrawString(font, "Soldiers: " + numSoldiers, new Vector2(soldierButton.X, soldierButton.Y), Color.White);
+            spriteBatch.DrawString(font, "Soldiers(Cost=" + soldierCost + "): " + numSoldiers, new Vector2(soldierButton.X, soldierButton.Y), Color.White);
             spriteBatch.DrawString(font, "Nutrients: " + amountOfFood, new Vector2(resourceBox.X, resourceBox.Y), Color.White);
             spriteBatch.End();
         }
