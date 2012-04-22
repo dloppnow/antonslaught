@@ -28,6 +28,21 @@ namespace AntOnslaught
         protected Cell goalCell = null;
         protected Boolean isMoving = false;
         protected float speed = 0.5f;
+        protected Cell foodCell = null;
+        protected int amountOfFoodCarrying = 0;
+        public bool hasFood()
+        {
+            bool hasFood = false;
+            if (amountOfFoodCarrying > 0)
+            {
+                hasFood = true;
+            }
+            return hasFood;
+        }
+        public void setFoodByGoal(Cell foodCell)
+        {
+            this.foodCell = foodCell;
+        }
         public Cell getCurrentCell()
         {
             return currentCell;
@@ -89,6 +104,16 @@ namespace AntOnslaught
                 }
                 else
                 {
+                    if (foodCell != null)
+                    {
+                        foodCell.food.setAmountOfFoodLeft(foodCell.food.getAmountOfFoodLeft() - 10);
+                        if (foodCell.food.getAmountOfFoodLeft() < 0)
+                        {
+                            foodCell.food = null;
+                            foodCell = null;
+                        }
+                        amountOfFoodCarrying = 10;
+                    }
                     canMove = false;
                 }
             }
@@ -107,6 +132,15 @@ namespace AntOnslaught
                 curPath.RemoveAt(0);
             }
             updateDirection();
+        }
+        public bool hasPath()
+        {
+            bool hasAPath = false;
+            if (curPath.Count > 0)
+            {
+                hasAPath = true;
+            }
+            return hasAPath;
         }
 
         //public double AngleBetween_1(Vector2 a, Vector2 b)

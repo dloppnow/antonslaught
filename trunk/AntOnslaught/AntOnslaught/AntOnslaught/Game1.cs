@@ -136,6 +136,10 @@ namespace AntOnslaught
         {
             foreach (MovableObject obj in movableObjs)
             {
+                if(!obj.hasPath() && obj.geta)
+                {
+
+                }
                 if (!obj.updateMovement(gameTime))
                 {
                     if (obj.getGoalCell().passable)
@@ -173,13 +177,12 @@ namespace AntOnslaught
                             ant.getGoalCell().occupied = false;
                         }
                         Cell desCell = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
-                        if (desCell.occupied && desCell.passable)
+                        if (desCell.occupied && desCell.passable || desCell.food != null)
                         {
                             desCell = map.findUnoccupiedClosestCell(desCell);
                         }
                         if (desCell != null && desCell.passable)
                         {
-
                             ant.setGoalCell(desCell);
                             ant.getGoalCell().occupied = true;
                             if (ant.getCurrentCell() == null)
