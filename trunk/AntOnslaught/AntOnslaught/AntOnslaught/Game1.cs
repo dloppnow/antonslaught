@@ -173,58 +173,9 @@ namespace AntOnslaught
         {
             foreach (MovableObject obj in movableObjs)
             {
-                if (obj.hasFood() && map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32).Equals(foodDeliveryCell))
+                if (obj.getCurrentCell() == null)
                 {
-                    amountOfFood += obj.getCurrentFood();
-                    obj.setCurrentFood(0);
-                    if (obj.getFoodCell() == null)
-                    {
-                        if (obj is SolderAnt)
-                        {
-                            obj.setPath(map.getPath(obj.getCurrentCell(), soldierWaypoint));
-                        }
-                        if (obj is WorkerAnt)
-                        {
-                            obj.setPath(map.getPath(obj.getCurrentCell(), workerWaypoint));
-                        }
-                    }
-                }
-                if(!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
-                {
-                    if (obj.getCurrentCell() == null)
-                    {
-                        obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
-                    }
-                    obj.setGoalCell(foodDeliveryCell);
-                    obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
-                }
-                if (!obj.hasPath() && obj.getFoodCell() != null && obj is WorkerAnt)
-                {
-                    if (obj.getCurrentCell() == null)
-                    {
-                        obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
-                    }
-                    if (obj.getFoodCell() != null && obj.getFoodCell().food != null && obj.getFoodCell().food.getAmountOfFoodLeft() >= 0)
-                    {
-                        obj.setGoalCell(obj.getFoodCell());
-                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
-                    }
-                    else
-                    {
-                        if (!workerWaypoint.occupied)
-                        {
-                            obj.setGoalCell(workerWaypoint);
-                        }
-                        else
-                        {
-                            Cell c = map.findUnoccupiedClosestCell(workerWaypoint);
-                            if (c != null)
-                            {
-                                obj.setGoalCell(c);
-                            }
-                        }
-                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
-                    }
+                    obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
                 }
                 if (!obj.updateMovement(gameTime))
                 {
@@ -235,6 +186,51 @@ namespace AntOnslaught
                 }
                 if (obj is Ant)
                 {
+                    if (obj.hasFood() && map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32).Equals(foodDeliveryCell))
+                    {
+                        amountOfFood += obj.getCurrentFood();
+                        obj.setCurrentFood(0);
+                        if (obj.getFoodCell() == null)
+                        {
+                            if (obj is SolderAnt)
+                            {
+                                obj.setPath(map.getPath(obj.getCurrentCell(), soldierWaypoint));
+                            }
+                            if (obj is WorkerAnt)
+                            {
+                                obj.setPath(map.getPath(obj.getCurrentCell(), workerWaypoint));
+                            }
+                        }
+                    }
+                    if (!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
+                    {
+                        obj.setGoalCell(foodDeliveryCell);
+                        obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
+                    }
+                    if (!obj.hasPath() && obj.getFoodCell() != null && obj is WorkerAnt)
+                    {
+                        if (obj.getFoodCell() != null && obj.getFoodCell().food != null && obj.getFoodCell().food.getAmountOfFoodLeft() >= 0)
+                        {
+                            obj.setGoalCell(obj.getFoodCell());
+                            obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
+                        }
+                        else
+                        {
+                            if (!workerWaypoint.occupied)
+                            {
+                                obj.setGoalCell(workerWaypoint);
+                            }
+                            else
+                            {
+                                Cell c = map.findUnoccupiedClosestCell(workerWaypoint);
+                                if (c != null)
+                                {
+                                    obj.setGoalCell(c);
+                                }
+                            }
+                            obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                        }
+                    }
                     if (obj is QueenAnt)
                     {
                         QueenAnt ant = (QueenAnt)obj;
@@ -244,6 +240,14 @@ namespace AntOnslaught
                     {
                         Ant ant = (Ant)obj;
                         ant.update(gameTime);
+                    }
+                }
+                if (obj is Enemy)
+                {
+                    if (!obj.hasPath())
+                    {
+                        obj.setGoalCell(map.getRandomCell(5, obj.getCurrentCell());
+                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                     }
                 }
             }
