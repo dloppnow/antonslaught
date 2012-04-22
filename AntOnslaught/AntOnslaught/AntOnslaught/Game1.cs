@@ -32,9 +32,11 @@ namespace AntOnslaught
         bool leftPressed = false;
         List<Ant> selectedAnts;
         //GUI members
+        SpriteFont font;
         Rectangle background;
         Rectangle workerButton;
         Rectangle soldierButton;
+        Texture2D dummyTexture;
 
         public Game1()
         {
@@ -83,6 +85,14 @@ namespace AntOnslaught
 			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
             currentMapLoc.X -= 16;
             currentMapLoc.Y -= 16;
+
+            //Initialize GUI members
+            font = Content.Load<SpriteFont>("Font");
+            dummyTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            dummyTexture.SetData(new Color[] { Color.White });
+            background = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, 150, 50);
+            workerButton = new Rectangle(0, GraphicsDevice.Viewport.Height - 50, 150, 50);
+            soldierButton = new Rectangle();
             // TODO: use this.Content to load your game content here
         }
 
@@ -317,6 +327,7 @@ namespace AntOnslaught
         public void drawGUI()
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(dummyTexture, quitButton, textBackColor);
             spriteBatch.End();
         }
     }
