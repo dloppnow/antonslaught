@@ -72,8 +72,11 @@ namespace AntOnslaught
                 }
                 else if (infoTokens[0].Equals("Seed"))
                 {
-                    grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])].food = new Food();
-                    grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])].food.setTexture(content.Load<Texture2D>("seed_small"));
+                    Cell c = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+                    c.food = new Food();
+                    c.food.setTexture(content.Load<Texture2D>("seed_small"));
+                    c.food.setAmountOfFoodLeft(10);
+                    c.food.setClip(new Rectangle(0, 0, 32, 32));
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
@@ -107,15 +110,30 @@ namespace AntOnslaught
                     //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                     //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
-                //else if (infoTokens[0].Equals("Spider"))
-                //{
-                //    newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                //        new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                //    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                //    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
-                //    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
-                //    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
-                //}
+                else if (infoTokens[0].Equals("Crumb"))
+                {
+                    Cell c = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+                    c.food = new Food();
+                    c.food.setTexture(content.Load<Texture2D>("crumbs"));
+                    c.food.setAmountOfFoodLeft(30);
+                    c.food.setClip(new Rectangle(0, 0, 32, 32));
+                    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
+                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
+                else if (infoTokens[0].Equals("Cheese"))
+                {
+                    Cell c = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
+                    c.food = new Food();
+                    c.food.setTexture(content.Load<Texture2D>("cheese"));
+                    c.food.setAmountOfFoodLeft(50);
+                    c.food.setClip(new Rectangle(0, 0, 32, 32));
+                    //newObjects.Add(new Spider(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("spider_sprite_sheet"), 32, 64, 100)));
+                    //newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                    //    new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                }
                 newObjects.Last().setCurrentCell(grid[(int)newObjects.Last().getPosition().X / 32, (int)newObjects.Last().getPosition().Y / 32]);
                 newObjects.Last().setGoalCell(grid[(int)newObjects.Last().getPosition().X / 32, (int)newObjects.Last().getPosition().Y / 32]);
                 nextLine = infoReader.ReadLine();
@@ -314,7 +332,7 @@ namespace AntOnslaught
 						{
 							c.next = lowestCost;
 							c.g = lowestCost.g + 1;
-                            c.h = distanceBetween(c, endNode);
+                            c.h = (int)distanceBetween(c, endNode);
 							openList.Add(c);
 						}
 					}
@@ -357,9 +375,10 @@ namespace AntOnslaught
 		{
             openList.Remove(node);
 		}
-        private int distanceBetween(Cell c1, Cell c2)
+        private float distanceBetween(Cell c1, Cell c2)
         {
-            return (int)Math.Abs(c1.coord.X - c2.coord.X) + (int)Math.Abs(c1.coord.Y - c2.coord.Y);
+            return Vector2.DistanceSquared(c1.coord, c2.coord);
+            //return Math.Pow((int)Math.Abs(c1.coord.X - c2.coord.X), 2) + (int)Math.Abs(c1.coord.Y - c2.coord.Y);
         }
         public List<Cell> getAdjacentCells(Cell c)
         {
