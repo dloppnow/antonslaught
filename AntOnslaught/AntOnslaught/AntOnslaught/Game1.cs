@@ -36,14 +36,12 @@ namespace AntOnslaught
         Rectangle background;
         Rectangle workerButton;
         Rectangle soldierButton;
-<<<<<<< .mine
         Rectangle resourceBox;
-		Texture2D dummyTexture;		Cell foodDeliveryCell;
-=======
-		Texture2D dummyTexture;		
+		Texture2D dummyTexture;	
+	
         Cell foodDeliveryCell;
         int amountOfFood = 0;
->>>>>>> .r118
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -390,7 +388,7 @@ namespace AntOnslaught
             spriteBatch.DrawString(font, "WORKER: " + numWorkers, new Vector2(workerButton.X, workerButton.Y), Color.White);
             spriteBatch.Draw(dummyTexture, soldierButton, Color.Orange);
             spriteBatch.DrawString(font, "Soldiers: " + numSoldiers, new Vector2(soldierButton.X, soldierButton.Y), Color.White);
-            spriteBatch.DrawString(font, "Nutrients: ", new Vector2(resourceBox.X, resourceBox.Y), Color.White);
+            spriteBatch.DrawString(font, "Nutrients: " + amountOfFood, new Vector2(resourceBox.X, resourceBox.Y), Color.White);
             spriteBatch.End();
         }
     }
