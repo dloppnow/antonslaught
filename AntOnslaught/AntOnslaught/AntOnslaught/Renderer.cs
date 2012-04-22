@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace AntOnslaught
 {
@@ -11,16 +12,19 @@ namespace AntOnslaught
     {
         private SpriteBatch sb;
         private Viewport viewport;
+        Texture2D selectionCircle;
         private Vector2 viewCenter; //Which cell to center the map on.
         private int tileWidth = 32;
         private int mapWidth;
         private int mapHeight;
+        private float selectionCircleAngle = 0.0f;
 
-        public Renderer(SpriteBatch sb, Viewport viewport, Vector2 viewCenter)
+        public Renderer(SpriteBatch sb, Viewport viewport, Vector2 viewCenter, ContentManager Content)
         {
             this.sb = sb;
             this.viewport = viewport;
             this.viewCenter = viewCenter;
+            selectionCircle = Content.Load<Texture2D>("dashed_circle");
         }
 
         public void setViewCenter(Vector2 viewCenter)
@@ -33,9 +37,19 @@ namespace AntOnslaught
             return viewCenter;
         }
 
-        public void Draw(Drawable obj, Vector2 pos)
+        public void DrawSelectionCircles(List<Ant> ants)
         {
-            sb.Draw(obj.getTexture(), pos, obj.getClip(), obj.getColor());
+            sb.Begin();
+            foreach (Ant ant in ants)
+            {
+                Vector2 pos = ant.getPosition();
+                Rectangle clip = ant.getClip();
+                float x = (viewport.Width / 2) - (tileWidth / 8) + (pos.X - (viewCenter.X * clip.Width));
+                float y = (viewport.Height / 2) - (tileWidth / 8) + (pos.Y - (viewCenter.Y * clip.Height));
+                sb.Draw(selectionCircle, new Rectangle((int)x, (int)y, 32, 32), new Rectangle(0, 0, 32, 32), Color.White, selectionCircleAngle, new Vector2(16, 16), SpriteEffects.None, 0.0f);
+            }
+            sb.End();
+            selectionCircleAngle += 0.05f;
         }
 
         public void Draw(MovableObject obj)

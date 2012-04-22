@@ -71,7 +71,7 @@ namespace AntOnslaught
             spriteBatch = new SpriteBatch(GraphicsDevice);
             map = new Map(Content);
             map.setTexture(Content.Load<Texture2D>("tile_sheet"));
-            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0));
+            rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0), Content);
 			menu = new Menu(spriteBatch, Content);
 			currentMapLoc = sizeOfScreen / 2 + rend.getViewCenter() * 32;
             currentMapLoc.X -= 16;
@@ -256,6 +256,7 @@ namespace AntOnslaught
         public void drawGameState()
         {
             rend.Draw(map);
+            rend.DrawSelectionCircles(selectedAnts);
             foreach (MovableObject obj in movableObjs)
             {
                 rend.Draw(obj);
