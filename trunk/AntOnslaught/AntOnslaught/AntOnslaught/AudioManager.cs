@@ -23,7 +23,7 @@ namespace AntOnslaught
 
         public enum EffectType
         {
-            death,
+            death_ant,
             munch,
             pop
         }
@@ -84,7 +84,7 @@ namespace AntOnslaught
         public bool queueRandomEffectType(EffectType type)
         {
             bool good = false;
-            if (type == EffectType.death) {
+            if (type == EffectType.death_ant) {
                 int r = rand.Next(1, 3);
                 if (r == 1)
                 {
