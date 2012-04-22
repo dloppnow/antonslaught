@@ -44,8 +44,8 @@ namespace AntOnslaught
         Cell soldierWaypoint;
         Cell workerWaypoint;
         int amountOfFood = 0;
-        int workerCost = 100;
-        int soldierCost = 150;
+        int workerCost = 0;
+        int soldierCost = 20;
 
         public Game1()
         {
@@ -382,6 +382,7 @@ namespace AntOnslaught
         {
             if (prevMState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed) //button was just clicked
             {
+                //Worker Ant Button
                 if (mouseState.X >= workerButton.Left && mouseState.X <= workerButton.Right)
                 {
                     if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
@@ -392,10 +393,36 @@ namespace AntOnslaught
                         {
                             i++;
                         }
-                        if (i < cells.Count)
+                        if (i < cells.Count && amountOfFood >= workerCost)
                         { //found good spot, make a new ant
                             Ant a = new WorkerAnt(new Vector2(cells[i].coord.X * 32, cells[i].coord.Y * 32), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
                             a.setGoalCell(workerWaypoint);
+                            a.setCurrentCell(cells[i]);
+                            a.setPath(map.getPath(a.getGoalCell(), a.getCurrentCell()));
+                            movableObjs.Add(a);
+                        }
+                        else
+                        { //no good spot to spawn new ant.
+
+                        }
+                    }
+                }
+                //Soldier Ant Button
+                //Worker Ant Button
+                if (mouseState.X >= workerButton.Left && mouseState.X <= workerButton.Right)
+                {
+                    if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
+                    {
+                        List<Cell> cells = map.getAdjacentCells(foodDeliveryCell);
+                        int i = 0;
+                        while (i < cells.Count && cells[i].passable == false)
+                        {
+                            i++;
+                        }
+                        if (i < cells.Count && amountOfFood >= soldierCost)
+                        { //found good spot, make a new ant
+                            Ant a = new SolderAnt(new Vector2(cells[i].coord.X * 32, cells[i].coord.Y * 32), new SpriteAnimation(Content.Load<Texture2D>("soldier_sprite_sheet"), 32, 32, 100));
+                            a.setGoalCell(soldierWaypoint);
                             a.setCurrentCell(cells[i]);
                             a.setPath(map.getPath(a.getGoalCell(), a.getCurrentCell()));
                             movableObjs.Add(a);
