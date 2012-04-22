@@ -11,6 +11,7 @@ namespace AntOnslaught
         float defaultSpeed = 0.35f;
         public SolderAnt(Vector2 position, SpriteAnimation sAnimation): base(position, sAnimation)
         {
+            health = 10;
             speed = defaultSpeed;
             canCarryFood = false;
             aggroRange = 250;

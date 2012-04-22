@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Ant.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="Beetle.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="Enemy.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="QueenAnt.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="Roach.cs" />
     <Compile Include="SolderAnt.cs" />
     <Compile Include="Spider.cs" />
     <Compile Include="SpriteAnimation.cs" />
