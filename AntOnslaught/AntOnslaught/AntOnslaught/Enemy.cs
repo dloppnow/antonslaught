@@ -14,7 +14,10 @@ namespace AntOnslaught
         protected Ant target;
         protected float aggroRange;
         protected float attackRange;
-        protected float damage;
+        protected int damage;
+        protected float attackTimer;
+        protected float attackInterval;
+        bool ableToAttack;
 
         public Enemy(Vector2 position, SpriteAnimation sAnimation)
         {
@@ -26,6 +29,40 @@ namespace AntOnslaught
             attackRange = 50;
             damage = 5;
             target = null;
+            attackTimer = 2000;
+            attackInterval = 1000;
+            ableToAttack = true;
+        }
+        public void update(GameTime gameTime)
+        {
+            attackTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (!ableToAttack)
+            {
+                if (attackTimer >= attackInterval)
+                {
+                    ableToAttack = true;
+                }
+            }
+            if (isMoving)
+            {
+                sAnimation.setRepeatable(true);
+            }
+            else
+            {
+                sAnimation.setRepeatable(false);
+            }
+            sAnimation.update(gameTime);
+        }
+
+        public void attacked()
+        {
+            ableToAttack = false;
+            attackTimer = 0;
+        }
+
+        public bool canAttack()
+        {
+            return ableToAttack;
         }
 
         public float getAggroRange()
@@ -68,18 +105,7 @@ namespace AntOnslaught
             this.target = target;
         }
 
-        public void update(GameTime gameTime)
-        {
-            if (isMoving)
-            {
-                sAnimation.setRepeatable(true);
-            }
-            else
-            {
-                sAnimation.setRepeatable(false);
-            }
-            sAnimation.update(gameTime);
-        }
+       
         public override Texture2D getTexture()
         {
             return sAnimation.getTexture();
