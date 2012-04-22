@@ -16,6 +16,10 @@ namespace AntOnslaught
         private float delayFoodCounter = 100;
         private float delayFoodTimer = 0;
 
+        public void setAmountOfFoodLeft(int amount)
+        {
+            amountFoodLeft = amount;
+        }
         public int getAmountOfFoodLeft()
         {
             return amountFoodLeft;
