@@ -370,12 +370,14 @@ namespace AntOnslaught
 
         public Cell getRandomCell(Cell center, int range)
         {
+            int x = (int)center.coord.X;
+            int y = (int)center.coord.Y;
             List<Cell> cells = new List<Cell>();
             for (int i = -range; i <= range; i++)
             {
                 for (int j = -range; j <= range; j++)
                 {
-                    if (i >= 0 && i < numOfXCells && j >= 0 && j < numOfYCells)
+                    if (x + i >= 0 && x + i < numOfXCells && y + j >= 0 && y + j < numOfYCells)
                     {
                         if (grid[i, j].passable == true && grid[i, j].occupied == false)
                         {
