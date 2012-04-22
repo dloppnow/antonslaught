@@ -21,6 +21,7 @@ namespace AntOnslaught
         private List<MovableObject> newObjects = new List<MovableObject>();
         private Cell soldierWaypoint = null;
         private Cell workerWaypoint = null;
+        private int pathLimit = 0;
         public Map(ContentManager content)
         {
             rand = new Random();
@@ -94,6 +95,11 @@ namespace AntOnslaught
                 {
                     newObjects.Add(new Roach(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("cockroach_sprite_sheet"), 32, 32, 100)));
+                }
+                else if (infoTokens[0].Equals("Beetle"))
+                {
+                    newObjects.Add(new Beetle(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
+                        new SpriteAnimation(content.Load<Texture2D>("beetle_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Crumb"))
                 {
@@ -242,6 +248,36 @@ namespace AntOnslaught
             }
             return lowestScoreCell;
         }
+        public List<Cell> getPath(Cell start, Cell end, int limit)
+        {
+            pathLimit = limit;
+            foreach (Cell c in grid)
+            {
+                c.g = 0;
+                c.f = 0;
+                c.h = 0;
+                c.next = null;
+            }
+            List<Cell> path = new List<Cell>();
+
+            openList.Clear();
+            closedList.Clear();
+
+            openList.Add(start);
+            if (calculatePathLimited(start, end))
+            {
+                Cell node = end;
+                while (node != null)
+                {
+                    path.Add(node);
+                    node = node.next;
+                }
+            }
+            openList.Clear();
+            closedList.Clear();
+
+            return path;
+        }
         public List<Cell> getPath(Cell start, Cell end)
 		{
             foreach (Cell c in grid)
@@ -271,6 +307,62 @@ namespace AntOnslaught
 
 			return path;
 		}
+        bool calculatePathLimited(Cell startNode, Cell endNode)
+        {
+            Cell lowestCost = null;
+            for (int i = 0; i < openList.Count(); i++)
+            {
+                if (lowestCost == null ||
+                   (lowestCost.g + lowestCost.h) > (openList[i].g + openList[i].h))
+                {
+                    lowestCost = openList[i];
+                }
+            }
+            removeFromOpenList(lowestCost);
+            if (lowestCost == endNode)
+            {
+                //endNode->parentCell = lowestCost;
+                return true;
+            }
+            closedList.Add(lowestCost);
+            pathLimit++;
+            if (pathLimit >= 0)
+            {
+                foreach (Cell c in getAdjacentCells(lowestCost))
+                {
+                    //for(int i = 0; i < lowestCost->adjacentCells.size(); i++)
+                    //{
+                    if (c.passable)
+                    {
+                        if (isOnClosedList(c) == false)
+                        {
+                            Cell aNode = isOnOpenList(c);
+                            if (aNode != null)
+                            {
+                                if (aNode.g > lowestCost.g + 1)
+                                {
+                                    aNode.next = lowestCost;
+                                    aNode.g = lowestCost.g + 1;
+                                }
+                            }
+                            else
+                            {
+                                c.next = lowestCost;
+                                c.g = lowestCost.g + 1;
+                                c.h = (int)distanceBetween(c, endNode);
+                                openList.Add(c);
+                            }
+                        }
+                    }
+                }
+                if (openList.Count() <= 0)
+                {
+                    return false;
+                }
+                calculatePath(startNode, endNode);
+            }
+            return true;
+        }
 		bool calculatePath(Cell startNode, Cell endNode)
 		{
 			Cell lowestCost = null;

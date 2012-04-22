@@ -240,7 +240,10 @@ namespace AntOnslaught
                         {
                             if ((mObj is Enemy) && Math.Abs(Vector2.Distance(mObj.getPosition(), ant.getPosition())) <= ant.getAggroRange())
                             {
-                                closeEnemy = (Enemy)mObj;
+                                if (checkIfPassablePath(mObj.getCurrentCell(), ant.getCurrentCell()))
+                                {
+                                    closeEnemy = (Enemy)mObj;
+                                }
                                 break;
                             }
                         }
@@ -255,7 +258,7 @@ namespace AntOnslaught
                         if (Math.Abs(Vector2.Distance(e.getPosition(), ant.getPosition())) <= ant.getAggroRange())
                         { //target is within aggro range
                             if (Math.Abs(Vector2.Distance(e.getPosition(), ant.getPosition())) <= ant.getAttackRange())
-                            { //Spider is within attack range;
+                            { //Soldier is within attack range;
                                 if (ant.canAttack())
                                 { //attack if it can
                                     ant.attacked();
@@ -268,7 +271,7 @@ namespace AntOnslaught
                                 }
                             }
                             else
-                            { //Spider is within aggroRange but not in AttackRange
+                            { //Soldier is within aggroRange but not in AttackRange
 
                                 obj.setGoalCell(map.findUnoccupiedClosestCell(e.getCurrentCell()));
                                 obj.setPath(map.getPath(ant.getCurrentCell(), ant.getGoalCell()));
@@ -291,8 +294,11 @@ namespace AntOnslaught
                         {
                             if ((mObj is Ant) && Math.Abs(Vector2.Distance(mObj.getPosition(), enemyObj.getPosition())) <= enemyObj.getAggroRange())
                             {
-                                closeAnt = (Ant)mObj;
-                                break;
+                                if (checkIfPassablePath(mObj.getCurrentCell(), enemyObj.getCurrentCell()))
+                                {
+                                    closeAnt = (Ant)mObj;
+                                    break;
+                                }
                             }
                         }
 
@@ -488,6 +494,43 @@ namespace AntOnslaught
             }
         }
 
+        private bool checkIfPassablePath(Cell c, Cell c2)
+        {
+            bool passablePath = true;
+            Vector2 currentCellPos = c.coord;
+            while (currentCellPos != c2.coord)
+            {
+                if (Math.Abs(currentCellPos.X - c2.coord.X) > Math.Abs(currentCellPos.Y - c2.coord.Y))
+                {
+                    //move X
+                    if (currentCellPos.X < c2.coord.X)
+                    {
+                        currentCellPos.X++;
+                    }
+                    else
+                    {
+                        currentCellPos.X--;
+                    }
+                }
+                else
+                {
+                    if (currentCellPos.Y < c2.coord.Y)
+                    {
+                        currentCellPos.Y++;
+                    }
+                    else
+                    {
+                        currentCellPos.Y--;
+                    }
+                }
+                if (!map.getGrid()[(int)currentCellPos.X, (int)currentCellPos.Y].passable)
+                {
+                    passablePath = false;
+                    break;
+                }
+            }
+            return passablePath;
+        }
         public void updateFoodTimers(GameTime timer)
         {
             foreach (Cell c in map.getGrid())
