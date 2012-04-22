@@ -128,7 +128,10 @@ namespace AntOnslaught
             if (menu.shouldQuit())
                 this.Exit();
             if (!menu.isPaused())
+            {
                 updateGameState(gameTime);
+                updateGUI(gameTime);
+            }
         }
 
         /// <summary>
@@ -147,6 +150,7 @@ namespace AntOnslaught
             else
             {
                 drawGameState();
+                drawGUI();
             }
             base.Draw(gameTime);
         }
@@ -337,7 +341,9 @@ namespace AntOnslaught
         public void drawGUI()
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(dummyTexture, quitButton, textBackColor);
+            spriteBatch.Draw(dummyTexture, background, Color.Black);
+            spriteBatch.Draw(dummyTexture, background, Color.Orange);
+            spriteBatch.Draw(dummyTexture, background, Color.Orange);
             spriteBatch.End();
         }
     }
