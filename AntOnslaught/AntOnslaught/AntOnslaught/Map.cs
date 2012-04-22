@@ -12,6 +12,7 @@ namespace AntOnslaught
     class Map : Drawable
     {
         private Texture2D texture;
+        Random rand;
         private int numOfYCells = 100;
         private int numOfXCells = 100;
         private Cell[,] grid;
@@ -22,6 +23,7 @@ namespace AntOnslaught
         private Cell workerWaypoint = null;
         public Map(ContentManager content)
         {
+            rand = new Random();
             TextReader infoReader = new StreamReader("infoout.txt");
             String[] infoTokens = infoReader.ReadLine().Split(',');
             numOfXCells = int.Parse(infoTokens[1]);
@@ -357,6 +359,26 @@ namespace AntOnslaught
                 adjacentCells.Add(grid[(int)c.coord.X + 1, (int)c.coord.Y - 1]);
             }
             return adjacentCells;
+        }
+
+        public Cell getRandomCell(Cell center, int range)
+        {
+            List<Cell> cells = new List<Cell>();
+            for (int i = -range; i <= range; i++)
+            {
+                for (int j = -range; j <= range; j++)
+                {
+                    if (grid[i, j].passable == true && grid[i, j].occupied == false)
+                    {
+                        cells.Add(grid[i, j]);
+                    }
+                }
+            }
+
+            if (cells.Count <= 0)
+                return null;
+            int index = rand.Next(0, cells.Count);
+            return cells[index];
         }
     }
 }
