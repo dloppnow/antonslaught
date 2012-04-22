@@ -62,18 +62,29 @@ namespace AntOnslaught
                 {
                     Vector2 normalVec = curPath[0].coord * 32 - position;
                     //Vector2 jumpAmount = normalVec * speed * timer.ElapsedGameTime.Milliseconds;
-                    if (normalVec.Length() < 3)
+                    Vector2 normalVecNorm = normalVec;
+                    if (normalVecNorm.Length() > 1)
+                    {
+                        normalVecNorm.Normalize();
+                        Vector2 jumpAmount = normalVecNorm * speed * timer.ElapsedGameTime.Milliseconds;
+                        if (normalVec.Length() < jumpAmount.Length())
+                        {
+                            position = curPath[0].coord * 32;
+                            currentCell = curPath[0];
+                            curPath.RemoveAt(0);
+                            updateDirection();
+                        }
+                        else
+                        {
+                            position += jumpAmount;
+                        }
+                    }
+                    else
                     {
                         position = curPath[0].coord * 32;
                         currentCell = curPath[0];
                         curPath.RemoveAt(0);
                         updateDirection();
-                    }
-                    else
-                    {
-                        normalVec.Normalize();
-                        Vector2 jumpAmount = normalVec * speed * timer.ElapsedGameTime.Milliseconds;
-                        position = position + jumpAmount;
                     }
                 }
                 else
