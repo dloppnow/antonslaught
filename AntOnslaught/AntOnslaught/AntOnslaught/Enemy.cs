@@ -14,6 +14,7 @@ namespace AntOnslaught
         protected Ant target;
         protected float aggroRange;
         protected float attackRange;
+        protected float damage;
 
         public Enemy(Vector2 position, SpriteAnimation sAnimation)
         {
@@ -22,6 +23,8 @@ namespace AntOnslaught
             this.sAnimation = sAnimation;
             this.speed = speed;
             aggroRange = 250;
+            attackRange = 50;
+            damage = 5;
             target = null;
         }
 
@@ -33,6 +36,16 @@ namespace AntOnslaught
         public void setAggroRange(float aggroRange)
         {
             this.aggroRange = aggroRange;
+        }
+
+        public float getAttackRange()
+        {
+            return attackRange;
+        }
+
+        public void setAttackRange(float attackRange)
+        {
+            this.attackRange = attackRange;
         }
 
         public Ant getTarget()
