@@ -52,17 +52,17 @@ namespace AntOnslaught
                 infoTokens = nextLine.Split(',');
                 if (infoTokens[0].Equals("Worker"))
                 {
-                    newObjects.Add(new WorkerAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32), 
+                    newObjects.Add(new WorkerAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])), 
                         new SpriteAnimation(content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Soldier"))
                 {
-                    newObjects.Add(new SolderAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32),
+                    newObjects.Add(new SolderAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("soldier_sprite_sheet"), 32, 32, 100)));
                 }
                 else if (infoTokens[0].Equals("Queen"))
                 {
-                    newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]) * 32, int.Parse(infoTokens[2]) * 32),
+                    newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
                 }
                 nextLine = infoReader.ReadLine();
@@ -135,6 +135,21 @@ namespace AntOnslaught
         public void setClip(Rectangle clip)
         {
             throw new NotImplementedException();
+        }
+        public Cell findUnoccupiedClosestCell(Cell c)
+        {
+            Cell result = null;
+            List<Cell> possibleCells = new List<Cell>();
+            possibleCells = getAdjacentCells(c);
+            foreach(Cell potentialTarget in possibleCells)
+            {
+                if (potentialTarget.occupied == false && potentialTarget.passable == true)
+                {
+                    result = potentialTarget;
+                    break;
+                }
+            }
+            return result;
         }
         private Cell lowestScoreInOpen()
         {

@@ -13,6 +13,7 @@ namespace AntOnslaught
         {
             speed = defaultSpeed;
         }
+        
         public void update(GameTime gameTime)
         {
             sAnimation.setRepeatable(true);

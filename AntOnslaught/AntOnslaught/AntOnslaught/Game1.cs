@@ -134,12 +134,23 @@ namespace AntOnslaught
             {
                 if (!obj.updateMovement(gameTime))
                 {
-                    obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                    if (obj.getGoalCell().passable)
+                    {
+                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                    }
                 }
                 if (obj is Ant)
                 {
-                    Ant ant = (Ant)obj;
-                    ant.update(gameTime);
+                    if (obj is QueenAnt)
+                    {
+                        QueenAnt ant = (QueenAnt)obj;
+                        ant.update(gameTime);
+                    }
+                    else
+                    {
+                        Ant ant = (Ant)obj;
+                        ant.update(gameTime);
+                    }
                 }
             }
             
@@ -152,11 +163,21 @@ namespace AntOnslaught
                     Vector2 mapMousePos = new Vector2(mouseState.X - currentMapLoc.X, mouseState.Y - currentMapLoc.Y);
                     foreach (Ant ant in selectedAnts)
                     {
-                        Cell c = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
-                        ant.setGoalCell(map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32));
-                        if (c.passable)
+                        //Cell c = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
+                        if (ant.getGoalCell() != null)
                         {
-                            ant.setGoalCell(c);
+                            ant.getGoalCell().occupied = false;
+                        }
+                        Cell desCell = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
+                        if (desCell.occupied && desCell.passable)
+                        {
+                            desCell = map.findUnoccupiedClosestCell(desCell);
+                        }
+                        if (desCell != null && desCell.passable)
+                        {
+
+                            ant.setGoalCell(desCell);
+                            ant.getGoalCell().occupied = true;
                             if (ant.getCurrentCell() == null)
                             {
                                 ant.setCurrentCell(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32));
