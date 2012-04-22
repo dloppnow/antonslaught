@@ -36,8 +36,7 @@ namespace AntOnslaught
         Rectangle background;
         Rectangle workerButton;
         Rectangle soldierButton;
-        Texture2D dummyTexture;
-
+		Texture2D dummyTexture;		Cell foodDeliveryCell;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -78,6 +77,14 @@ namespace AntOnslaught
             spriteBatch = new SpriteBatch(GraphicsDevice);
             map = new Map(Content);
             movableObjs.AddRange(map.getNewObjects());
+            foreach (MovableObject obj in movableObjs)
+            {
+                if (obj is QueenAnt)
+                {
+                    foodDeliveryCell = map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32);
+                    break;
+                }
+            }
             map.setTexture(Content.Load<Texture2D>("tile_sheet"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(15, 15), Content);
             audioManager = new AudioManager(Content);
@@ -148,9 +155,13 @@ namespace AntOnslaught
         {
             foreach (MovableObject obj in movableObjs)
             {
-                if(!obj.hasPath() && obj.geta)
+                if(!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
                 {
-
+                    if (obj.getCurrentCell() == null)
+                    {
+                        obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
+                    }
+                    obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
                 }
                 if (!obj.updateMovement(gameTime))
                 {
@@ -297,7 +308,6 @@ namespace AntOnslaught
                 audioManager.queueEffect(AudioManager.Effect.Blip);
             }
         }
-
         public void drawGameState()
         {
             audioManager.playEffects();
