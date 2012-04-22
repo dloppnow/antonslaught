@@ -338,10 +338,6 @@ namespace AntOnslaught
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
                 currentMapLoc.Y -= 32;
             }
-            if (keyState.IsKeyDown(Keys.D1))
-            {
-                audioManager.queueEffect(AudioManager.Effect.Blip);
-            }
         }
         public void drawGameState()
         {
