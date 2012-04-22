@@ -19,6 +19,7 @@ namespace AntOnslaught
         private int mapWidth;
         private int mapHeight;
         private float selectionCircleAngle = 0.0f;
+        private int foodLeft = 1;
 
         public Renderer(SpriteBatch sb, Viewport viewport, Vector2 viewCenter, ContentManager Content)
         {
@@ -37,7 +38,10 @@ namespace AntOnslaught
         {
             return viewCenter;
         }
-
+        public int getFoodLeft()
+        {
+            return foodLeft;
+        }
         public void DrawSelectionCircles(List<Ant> ants)
         {
             sb.Begin();
@@ -84,8 +88,12 @@ namespace AntOnslaught
                     Cell cell = map.getCell(i, j);
                     Food food = cell.food;
                     sb.Draw(map.getTexture(), new Vector2(x, y), new Rectangle(cell.texCoordY * tileWidth, cell.texCoordX * tileWidth, tileWidth, tileWidth), Color.White);
+                    foodLeft = 0;
                     if (food != null)
+                    {
+                        foodLeft++;
                         sb.Draw(food.getTexture(), new Vector2(x, y), Color.White);
+                    }
                 }
             }
             sb.End();

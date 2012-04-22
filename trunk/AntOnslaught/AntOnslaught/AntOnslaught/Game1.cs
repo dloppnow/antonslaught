@@ -32,6 +32,7 @@ namespace AntOnslaught
         Vector2 mouseLeftPressed;
         bool leftReleased = true;
         bool leftPressed = false;
+        bool gameOver = false;
         List<Ant> selectedAnts;
         //GUI members
         SpriteFont font;
@@ -133,6 +134,11 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (rend.getFoodLeft() <= 0)
+            {
+                //Game Over
+                gameOver = true;
+            }
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
 
