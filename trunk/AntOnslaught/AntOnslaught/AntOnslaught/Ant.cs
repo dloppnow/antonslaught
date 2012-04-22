@@ -10,12 +10,26 @@ namespace AntOnslaught
     abstract class Ant : MovableObject
     {
         protected SpriteAnimation sAnimation;
+        protected int health;
+
         public Ant(Vector2 position, SpriteAnimation sAnimation)
         {
+            health = 10;
             this.position = position * 32;
             this.sAnimation = sAnimation;
             this.speed = speed;
         }
+
+        public void setHealth(int health)
+        {
+            this.health = health;
+        }
+
+        public int getHealth()
+        {
+            return health;
+        }
+
         public void update(GameTime gameTime)
         {
             if (isMoving)

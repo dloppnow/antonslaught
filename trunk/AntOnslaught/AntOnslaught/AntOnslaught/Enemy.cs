@@ -13,6 +13,7 @@ namespace AntOnslaught
         protected Vector2 initialPosition;
         protected Ant target;
         protected float aggroRange;
+        protected float attackRange;
 
         public Enemy(Vector2 position, SpriteAnimation sAnimation)
         {
