@@ -182,7 +182,7 @@ namespace AntOnslaught
                 {
                     if (obj.getGoalCell().passable)
                     {
-                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                        obj.setPath(map.getPath(obj.getCurrentCell(), map.findUnoccupiedClosestCell(obj.getGoalCell())));
                     }
                 }
                 if (obj is Ant)
@@ -193,14 +193,8 @@ namespace AntOnslaught
                         obj.setCurrentFood(0);
                         if (obj.getFoodCell() == null)
                         {
-                            if (obj is SolderAnt)
-                            {
-                                obj.setPath(map.getPath(obj.getCurrentCell(), soldierWaypoint));
-                            }
-                            if (obj is WorkerAnt)
-                            {
-                                obj.setPath(map.getPath(obj.getCurrentCell(), workerWaypoint));
-                            }
+                            obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
+                            obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
                     }
                     if (!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
@@ -217,18 +211,7 @@ namespace AntOnslaught
                         }
                         else
                         {
-                            if (!workerWaypoint.occupied)
-                            {
-                                obj.setGoalCell(workerWaypoint);
-                            }
-                            else
-                            {
-                                Cell c = map.findUnoccupiedClosestCell(workerWaypoint);
-                                if (c != null)
-                                {
-                                    obj.setGoalCell(c);
-                                }
-                            }
+                            obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
                             obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
                     }
