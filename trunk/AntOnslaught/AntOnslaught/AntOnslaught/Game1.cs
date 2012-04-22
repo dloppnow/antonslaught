@@ -245,10 +245,31 @@ namespace AntOnslaught
                 if (obj is Enemy)
                 {
                     Enemy enemyObj = (Enemy)obj;
-                    if (!enemyObj.hasPath())
+                    if (!enemyObj.hasPath() && enemyObj.getTarget() == null)
                     {
-                        obj.setGoalCell(map.getRandomCell(map.getCell((int)enemyObj.getCenterOfMovementBox().X, (int)enemyObj.getCenterOfMovementBox().Y), 5));
-                        obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                        Ant closeAnt = null;
+                        foreach (MovableObject mObj in movableObjs)
+                        {
+                            if ((mObj is Ant) && Math.Abs(Vector2.Distance(mObj.getPosition(), enemyObj.getPosition())) <= enemyObj.getAggroRange())
+                            {
+                                closeAnt = (Ant)mObj;
+                                break;
+                            }
+                        }
+
+                        if (closeAnt == null)
+                        { //no close ants to attack
+                            obj.setGoalCell(map.getRandomCell(map.getCell((int)enemyObj.getCenterOfMovementBox().X, (int)enemyObj.getCenterOfMovementBox().Y), 5));
+                            obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                        }
+                        else
+                        { //there is a close ant to attack
+                            enemyObj.setTarget(closeAnt);
+                        }
+                    }
+                    else if (enemyObj.getTarget() != null)
+                    {
+
                     }
                 }
             }
