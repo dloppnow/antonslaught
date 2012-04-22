@@ -25,6 +25,7 @@ namespace AntOnslaught
         Menu menu;
         KeyboardState keyState;
         MouseState mouseState;
+        MouseState prevMState;
         Vector2 sizeOfScreen;
         Vector2 currentMapLoc; //in pixels
         Vector2 mouseLeftPressed;
@@ -144,6 +145,7 @@ namespace AntOnslaught
                 updateGameState(gameTime);
                 updateGUI(gameTime);
             }
+            prevMState = mouseState;
         }
 
         /// <summary>
@@ -378,26 +380,30 @@ namespace AntOnslaught
 
         public void updateGUI(GameTime gameTime)
         {
-            if (mouseState.X >= workerButton.Left && mouseState.X <= workerButton.Right)
+            if (prevMState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed) //button was just clicked
             {
-                if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
+                if (mouseState.X >= workerButton.Left && mouseState.X <= workerButton.Right)
                 {
-                    List<Cell> cells = map.getAdjacentCells(foodDeliveryCell);
-                    int i = 0;
-                    while (i < cells.Count && cells[i].passable == false)
+                    if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
                     {
-                        i++;
-                    }
-                    if (i < cells.Count)
-                    { //found good spot, make a new ant
-                        Ant a = new WorkerAnt(new Vector2(cells[i].coord.X * 32, cells[i].coord.Y * 32), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
-                        a.setGoalCell(workerWaypoint);
-                        a.setCurrentCell(cells[i]);
-                        a.setPath(map.getPath(a.getGoalCell(), a.getCurrentCell()));
-                    }
-                    else
-                    { //no good spot to spawn new ant.
-                        
+                        List<Cell> cells = map.getAdjacentCells(foodDeliveryCell);
+                        int i = 0;
+                        while (i < cells.Count && cells[i].passable == false)
+                        {
+                            i++;
+                        }
+                        if (i < cells.Count)
+                        { //found good spot, make a new ant
+                            Ant a = new WorkerAnt(new Vector2(cells[i].coord.X * 32, cells[i].coord.Y * 32), new SpriteAnimation(Content.Load<Texture2D>("worker_sprite_sheet"), 32, 32, 100));
+                            a.setGoalCell(workerWaypoint);
+                            a.setCurrentCell(cells[i]);
+                            a.setPath(map.getPath(a.getGoalCell(), a.getCurrentCell()));
+                            movableObjs.Add(a);
+                        }
+                        else
+                        { //no good spot to spawn new ant.
+
+                        }
                     }
                 }
             }
