@@ -32,7 +32,6 @@ namespace AntOnslaught
             }
             sAnimation.update(gameTime);
         }
-
         public override Texture2D getTexture()
         {
             return sAnimation.getTexture();
