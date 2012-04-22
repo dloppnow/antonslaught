@@ -339,19 +339,23 @@ namespace AntOnslaught
                     recHeight = (int)mapMouseOldPos.Y - (int)mapMousePos.Y;
                 }
                 mouseSelectBox = new Rectangle(recX, recY, recWidth, recHeight);
-                foreach (Ant ant in movableObjs)
+                foreach (MovableObject ant in movableObjs)
                 {
-                    Rectangle bounding = new Rectangle((int)ant.getPosition().X, (int)ant.getPosition().Y, 32, 32);
-                    if (mouseSelectBox.Width == 0 && mouseSelectBox.Height == 0)
+                    if (ant is Ant)
                     {
-                        if (bounding.Contains(mouseSelectBox.Center))
+                        Ant anAnt = (Ant)ant;
+                        Rectangle bounding = new Rectangle((int)ant.getPosition().X, (int)ant.getPosition().Y, 32, 32);
+                        if (mouseSelectBox.Width == 0 && mouseSelectBox.Height == 0)
                         {
-                            selectedAnts.Add(ant);
+                            if (bounding.Contains(mouseSelectBox.Center))
+                            {
+                                selectedAnts.Add(anAnt);
+                            }
                         }
-                    }
-                    else if (mouseSelectBox.Contains(bounding.Center))
-                    {
-                        selectedAnts.Add(ant);
+                        else if (mouseSelectBox.Contains(bounding.Center))
+                        {
+                            selectedAnts.Add(anAnt);
+                        }
                     }
                 }
             }
