@@ -121,7 +121,7 @@ namespace AntOnslaught
             }
             else
             {
-                if (foodCell != null)
+                if (foodCell != null && foodCell.food != null)
                 {
                     foodCell.food.reduceFoodBy(10);
                     if (foodCell.food.getAmountOfFoodLeft() <= 0)

@@ -40,6 +40,8 @@ namespace AntOnslaught
 		Texture2D dummyTexture;	
 	
         Cell foodDeliveryCell;
+        Cell soldierWaypoint;
+        Cell workerWaypoint;
         int amountOfFood = 0;
         int workerCost = 100;
         int soldierCost = 150;
@@ -92,6 +94,8 @@ namespace AntOnslaught
                     break;
                 }
             }
+            soldierWaypoint = map.getSoldierWaypoint();
+            workerWaypoint = map.getWorkerWaypoint();
             map.setTexture(Content.Load<Texture2D>("tile_sheet"));
             rend = new Renderer(spriteBatch, GraphicsDevice.Viewport, new Vector2(0, 0), Content);
             audioManager = new AudioManager(Content);
@@ -171,6 +175,17 @@ namespace AntOnslaught
                 {
                     amountOfFood += obj.getCurrentFood();
                     obj.setCurrentFood(0);
+                    if (obj.getFoodCell() == null)
+                    {
+                        if (obj is SolderAnt)
+                        {
+                            obj.setPath(map.getPath(obj.getCurrentCell(), soldierWaypoint));
+                        }
+                        if (obj is WorkerAnt)
+                        {
+                            obj.setPath(map.getPath(obj.getCurrentCell(), workerWaypoint));
+                        }
+                    }
                 }
                 if(!obj.hasPath() && obj.hasFood() && obj is WorkerAnt)
                 {
