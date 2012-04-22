@@ -45,7 +45,7 @@ namespace AntOnslaught
         Cell workerWaypoint;
         int amountOfFood = 0;
         int workerCost = 0;
-        int soldierCost = 20;
+        int soldierCost = 0;
 
         public Game1()
         {
@@ -401,12 +401,12 @@ namespace AntOnslaught
                         Rectangle bounding = new Rectangle((int)ant.getPosition().X, (int)ant.getPosition().Y, 32, 32);
                         if (mouseSelectBox.Width == 0 && mouseSelectBox.Height == 0)
                         {
-                            if (bounding.Contains(mouseSelectBox.Center))
+                            if (bounding.Contains(mouseSelectBox.Center) && selectedAnts.Count < 13)
                             {
                                 selectedAnts.Add(anAnt);
                             }
                         }
-                        else if (mouseSelectBox.Contains(bounding.Center))
+                        else if (mouseSelectBox.Contains(bounding.Center) && selectedAnts.Count < 13)
                         {
                             selectedAnts.Add(anAnt);
                         }
