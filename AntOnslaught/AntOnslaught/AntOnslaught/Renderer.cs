@@ -85,7 +85,7 @@ namespace AntOnslaught
                     Food food = cell.food;
                     sb.Draw(map.getTexture(), new Vector2(x, y), new Rectangle(cell.texCoordY * tileWidth, cell.texCoordX * tileWidth, tileWidth, tileWidth), Color.White);
                     if (food != null)
-                        sb.Draw(food.getTexture(), new Vector2(x, y), new Rectangle(cell.texCoordY * tileWidth, cell.texCoordX * tileWidth, tileWidth, tileWidth), Color.White);
+                        sb.Draw(food.getTexture(), new Vector2(x, y), Color.White);
                 }
             }
             sb.End();
