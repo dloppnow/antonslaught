@@ -409,10 +409,9 @@ namespace AntOnslaught
                     }
                 }
                 //Soldier Ant Button
-                //Worker Ant Button
-                if (mouseState.X >= workerButton.Left && mouseState.X <= workerButton.Right)
+                if (mouseState.X >= soldierButton.Left && mouseState.X <= soldierButton.Right)
                 {
-                    if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
+                    if (mouseState.Y >= soldierButton.Top && mouseState.Y <= soldierButton.Bottom)
                     {
                         List<Cell> cells = map.getAdjacentCells(foodDeliveryCell);
                         int i = 0;
