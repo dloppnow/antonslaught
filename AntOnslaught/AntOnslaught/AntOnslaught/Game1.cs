@@ -314,25 +314,25 @@ namespace AntOnslaught
                 }
             }
             //}            //Move the map around
-            if (keyState.IsKeyDown(Keys.Left))
+            if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
                 currentMapLoc.X += 32;
             }
-            if (keyState.IsKeyDown(Keys.Right))
+            if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
                 currentMapLoc.X -= 32;
             }
-            if (keyState.IsKeyDown(Keys.Up))
+            if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
                 currentMapLoc.Y += 32;
             }
-            if (keyState.IsKeyDown(Keys.Down))
+            if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
                 Vector2 vec = rend.getViewCenter();
                 rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
