@@ -60,7 +60,7 @@ namespace AntOnslaught
             sb.Begin();
             float x = (viewport.Width / 2) - (tileWidth / 8) + (pos.X - (viewCenter.X * clip.Width));
             float y = (viewport.Height / 2) - (tileWidth / 8) + (pos.Y - (viewCenter.Y * clip.Height));
-            sb.Draw(obj.getTexture(), new Rectangle((int)x, (int)y, clip.Width, clip.Height), clip, Color.White, angle, new Vector2(16, 16), SpriteEffects.None, 0.0f); 
+            sb.Draw(obj.getTexture(), new Rectangle((int)x, (int)y, clip.Width, clip.Height), clip, Color.White, angle, new Vector2(clip.Width / 2, clip.Height / 2), SpriteEffects.None, 0.0f); 
             sb.End();
         }
 
