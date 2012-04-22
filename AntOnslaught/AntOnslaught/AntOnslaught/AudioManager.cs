@@ -13,6 +13,7 @@ namespace AntOnslaught
     {
         Dictionary<int, SoundEffect> effectsToPlay;
         Dictionary<int, SoundEffect> effects;
+        Random rand = new Random();
         Dictionary<int, Song> songs;
 
         public enum Songs
@@ -20,9 +21,24 @@ namespace AntOnslaught
 
         }
 
+        public enum EffectType
+        {
+            death,
+            munch,
+            pop
+        }
+
         public enum Effect
         {
-            Blip
+            Blip,
+            ant_death_1,
+            ant_death_2,
+            munch_1,
+            munch_2,
+            munch_3,
+            pop_1,
+            pop_2,
+            pop_3
         }
 
         public AudioManager(ContentManager Content)
@@ -34,6 +50,14 @@ namespace AntOnslaught
             
             //Load Effects
             effects.Add((int)Effect.Blip, Content.Load<SoundEffect>("blip"));
+            effects.Add((int)Effect.ant_death_1, Content.Load<SoundEffect>("ant_death_1"));
+            effects.Add((int)Effect.ant_death_2, Content.Load<SoundEffect>("ant_death_2"));
+            effects.Add((int)Effect.munch_1, Content.Load<SoundEffect>("munch_1"));
+            effects.Add((int)Effect.munch_2, Content.Load<SoundEffect>("munch_2"));
+            effects.Add((int)Effect.munch_3, Content.Load<SoundEffect>("munch_3"));
+            effects.Add((int)Effect.pop_1, Content.Load<SoundEffect>("pop_1"));
+            effects.Add((int)Effect.pop_2, Content.Load<SoundEffect>("pop_2"));
+            effects.Add((int)Effect.pop_3, Content.Load<SoundEffect>("pop_3"));
         }
 
         public bool queueEffect(Effect effect)
@@ -55,6 +79,55 @@ namespace AntOnslaught
             {
                 return false;
             }
+        }
+
+        public bool queueRandomEffectType(EffectType type)
+        {
+            bool good = false;
+            if (type == EffectType.death) {
+                int r = rand.Next(1, 3);
+                if (r == 1)
+                {
+                    good = queueEffect(Effect.ant_death_1);
+                }
+                else
+                {
+                    good = queueEffect(Effect.ant_death_2);
+                }
+            }
+            else if (type == EffectType.munch)
+            {
+                int r = rand.Next(1, 4);
+                if (r == 1)
+                {
+                    good = queueEffect(Effect.munch_1);
+                }
+                else if (r == 2)
+                {
+                    good = queueEffect(Effect.munch_2);
+                }
+                else if (r == 3)
+                {
+                    good = queueEffect(Effect.munch_3);
+                }
+            }
+            else if (type == EffectType.pop)
+            {
+                int r = rand.Next(1, 4);
+                if (r == 1)
+                {
+                    good = queueEffect(Effect.pop_1);
+                }
+                else if (r == 2)
+                {
+                    good = queueEffect(Effect.pop_2);
+                }
+                else if (r == 3)
+                {
+                    good = queueEffect(Effect.pop_3);
+                }
+            }
+            return good;
         }
 
         public void playEffects()

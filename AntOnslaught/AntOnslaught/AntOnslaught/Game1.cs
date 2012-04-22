@@ -556,6 +556,7 @@ namespace AntOnslaught
                             movableObjs.Add(a);
 
                             amountOfFood -= soldierCost;
+                            audioManager.queueRandomEffectType(AudioManager.EffectType.pop);
                         }
                         else
                         { //no good spot to spawn new ant.
