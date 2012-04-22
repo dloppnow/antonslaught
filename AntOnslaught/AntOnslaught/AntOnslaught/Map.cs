@@ -21,7 +21,6 @@ namespace AntOnslaught
         private List<MovableObject> newObjects = new List<MovableObject>();
         private Cell soldierWaypoint = null;
         private Cell workerWaypoint = null;
-        private int pathLimit = 0;
         public Map(ContentManager content)
         {
             rand = new Random();
@@ -51,7 +50,6 @@ namespace AntOnslaught
             }
 
             String nextLine = infoReader.ReadLine();
-            Boolean EOF = false;
             while (!nextLine.Equals("tiles"))
             {
                 infoTokens = nextLine.Split(',');
@@ -145,6 +143,8 @@ namespace AntOnslaught
                 }
                 nextLine = infoReader.ReadLine();
             }
+            infoReader.Close();
+            mapReader.Close()
         }
         public List<MovableObject> getNewObjects()
         {
