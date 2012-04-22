@@ -362,7 +362,13 @@ namespace AntOnslaught
 
         public void updateGUI(GameTime gameTime)
         {
-
+            if (mouseState.X >= workerButton.Left && mouseState.X <= workerButton.Right)
+            {
+                if (mouseState.Y >= workerButton.Top && mouseState.Y <= workerButton.Bottom)
+                {
+                    
+                }
+            }
         }
 
         public void drawGUI()
