@@ -17,6 +17,7 @@ namespace AntOnslaught
         private int time = 0;
         private bool hasIntroed = false;
         private bool hasStartedIntro = false;
+        ContentManager cm;
 
         public enum EffectType
         {
@@ -43,6 +44,7 @@ namespace AntOnslaught
         public AudioManager(ContentManager Content)
         {
             effectsToPlay = new Dictionary<int, SoundEffect>();
+            cm = Content;
             effects = new Dictionary<int, SoundEffect>();
             //Load Songs
             effects.Add((int)Effect.mainTheme, Content.Load<SoundEffect>("bgm_loop"));
@@ -162,7 +164,7 @@ namespace AntOnslaught
                 queueEffect(Effect.themeIntro);
                 hasStartedIntro = true;
             }
-            
+            //MediaPlayer.Play(cm.Load<Song>("bgm_loop"));
         }
     }
 }
