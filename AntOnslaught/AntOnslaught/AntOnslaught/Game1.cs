@@ -142,9 +142,9 @@ namespace AntOnslaught
             
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
-            //audioManager.startTheme();
-            //audioManager.update(gameTime);
-            //audioManager.playEffects();
+            audioManager.startTheme();
+            audioManager.update(gameTime);
+            audioManager.playEffects();
 
             // TODO: Add your update logic here
             base.Update(gameTime);
@@ -757,9 +757,9 @@ namespace AntOnslaught
             }
             spriteBatch.Begin();
             spriteBatch.Draw(dummyTexture, background, Color.Black);
-            spriteBatch.Draw(dummyTexture, workerButton, Color.Orange);
+            spriteBatch.Draw(dummyTexture, workerButton, Color.Gray);
             spriteBatch.DrawString(font, "Worker(Cost=" + workerCost + "): " + numWorkers, new Vector2(workerButton.X, workerButton.Y), Color.White);
-            spriteBatch.Draw(dummyTexture, soldierButton, Color.Orange);
+            spriteBatch.Draw(dummyTexture, soldierButton, Color.Gray);
             spriteBatch.DrawString(font, "Soldiers(Cost=" + soldierCost + "): " + numSoldiers, new Vector2(soldierButton.X, soldierButton.Y), Color.White);
             spriteBatch.DrawString(font, "Nutrients: " + amountOfFood, new Vector2(resourceBox.X, resourceBox.Y), Color.White);
             spriteBatch.End();
