@@ -33,7 +33,7 @@ namespace AntOnslaught
         bool justStarted;
         Color backgroundColor = Color.Black;
         Color textColor = Color.White;
-        Color textBackColor = Color.Orange;
+        Color textBackColor = Color.Gray;
         TextState textState = TextState.NONE;
 
         Texture2D dummyTexture;
