@@ -22,6 +22,12 @@ namespace AntOnslaught
         Rectangle aboutUsButton;
         Rectangle header;
         Rectangle textBackground;
+        Texture2D beetleText;
+        Texture2D roachText;
+        Texture2D queenText;
+        Texture2D spiderText;
+        Texture2D workerText;
+        Texture2D soldierText;
         bool paused;
         bool quit;
         bool justStarted;
@@ -58,6 +64,13 @@ namespace AntOnslaught
             howtoPlayButton =   new Rectangle(0, 90, 125, 25);
             aboutUsButton =     new Rectangle(0, 120, 125, 25);
             quitButton =        new Rectangle(0, 150, 125, 25);
+
+            beetleText = content.Load<Texture2D>("beetle");
+            roachText = content.Load<Texture2D>("cockroach");
+            queenText = content.Load<Texture2D>("queen");
+            spiderText = content.Load<Texture2D>("spider");
+            workerText = content.Load<Texture2D>("worker");
+            soldierText = content.Load<Texture2D>("soldier");
         }
 
         public void update(GameTime gameTime, KeyboardState kbState, MouseState mState)
@@ -206,6 +219,7 @@ namespace AntOnslaught
 
         private void drawHow()
         {
+            //Text stuff
             sb.Draw(dummyTexture, textBackground, textBackColor);
             sb.DrawString(font, "There are 2 types of ants. Worker ants (Black) and soldier ants (Red).", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
             sb.DrawString(font, "Build them by pressing the buttons on the bottom of the screen or", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 30), textColor);
@@ -224,6 +238,25 @@ namespace AntOnslaught
             sb.DrawString(font, "Collect all of the food on the map (including dead enemies) to win.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 420), textColor);
             sb.DrawString(font, "If you do not have enough nutrients to purchase a new worker and", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 450), textColor);
             sb.DrawString(font, "all of your workers die, or your queen dies you will lose.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 480), textColor);
+
+            //Images
+            sb.DrawString(font, "Queen", new Vector2(textBackground.X + 5 + 5, textBackground.Y + 5 + 600), textColor);
+            sb.Draw(queenText, new Vector2(textBackground.X + 5 + 15, textBackground.Y + 5 + 630), Color.White);
+
+            sb.DrawString(font, "Worker", new Vector2(textBackground.X + 5 + 80, textBackground.Y + 5 + 600), textColor);
+            sb.Draw(workerText, new Vector2(textBackground.X + 5 + 95, textBackground.Y + 5 + 630), Color.White);
+
+            sb.DrawString(font, "Soldier", new Vector2(textBackground.X + 5 + 160, textBackground.Y + 5 + 600), textColor);
+            sb.Draw(soldierText, new Vector2(textBackground.X + 5 + 175, textBackground.Y + 5 + 630), Color.White);
+
+            sb.DrawString(font, "Beetle", new Vector2(textBackground.X + 5 + 245, textBackground.Y + 5 + 600), textColor);
+            sb.Draw(beetleText, new Vector2(textBackground.X + 5 + 255, textBackground.Y + 5 + 630), Color.White);
+
+            sb.DrawString(font, "Roach", new Vector2(textBackground.X + 5 + 325, textBackground.Y + 5 + 600), textColor);
+            sb.Draw(roachText, new Vector2(textBackground.X + 5 + 335, textBackground.Y + 5 + 630), Color.White);
+
+            sb.DrawString(font, "Spider", new Vector2(textBackground.X + 5 + 400, textBackground.Y + 5 + 600), textColor);
+            sb.Draw(spiderText, new Vector2(textBackground.X + 5 + 410, textBackground.Y + 5 + 620), Color.White);
         }
 
         private void drawOption()
