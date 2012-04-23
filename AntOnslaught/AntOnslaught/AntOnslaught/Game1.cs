@@ -33,6 +33,7 @@ namespace AntOnslaught
         bool leftReleased = true;
         bool leftPressed = false;
         bool gameOver = false;
+        bool win = false;
         List<Ant> selectedAnts;
         //GUI members
         SpriteFont font;
@@ -48,6 +49,8 @@ namespace AntOnslaught
         int amountOfFood = 0;
         int workerCost = 0;
         int soldierCost = 0;
+        int numWorkers = 1;
+        int numSoldiers = 1;
 
         public Game1()
         {
@@ -139,6 +142,15 @@ namespace AntOnslaught
             {
                 //Game Over
                 gameOver = true;
+                win = true;
+            }
+            if (numWorkers == 0)
+            {
+                if (amountOfFood < workerCost)
+                {
+                    gameOver = true;
+                    win = false;
+                }
             }
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
@@ -164,7 +176,7 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             if (menu.isPaused())
@@ -494,42 +506,26 @@ namespace AntOnslaught
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 Vector2 vec = rend.getViewCenter();
-                float newX = vec.X - 1;
-                if (newX >= 0 && newX < map.getWidth())
-                {
-                    rend.setViewCenter(new Vector2(newX, vec.Y));
-                    currentMapLoc.X += 32;
-                }
+                rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
+                currentMapLoc.X += 32;
             }
             if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
                 Vector2 vec = rend.getViewCenter();
-                float newX = vec.X + 1;
-                if (newX >= 0 && newX < map.getWidth())
-                {
-                    rend.setViewCenter(new Vector2(newX, vec.Y));
-                    currentMapLoc.X -= 32;
-                }
+                rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
+                currentMapLoc.X -= 32;
             }
             if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
                 Vector2 vec = rend.getViewCenter();
-                float newY = vec.Y - 1;
-                if (newY >= 0 && newY < map.getHeight())
-                {
-                    rend.setViewCenter(new Vector2(vec.X, newY));
-                    currentMapLoc.Y += 32;
-                }
+                rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
+                currentMapLoc.Y += 32;
             }
             if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
                 Vector2 vec = rend.getViewCenter();
-                float newY = vec.Y + 1;
-                if (newY >= 0 && newY < map.getHeight())
-                {
-                    rend.setViewCenter(new Vector2(vec.X, newY));
-                    currentMapLoc.Y -= 32;
-                }
+                rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
+                currentMapLoc.Y -= 32;
             }
             if (prevKBState.IsKeyUp(Keys.D1) && keyState.IsKeyDown(Keys.D1))
             { //Press worker button
@@ -684,8 +680,8 @@ namespace AntOnslaught
 
         public void drawGUI()
         {
-            int numWorkers = 0;
-            int numSoldiers = 0;
+            numWorkers = 0;
+            numSoldiers = 0;
             foreach (MovableObject obj in movableObjs)
             {
                 if (obj is WorkerAnt)
