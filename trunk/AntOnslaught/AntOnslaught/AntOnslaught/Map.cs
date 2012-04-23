@@ -21,6 +21,8 @@ namespace AntOnslaught
         private List<MovableObject> newObjects = new List<MovableObject>();
         private Cell soldierWaypoint = null;
         private Cell workerWaypoint = null;
+        private Cell lastStart;
+        private Cell lastEnd;
         public Map(ContentManager content)
         {
             Cell queenCell = null;
@@ -270,6 +272,8 @@ namespace AntOnslaught
         }
         public List<Cell> getPath(Cell start, Cell end)
 		{
+            lastStart = start;
+            lastEnd = end;
             foreach (Cell c in grid)
             {
                 c.g = 0;
@@ -278,6 +282,10 @@ namespace AntOnslaught
                 c.next = null;
             }
 			List<Cell> path = new List<Cell>();
+            if (end.passable == false)
+            {
+                return path;
+            }
 
 			openList.Clear();
 			closedList.Clear();
@@ -309,7 +317,7 @@ namespace AntOnslaught
 				}
 			}
 			removeFromOpenList(lowestCost);
-			if(lowestCost == endNode)
+            if (lowestCost.coord == endNode.coord)
 			{
 				//endNode->parentCell = lowestCost;
 				return true;
