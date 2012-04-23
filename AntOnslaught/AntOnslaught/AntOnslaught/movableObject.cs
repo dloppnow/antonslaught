@@ -103,7 +103,7 @@ namespace AntOnslaught
         {
             return position;
         }
-        public bool updateMovement(GameTime timer)
+        public bool updateMovement(GameTime timer, AudioManager audioManager)
         {
             bool canMove = true;
             if (foodCell != null && foodCell.food != null && canCarryFood)
@@ -159,6 +159,7 @@ namespace AntOnslaught
                         foodCell.food.reduceFoodBy(1);
                         foodCell.food.resetTimer();
                         amountOfFoodCarrying = 1;
+                        audioManager.queueRandomEffectType(AudioManager.EffectType.munch);
                         List<Cell> pathToQueen = new List<Cell>();
                         for (int i = 0; i < queenToCurrentFoodPath.Count; i++)
                         {
