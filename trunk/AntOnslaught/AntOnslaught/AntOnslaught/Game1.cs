@@ -47,7 +47,8 @@ namespace AntOnslaught
         Cell soldierWaypoint;
         Cell workerWaypoint;
         int amountOfFood = 0;
-        int workerCost = 3;
+        //int workerCost = 3;
+        int workerCost = 0;
         int soldierCost = 8;
         int numWorkers = 1;
         int numSoldiers = 1;
@@ -212,6 +213,7 @@ namespace AntOnslaught
                         obj.setCurrentFood(0);
                         if (obj.getFoodCell() == null || obj.getFoodCell().food == null)
                         {
+                            obj.setFoodByGoal(null);
                             obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
                             obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
@@ -246,7 +248,11 @@ namespace AntOnslaught
                         {
                             obj.setFoodByGoal(null);
                             obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
-                            obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
+                            obj.getBaseFromCurrentFoodPath().RemoveAt(0);
+                            obj.getBaseFromCurrentFoodPath().Insert(0, obj.getGoalCell());
+                            obj.setPath(obj.getBaseFromCurrentFoodPath());
+                            //obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
+                            //obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
                     }
                     else
@@ -364,6 +370,10 @@ namespace AntOnslaught
                             else
                             { //Spider is within aggroRange but not in AttackRange
                                 enemyObj.setGoalCell(a.getCurrentCell());
+                                //List<Cell> stepsToTarget = new List<Cell>();
+                                //stepsToTarget.Add(a.getCurrentCell());
+                                //stepsToTarget.Add(a.getCurrentCell());
+                                //obj.setPath(stepsToTarget);
                                 obj.setPath(map.getPath(enemyObj.getCurrentCell(), enemyObj.getGoalCell()));
                             }
                         }
@@ -432,6 +442,12 @@ namespace AntOnslaught
                                 foodPath.Add(new Cell(desCell.food.getPathToQueen()[i]));
                             }
                             ant.setQueenToCurrentFoodPath(foodPath);
+                            List<Cell> basePath = new List<Cell>();
+                            for (int i = 0; i < desCell.food.getPathToBase().Count; i++)
+                            {
+                                basePath.Add(new Cell(desCell.food.getPathToBase()[i]));
+                            }
+                            ant.setBaseFromCurrentFoodPath(basePath);
                             ant.setFoodByGoal(desCell);
                         }
                         else if (desCell.occupied && desCell.passable)

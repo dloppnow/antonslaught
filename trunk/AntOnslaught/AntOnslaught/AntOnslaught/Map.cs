@@ -155,6 +155,11 @@ namespace AntOnslaught
                     pathToQueen.Add(queenCell);
                     //pathToQueen.RemoveAt(0);
                     c.food.setPathToQueen(pathToQueen);
+
+                    List<Cell> pathToBase = getPath(c, workerWaypoint);
+                    pathToBase.Add(workerWaypoint);
+                    //pathToQueen.RemoveAt(0);
+                    c.food.setPathToBase(pathToBase);
                 }
             }
             queenCell.occupied = false;

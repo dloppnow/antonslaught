@@ -16,6 +16,7 @@ namespace AntOnslaught
         private float delayFoodCounter = 100;
         private float delayFoodTimer = 0;
         private List<Cell> pathToQueen;
+        private List<Cell> pathToBase;
 
         public void setAmountOfFoodLeft(int amount)
         {
@@ -36,6 +37,14 @@ namespace AntOnslaught
         public List<Cell> getPathToQueen()
         {
             return pathToQueen;
+        }
+        public void setPathToBase(List<Cell> path)
+        {
+            pathToBase = path;
+        }
+        public List<Cell> getPathToBase()
+        {
+            return pathToBase;
         }
         public void resetTimer()
         {
