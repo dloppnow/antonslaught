@@ -197,7 +197,7 @@ namespace AntOnslaught
                 {
                     obj.setCurrentCell(map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32));
                 }
-                if (!obj.updateMovement(gameTime))
+                if (!obj.updateMovement(gameTime, audioManager))
                 {
                     if (obj.getGoalCell().passable)
                     {
@@ -231,7 +231,7 @@ namespace AntOnslaught
                     {
                         //obj.setGoalCell(foodDeliveryCell);
                         //obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
-                        audioManager.queueRandomEffectType(AudioManager.EffectType.munch);
+                        //audioManager.queueRandomEffectType(AudioManager.EffectType.munch);
                     }
                     if (!obj.hasPath() && obj.getFoodCell() != null)
                     {
