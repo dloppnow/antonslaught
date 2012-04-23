@@ -23,6 +23,7 @@ namespace AntOnslaught
         private Cell workerWaypoint = null;
         public Map(ContentManager content)
         {
+            Cell queenCell = null;
             rand = new Random();
             TextReader infoReader = new StreamReader("infoout.txt");
             String[] infoTokens = infoReader.ReadLine().Split(',');
@@ -66,8 +67,10 @@ namespace AntOnslaught
                 }
                 else if (infoTokens[0].Equals("Queen"))
                 {
+                    Cell c = grid[int.Parse(infoTokens[1]), int.Parse(infoTokens[2])];
                     newObjects.Add(new QueenAnt(new Vector2(int.Parse(infoTokens[1]), int.Parse(infoTokens[2])),
                         new SpriteAnimation(content.Load<Texture2D>("queen_sprite_sheet"), 32, 32, 100)));
+                    queenCell = c;
                 }
                 else if (infoTokens[0].Equals("Seed"))
                 {
@@ -143,6 +146,18 @@ namespace AntOnslaught
                 }
                 nextLine = infoReader.ReadLine();
             }
+            foreach (Cell c in grid)
+            {
+                if (c.food != null)
+                {
+                    List<Cell> pathToQueen = getPath(c, queenCell);
+                    pathToQueen.Reverse();
+                    pathToQueen.Add(queenCell);
+                    //pathToQueen.RemoveAt(0);
+                    c.food.setPathToQueen(pathToQueen);
+                }
+            }
+            queenCell.occupied = false;
             infoReader.Close();
             mapReader.Close();
         }

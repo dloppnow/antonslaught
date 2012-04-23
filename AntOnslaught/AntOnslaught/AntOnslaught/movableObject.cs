@@ -31,6 +31,7 @@ namespace AntOnslaught
         protected Cell foodCell = null;
         protected int amountOfFoodCarrying = 0;
         protected bool canCarryFood = true;
+        private List<Cell> queenToCurrentFoodPath;
         public bool hasFood()
         {
             bool hasFood = false;
@@ -39,6 +40,14 @@ namespace AntOnslaught
                 hasFood = true;
             }
             return hasFood;
+        }
+        public void setQueenToCurrentFoodPath(List<Cell> path)
+        {
+            queenToCurrentFoodPath = path;
+        }
+        public List<Cell> getQueenToCurrentFoodPath()
+        {
+            return queenToCurrentFoodPath;
         }
         public void setFoodByGoal(Cell foodCell)
         {
@@ -134,17 +143,20 @@ namespace AntOnslaught
             }
             else
             {
-                if (foodCell != null && foodCell.food != null && canCarryFood)
+                if (foodCell != null && foodCell.food != null && canCarryFood && currentCell.coord == foodCell.coord)
                 {
                     if (foodCell.food.canPickUp())
                     {
                         foodCell.food.reduceFoodBy(1);
                         foodCell.food.resetTimer();
-                        if (foodCell.food.getAmountOfFoodLeft() <= 0)
-                        {
-                            foodCell.food = null;
-                        }
                         amountOfFoodCarrying = 1;
+                        List<Cell> pathToQueen = new List<Cell>();
+                        for (int i = 0; i < queenToCurrentFoodPath.Count; i++)
+                        {
+                            pathToQueen.Add(new Cell(queenToCurrentFoodPath[i]));
+                        }
+                        pathToQueen.Reverse();
+                        setPath(pathToQueen);
                     }
                 }
                 isMoving = false;

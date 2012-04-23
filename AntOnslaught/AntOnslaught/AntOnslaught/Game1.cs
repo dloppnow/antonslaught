@@ -206,28 +206,41 @@ namespace AntOnslaught
                 }
                 if (obj is WorkerAnt)
                 {
-                    if (obj.hasFood() && map.getCell((int)obj.getPosition().X / 32, (int)obj.getPosition().Y / 32).Equals(foodDeliveryCell))
+                    if (obj.hasFood() && obj.getCurrentCell().coord.Equals(foodDeliveryCell.coord))
                     {
                         amountOfFood += obj.getCurrentFood();
                         obj.setCurrentFood(0);
-                        if (obj.getFoodCell() == null)
+                        if (obj.getFoodCell() == null || obj.getFoodCell().food == null)
                         {
                             obj.setGoalCell(map.findUnoccupiedClosestCell(workerWaypoint));
                             obj.setPath(map.getPath(obj.getCurrentCell(), obj.getGoalCell()));
                         }
+                        else
+                        {
+                            List<Cell> pathToQueen = new List<Cell>();
+                            for (int i = 0; i < obj.getQueenToCurrentFoodPath().Count; i++)
+                            {
+                                pathToQueen.Add(new Cell(obj.getQueenToCurrentFoodPath()[i]));
+                            }
+                            //pathToQueen.Reverse();
+                            obj.setPath(pathToQueen);
+                        }
                     }
                     if (!obj.hasPath() && obj.hasFood())
                     {
-                        obj.setGoalCell(foodDeliveryCell);
-                        obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
+                        //obj.setGoalCell(foodDeliveryCell);
+                        //obj.setPath(map.getPath(obj.getCurrentCell(), foodDeliveryCell));
                         audioManager.queueRandomEffectType(AudioManager.EffectType.munch);
                     }
                     if (!obj.hasPath() && obj.getFoodCell() != null)
                     {
                         if (obj.getFoodCell() != null && obj.getFoodCell().food != null && obj.getFoodCell().food.getAmountOfFoodLeft() >= 0)
                         {
-                            obj.setGoalCell(obj.getFoodCell());
-                            obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
+                            //obj.setGoalCell(obj.getFoodCell());
+                            //List<Cell> pathToQueen = obj.getFoodCell().food.getPathToQueen();
+                            //obj.setPath(pathToQueen);
+                            //obj.setGoalCell(obj.getFoodCell());
+                            //obj.setPath(map.getPath(obj.getCurrentCell(), obj.getFoodCell()));
                         }
                         else
                         {
@@ -413,8 +426,13 @@ namespace AntOnslaught
                         Cell desCell = map.getCell((int)mapMousePos.X / 32, (int)mapMousePos.Y / 32);
                         if (desCell.food != null)
                         {
+                            List<Cell> foodPath = new List<Cell>();
+                            for (int i = 0; i < desCell.food.getPathToQueen().Count; i++)
+                            {
+                                foodPath.Add(new Cell(desCell.food.getPathToQueen()[i]));
+                            }
+                            ant.setQueenToCurrentFoodPath(foodPath);
                             ant.setFoodByGoal(desCell);
-                            desCell = map.findUnoccupiedClosestCell(desCell);
                         }
                         else if (desCell.occupied && desCell.passable)
                         {

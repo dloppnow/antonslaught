@@ -32,5 +32,19 @@ namespace AntOnslaught
         {
             this.tileType = int.Parse(tileType);
         }
+        public Cell(Cell c)
+        {
+            texCoordX = c.texCoordX;
+            texCoordY = c.texCoordY;
+            passable = c.passable;
+            g = c.g;
+            f = c.f;
+            h = c.h;
+            food = c.food;
+            occupied = c.occupied;
+            visited = c.visited;
+            coord = c.coord;
+            tileType = c.tileType;
+        }
     }
 }
