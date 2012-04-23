@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntOnslaught", "AntOnslaught\AntOnslaught\AntOnslaught.csproj", "{04A2FA48-3200-4A41-AAEE-DA675B47FBF0}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "AntOnslaughtContent", "AntOnslaught\AntOnslaughtContent\AntOnslaughtContent.contentproj", "{FE35B2AE-BAD8-4633-82AB-666286DAA615}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntOnslaughtContent", "AntOnslaught\AntOnslaughtContent\AntOnslaughtContent.contentproj", "{FE35B2AE-BAD8-4633-82AB-666286DAA615}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
