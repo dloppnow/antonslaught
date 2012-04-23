@@ -16,6 +16,7 @@ namespace AntOnslaught
         Random rand = new Random();
         private int time = 0;
         private bool hasIntroed = false;
+        private bool hasStartedIntro = false;
 
         public enum EffectType
         {
@@ -140,13 +141,13 @@ namespace AntOnslaught
         public void update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.Milliseconds;
-            if (time <= effects[(int)Effect.themeIntro].Duration.TotalMilliseconds && !hasIntroed)
+            if (time >= effects[(int)Effect.themeIntro].Duration.TotalMilliseconds - 1000 && !hasIntroed)
             {
                 queueEffect(Effect.mainTheme);
                 hasIntroed = true;
                 time = 0;
             }
-            else if (time >= effects[(int)Effect.mainTheme].Duration.TotalMilliseconds && hasIntroed)
+            else if (time >= effects[(int)Effect.mainTheme].Duration.TotalMilliseconds - 4970 && hasIntroed)
             {
                 queueEffect(Effect.mainTheme);
                 time = 0;
@@ -156,7 +157,12 @@ namespace AntOnslaught
 
         public void startTheme()
         {
-            queueEffect(Effect.themeIntro);
+            if (!hasStartedIntro)
+            {
+                queueEffect(Effect.themeIntro);
+                hasStartedIntro = true;
+            }
+            
         }
     }
 }

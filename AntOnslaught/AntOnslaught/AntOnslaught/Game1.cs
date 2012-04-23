@@ -119,7 +119,7 @@ namespace AntOnslaught
             soldierButton = new Rectangle(272, GraphicsDevice.Viewport.Height - 37, 250, 25);
             resourceBox = new Rectangle(534, GraphicsDevice.Viewport.Height - 37, 250, 25);
             // TODO: use this.Content to load your game content here
-            audioManager.startTheme();
+            
         }
 
         /// <summary>
@@ -154,7 +154,9 @@ namespace AntOnslaught
             }
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
+            audioManager.startTheme();
             audioManager.update(gameTime);
+            audioManager.playEffects();
 
             // TODO: Add your update logic here
             base.Update(gameTime);
@@ -586,7 +588,7 @@ namespace AntOnslaught
         }
         public void drawGameState()
         {
-            audioManager.playEffects();
+            
             rend.Draw(map);
             rend.DrawSelectionCircles(selectedAnts);
             foreach (MovableObject obj in movableObjs)
@@ -676,6 +678,13 @@ namespace AntOnslaught
             { //no good spot to spawn new ant.
 
             }
+        }
+
+        public void drawGameOver()
+        {
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, (win) ? "YOU WON!" : "YOU LOST!", new Vector2(resourceBox.X, resourceBox.Y), Color.White);
+            spriteBatch.End();
         }
 
         public void drawGUI()
