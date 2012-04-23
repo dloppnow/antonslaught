@@ -436,6 +436,13 @@ namespace AntOnslaught
                         if (desCell.food != null)
                         {
                             List<Cell> foodPath = new List<Cell>();
+                            if (desCell.food.getPathToQueen() == null)
+                            {
+                                List<Cell> path = map.getPath(desCell, foodDeliveryCell);
+                                path.Reverse();
+                                desCell.food.setPathToQueen(path);
+                                desCell.food.setPathToBase(map.getPath(desCell, workerWaypoint));
+                            }
                             for (int i = 0; i < desCell.food.getPathToQueen().Count; i++)
                             {
                                 foodPath.Add(new Cell(desCell.food.getPathToQueen()[i]));
