@@ -32,6 +32,7 @@ namespace AntOnslaught
         protected int amountOfFoodCarrying = 0;
         protected bool canCarryFood = true;
         private List<Cell> queenToCurrentFoodPath;
+        private List<Cell> baseFromCurrentFoodPath;
         public bool hasFood()
         {
             bool hasFood = false;
@@ -40,6 +41,14 @@ namespace AntOnslaught
                 hasFood = true;
             }
             return hasFood;
+        }
+        public void setBaseFromCurrentFoodPath(List<Cell> path)
+        {
+            baseFromCurrentFoodPath = path;
+        }
+        public List<Cell> getBaseFromCurrentFoodPath()
+        {
+            return baseFromCurrentFoodPath;
         }
         public void setQueenToCurrentFoodPath(List<Cell> path)
         {
