@@ -169,7 +169,7 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             if (menu.isPaused())
@@ -505,27 +505,54 @@ namespace AntOnslaught
             updateFoodTimers(gameTime);
             if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
-                Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X - 1, vec.Y));
-                currentMapLoc.X += 32;
+                Vector2 oldCenter = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(oldCenter.X - 1, oldCenter.Y));
+                if (isGoodIndex(rend.getViewCenter()))
+                {
+                    currentMapLoc.X += 32;
+                }
+                else {
+                    rend.setViewCenter(oldCenter);
+                }
             }
             if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
-                Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X + 1, vec.Y));
-                currentMapLoc.X -= 32;
+                Vector2 oldCenter = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(oldCenter.X + 1, oldCenter.Y));
+                if (isGoodIndex(rend.getViewCenter()))
+                {
+                    currentMapLoc.X -= 32;
+                }
+                else
+                {
+                    rend.setViewCenter(oldCenter);
+                }
             }
             if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
             {
-                Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X, vec.Y - 1));
-                currentMapLoc.Y += 32;
+                Vector2 oldCenter = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(oldCenter.X, oldCenter.Y - 1));
+                if (isGoodIndex(rend.getViewCenter()))
+                {
+                    currentMapLoc.Y += 32;
+                }
+                else
+                {
+                    rend.setViewCenter(oldCenter);
+                }
             }
             if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
             {
-                Vector2 vec = rend.getViewCenter();
-                rend.setViewCenter(new Vector2(vec.X, vec.Y + 1));
-                currentMapLoc.Y -= 32;
+                Vector2 oldCenter = rend.getViewCenter();
+                rend.setViewCenter(new Vector2(oldCenter.X, oldCenter.Y + 1));
+                if (isGoodIndex(rend.getViewCenter()))
+                {
+                    currentMapLoc.Y -= 32;
+                }
+                else
+                {
+                    rend.setViewCenter(oldCenter);
+                }
             }
             if (prevKBState.IsKeyUp(Keys.D1) && keyState.IsKeyDown(Keys.D1))
             { //Press worker button
@@ -550,6 +577,18 @@ namespace AntOnslaught
                     win = false;
                 }
             }
+        }
+
+        public bool isGoodIndex(Vector2 vec)
+        {
+            if (vec.X >= 0 && vec.X < map.getWidth())
+            {
+                if (vec.Y >= 0 && vec.Y < map.getHeight())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool checkIfPassablePath(Cell c, Cell c2)
