@@ -14,14 +14,8 @@ namespace AntOnslaught
         Dictionary<int, SoundEffect> effectsToPlay;
         Dictionary<int, SoundEffect> effects;
         Random rand = new Random();
-        Dictionary<int, Song> songs;
         private int time = 0;
-
-        public enum Songs
-        {
-            themeIntro,
-            mainTheme
-        }
+        private bool hasIntroed = false;
 
         public enum EffectType
         {
@@ -32,6 +26,8 @@ namespace AntOnslaught
 
         public enum Effect
         {
+            mainTheme,
+            themeIntro,
             Blip,
             ant_death_1,
             ant_death_2,
@@ -47,10 +43,9 @@ namespace AntOnslaught
         {
             effectsToPlay = new Dictionary<int, SoundEffect>();
             effects = new Dictionary<int, SoundEffect>();
-            songs = new Dictionary<int, Song>();
             //Load Songs
-            songs.Add((int)Songs.mainTheme, Content.Load<Song>("bgm_loop"));
-            songs.Add((int)Songs.themeIntro, Content.Load<Song>("bgm_intro"));
+            effects.Add((int)Effect.mainTheme, Content.Load<SoundEffect>("bgm_loop"));
+            effects.Add((int)Effect.themeIntro, Content.Load<SoundEffect>("bgm_intro"));
             //Load Effects
             effects.Add((int)Effect.Blip, Content.Load<SoundEffect>("blip"));
             effects.Add((int)Effect.ant_death_1, Content.Load<SoundEffect>("ant_death_1"));
@@ -142,40 +137,26 @@ namespace AntOnslaught
             effectsToPlay.Clear();
         }
 
-        public bool playSong(Songs song)
-        {
-            Song s = null;
-            if (songs.TryGetValue((int)song, out s))
-            {
-                MediaPlayer.Stop();
-                MediaPlayer.Play(s);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public void update(GameTime gameTime)
         {
             time += gameTime.ElapsedGameTime.Milliseconds;
-            if (time >= 18000)
+            if (time <= effects[(int)Effect.themeIntro].Duration.TotalMilliseconds && !hasIntroed)
             {
-                playSong(Songs.mainTheme);
-                MediaPlayer.IsRepeating = true;
+                queueEffect(Effect.mainTheme);
+                hasIntroed = true;
+                time = 0;
             }
+            else if (time >= effects[(int)Effect.mainTheme].Duration.TotalMilliseconds && hasIntroed)
+            {
+                queueEffect(Effect.mainTheme);
+                time = 0;
+            }
+            
         }
 
         public void startTheme()
         {
-            MediaPlayer.Stop();
-            playSong(Songs.themeIntro);
-        }
-
-        public void stopPlayingSong()
-        {
-            MediaPlayer.Stop();
+            queueEffect(Effect.themeIntro);
         }
     }
 }
