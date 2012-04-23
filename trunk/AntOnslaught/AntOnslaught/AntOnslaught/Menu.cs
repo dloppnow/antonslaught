@@ -207,7 +207,23 @@ namespace AntOnslaught
         private void drawHow()
         {
             sb.Draw(dummyTexture, textBackground, textBackColor);
-            sb.DrawString(font, "You think we had time to do options? HAHAHAHAHAHA", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
+            sb.DrawString(font, "There are 2 types of ants. Worker ants (Black) and soldier ants (Red).", new Vector2(textBackground.X + 5, textBackground.Y + 5), textColor);
+            sb.DrawString(font, "Build them by pressing the buttons on the bottom of the screen or", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 30), textColor);
+            sb.DrawString(font, "by press 1 to build workers and 2 to build soldiers.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 60), textColor);
+            sb.DrawString(font, "You can select up to 13 ants by left-click-dragging across the screen. ", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 90), textColor);
+            sb.DrawString(font, "Worker ants can pick up food to bring to the Queen ant,", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 120), textColor);
+            sb.DrawString(font, "but, they are no good in a fight.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 150), textColor);
+            sb.DrawString(font, "Soldier ants can't pick up food but they can fight against", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 210), textColor);
+            sb.DrawString(font, "the larger insects that want to kill you.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 240), textColor);
+            sb.DrawString(font, "Right-click to move your selected ants around.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 270), textColor);
+            sb.DrawString(font, "Right-clicking on food will have make worker ants grab it and", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 300), textColor);
+            sb.DrawString(font, "bring it back to the Queen while right-clicking near larger insects", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 330), textColor);
+            sb.DrawString(font, "will cause soldier ants to attack.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 360), textColor);
+            sb.DrawString(font, "WASD or arrow keys move the camera around.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 360), textColor);
+            sb.DrawString(font, "Once larger insects die they can be picked up as food.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 360), textColor);
+            sb.DrawString(font, "Collect all of the food on the map (including dead enemies) to win.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 360), textColor);
+            sb.DrawString(font, "If you do not have enough nutrients to purchase a new worker and", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 360), textColor);
+            sb.DrawString(font, "all of your workers die, or your queen dies you will lose.", new Vector2(textBackground.X + 5, textBackground.Y + 5 + 360), textColor);
         }
 
         private void drawOption()
