@@ -78,7 +78,7 @@ namespace AntOnslaught
             tileWidth = 32;
             mapWidth = map.getWidth();
             mapHeight = map.getHeight();
-
+            foodLeft = 0;
             for (int i = mapWidth - 1; i >= 0; i--)
             {
                 for (int j = mapHeight - 1; j >= 0 ; j--)
@@ -88,7 +88,7 @@ namespace AntOnslaught
                     Cell cell = map.getCell(i, j);
                     Food food = cell.food;
                     sb.Draw(map.getTexture(), new Vector2(x, y), new Rectangle(cell.texCoordY * tileWidth, cell.texCoordX * tileWidth, tileWidth, tileWidth), Color.White);
-                    foodLeft = 0;
+                    
                     if (food != null)
                     {
                         foodLeft++;

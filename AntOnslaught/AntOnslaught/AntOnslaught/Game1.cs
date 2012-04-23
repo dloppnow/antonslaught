@@ -47,8 +47,8 @@ namespace AntOnslaught
         Cell soldierWaypoint;
         Cell workerWaypoint;
         int amountOfFood = 0;
-        int workerCost = 0;
-        int soldierCost = 0;
+        int workerCost = 5;
+        int soldierCost = 10;
         int numWorkers = 1;
         int numSoldiers = 1;
 
@@ -138,20 +138,7 @@ namespace AntOnslaught
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (rend.getFoodLeft() <= 0)
-            {
-                //Game Over
-                gameOver = true;
-                win = true;
-            }
-            if (numWorkers == 0)
-            {
-                if (amountOfFood < workerCost)
-                {
-                    gameOver = true;
-                    win = false;
-                }
-            }
+            
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
             audioManager.startTheme();
@@ -165,8 +152,11 @@ namespace AntOnslaught
                 this.Exit();
             if (!menu.isPaused())
             {
-                updateGameState(gameTime);
-                updateGUI(gameTime);
+                if (gameOver == false)
+                {
+                    updateGameState(gameTime);
+                    updateGUI(gameTime);
+                }
             }
             prevMState = mouseState;
             prevKBState = keyState;
@@ -189,6 +179,10 @@ namespace AntOnslaught
             {
                 drawGameState();
                 drawGUI();
+                if (gameOver == true)
+                {
+                    drawGameOver();
+                }
             }
             base.Draw(gameTime);
         }
@@ -393,8 +387,10 @@ namespace AntOnslaught
                 movableObjs.Remove(obj);
                 if (obj is Ant)
                     selectedAnts.Remove((Ant)obj);
+                if (obj is QueenAnt)
                 {
-
+                    gameOver = true;
+                    win = false;
                 }
             }
             
@@ -536,6 +532,21 @@ namespace AntOnslaught
             if (prevKBState.IsKeyUp(Keys.D2) && keyState.IsKeyDown(Keys.D2))
             { //Press soldier button
                 soldierButtonPressed();
+            }
+
+            if (rend.getFoodLeft() <= 0)
+            {
+                //Game Over
+                gameOver = true;
+                win = true;
+            }
+            if (numWorkers == 0)
+            {
+                if (amountOfFood < workerCost)
+                {
+                    gameOver = true;
+                    win = false;
+                }
             }
         }
 
@@ -682,8 +693,9 @@ namespace AntOnslaught
 
         public void drawGameOver()
         {
+            Viewport vp = spriteBatch.GraphicsDevice.Viewport;
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, (win) ? "YOU WON!" : "YOU LOST!", new Vector2(resourceBox.X, resourceBox.Y), Color.White);
+            spriteBatch.DrawString(font, (win) ? "YOU WON!" : "YOU LOST!", new Vector2(vp.Width / 2 - 60, vp.Height / 2 - 60), Color.White);
             spriteBatch.End();
         }
 
