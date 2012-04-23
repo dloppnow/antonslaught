@@ -465,6 +465,10 @@ namespace AntOnslaught
                             {
                                 ant.setCurrentCell(map.getCell((int)ant.getPosition().X / 32, (int)ant.getPosition().Y / 32));
                             }
+                            if (ant.getGoalCell().coord == foodDeliveryCell.coord)
+                            {
+                                ant.getGoalCell().occupied = false;
+                            }
                             ant.setPath(map.getPath(ant.getCurrentCell(), ant.getGoalCell()));
                         }
                     }
