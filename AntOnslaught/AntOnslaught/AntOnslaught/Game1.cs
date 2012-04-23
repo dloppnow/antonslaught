@@ -47,8 +47,7 @@ namespace AntOnslaught
         Cell soldierWaypoint;
         Cell workerWaypoint;
         int amountOfFood = 0;
-        //int workerCost = 3;
-        int workerCost = 0;
+        int workerCost = 3;
         int soldierCost = 8;
         int numWorkers = 1;
         int numSoldiers = 1;
