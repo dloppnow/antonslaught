@@ -142,9 +142,9 @@ namespace AntOnslaught
             
             keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
-            audioManager.startTheme();
-            audioManager.update(gameTime);
-            audioManager.playEffects();
+            //audioManager.startTheme();
+            //audioManager.update(gameTime);
+            //audioManager.playEffects();
 
             // TODO: Add your update logic here
             base.Update(gameTime);
@@ -386,6 +386,7 @@ namespace AntOnslaught
                     obj.getCurrentCell().food = newfood;
                 }
                 movableObjs.Remove(obj);
+                obj.getCurrentCell().occupied = false;
                 if (obj is Ant)
                     selectedAnts.Remove((Ant)obj);
                 if (obj is QueenAnt)
