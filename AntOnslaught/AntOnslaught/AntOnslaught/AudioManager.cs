@@ -147,7 +147,7 @@ namespace AntOnslaught
                 hasIntroed = true;
                 time = 0;
             }
-            else if (time >= effects[(int)Effect.mainTheme].Duration.TotalMilliseconds - 4970 && hasIntroed)
+            else if (time >= effects[(int)Effect.mainTheme].Duration.TotalMilliseconds - 5000 && hasIntroed)
             {
                 queueEffect(Effect.mainTheme);
                 time = 0;

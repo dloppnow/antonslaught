@@ -18,6 +18,7 @@ namespace AntOnslaught
             carryingFoodText = carryingFoodTex.getTexture();
             normalText = sAnimation.getTexture();
             speed = defaultSpeed;
+            health = 5;
             canCarryFood = true;
         }
         public override Texture2D getTexture()

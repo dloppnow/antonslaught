@@ -57,6 +57,7 @@ namespace AntOnslaught
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
+            graphics.SynchronizeWithVerticalRetrace = true;
             graphics.ApplyChanges();
             sizeOfScreen.Y = graphics.PreferredBackBufferHeight;
             sizeOfScreen.X = graphics.PreferredBackBufferWidth;
